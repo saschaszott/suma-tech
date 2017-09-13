@@ -24,10 +24,14 @@ sudo apt-get install git maven
 Je nach Netzwerkverbindung kann es einen Moment dauern, bis alle abhängigen Pakete auf dem
 System installiert sind.
 
-Ebenso benötigen wir (wie schon in Übung 1) ein JDK in der Version 8. Die Installation
-wurde auf dem Übungsblatt 1 beschrieben und wir hier nicht erneut wiedergegeben.
+Ebenso benötigen wir ein JDK (*Java Developer Kit*) in der Version 8. Das JDK enthält u.a. den Java-Compiler `javac`.
+Zur Installation des JDK geben Sie folgenden Befehl auf der Kommandozeile ein:
 
-Nach der Installation der Pakete muss noch die Umgebungsvariable `JAVA_HOME` gesetzt werden, 
+````
+sudo apt-get install openjdk-8-jdk-headless
+````
+
+Nach der Installation des JDK muss noch die Umgebungsvariable `JAVA_HOME` gesetzt werden, 
 damit Maven richtig funktioniert.
 
 Um zu prüfen, ob die Variable gesetzt ist, wird der Befehl
