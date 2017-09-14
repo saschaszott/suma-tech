@@ -1,2 +1,2 @@
 # suma-tech
-Musterlösungen zur Vorlesung Suchmaschinentechnologie an der TH Wildau
+Musterlösungen und Demonstrationsprogramme zur Vorlesung Suchmaschinentechnologie an der TH Wildau
