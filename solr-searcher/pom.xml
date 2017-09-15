@@ -37,7 +37,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
-                    <mainClass>de.suma.SolrSearcher</mainClass>
+                    <mainClass>de.suma.SolrSearcherWithAuth</mainClass>
                 </configuration>
             </plugin>
         </plugins>
