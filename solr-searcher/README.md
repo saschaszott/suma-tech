@@ -261,3 +261,13 @@ Solr process 5258 running on port 8983
   "uptime":"0 days, 0 hours, 56 minutes, 47 seconds",
   "memory":"60.9 MB (%12.4) of 490.7 MB"}
 ````
+
+# Indexierung von Dokumenten mittels `bin/post`
+
+Auch die Indexierung von Dokumenten mittels des SimplePost-Tools `bin/post` erfordert nun die Angabe
+des Benutzernamens und Passworts. Die Übergabe erfolgt mittels des Parameters `-u`. Um die 37 XML-Dateien
+der Werke von Shakespeare zu indexieren, ist folgender Befehl abzusetzen:
+
+````
+bin/post -c shakespeare -out yes -u 'sumatech:suma!tech$17' ~/suma/shakespeare/shakespeare-xml-solr/
+````
