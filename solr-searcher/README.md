@@ -123,7 +123,8 @@ Inhalt
 {
    "authentication": {
       "blockUnknown": false,
-      "class": "solr.BasicAuthPlugin",
+      "class": "solr.BasicAuthPlugin"
+   }
 }
 ````
 
