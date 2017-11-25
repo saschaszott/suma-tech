@@ -1,13 +1,11 @@
 package de.suma;
 
-import org.apache.commons.math3.analysis.function.Abs;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.AbstractUpdateRequest;
 import org.apache.solr.client.solrj.request.SolrPing;
 import org.apache.solr.client.solrj.request.UpdateRequest;
-import org.apache.solr.client.solrj.request.schema.SchemaRequest;
 import org.apache.solr.client.solrj.response.SolrPingResponse;
 import org.apache.solr.common.SolrInputDocument;
 
@@ -29,7 +27,7 @@ public class SolrIndexer {
     // wenn Sie das Programm innerhalb der Ubuntu-VM ausführen, dann schreiben Sie statt der IP einfach localhost
     // in meinem Fall nutze ich die Entwicklungsumgebung direkt auf dem Wirt und lasse nur den Solr-Server in der VM laufen
     // in der VM habe ich die IP-Adresse mittels des Befehls ifconfig ermittelt
-    private static final String SOLR_SERVER_URL = "http://192.168.0.15:8983/solr/";
+    private static final String SOLR_SERVER_URL = "http://192.168.144.131:8983/solr/";
 
     // diesen Core haben wir am Dienstag angelegt
     private static final String SOLR_CORE_NAME = "solr-ueb2";
@@ -113,6 +111,7 @@ public class SolrIndexer {
 
         try {
             updateRequest.process(solrClient);
+            System.out.println("Dokument " + gutenbergDoc.getDocId() + " erfolgreich indexiert!");
         }
         catch (SolrServerException|IOException e) {
             System.err.println("Fehler bei der Indexierung des Dokuments " + gutenbergDoc.getDocId() + ": " + e.getMessage());
@@ -143,6 +142,7 @@ public class SolrIndexer {
 
         try {
             updateRequest.process(solrClient);
+            System.out.println(gutenbergDocs.size() + " Dokumente erfolgreich indexiert!");
         }
         catch (SolrServerException|IOException e) {
             System.err.println("Fehler bei der Indexierung der Dokumente: " + e.getMessage());
@@ -173,6 +173,7 @@ public class SolrIndexer {
 
             try {
                 updateRequest.process(solrClient);
+                System.out.println("Dokument " + gutenbergDoc.getDocId() + " erfolgreich indexiert!");
             }
             catch (SolrServerException|IOException e) {
                 System.err.println("Fehler bei der Indexierung der Dokumente: " + e.getMessage());
@@ -190,6 +191,7 @@ public class SolrIndexer {
         updateRequest.setAction(AbstractUpdateRequest.ACTION.OPTIMIZE, false, false);
         try {
             updateRequest.process(solrClient);
+            System.out.println("Index erfolgreich optimiert!");
         } catch (SolrServerException|IOException e) {
             System.err.println("Fehler beim Index-Optimize: " + e.getMessage());
         }
@@ -207,6 +209,7 @@ public class SolrIndexer {
         updateRequest.setAction(AbstractUpdateRequest.ACTION.COMMIT, false, false);
         try {
             updateRequest.process(solrClient);
+            System.out.println("Dokument mit ID " + id + " erfolgreich gelöscht!");
         } catch (SolrServerException|IOException e) {
             System.err.println("Fehler beim Löschen des Dokuments " + id + ": " + e.getMessage());
         }
@@ -222,6 +225,7 @@ public class SolrIndexer {
         updateRequest.setAction(AbstractUpdateRequest.ACTION.COMMIT, false, false);
         try {
             updateRequest.process(solrClient);
+            System.out.println("Alle Dokumente erfolgreich gelöscht!");
         } catch (SolrServerException|IOException e) {
             System.err.println("Fehler beim Löschen aller Dokumente: " + e.getMessage());
         }
