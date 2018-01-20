@@ -16,7 +16,7 @@ public class JaccardCoefficient {
     public List<SearchHit> computeRanking(String query) {
 
         // compute the Jaccard coefficient for every doc-query pair
-        Map<Integer, Double> documentScores = new TreeMap<>();
+        Map<Integer, Double> documentScores = new HashMap<>();
         Set<Double> scoresValues = new TreeSet<>();
         int docId = 0;
         for (String document : documents) {
