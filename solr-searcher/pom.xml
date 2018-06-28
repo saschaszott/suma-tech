@@ -13,11 +13,10 @@
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.apache.solr/solr-solrj -->
         <dependency>
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-solrj</artifactId>
-            <version>6.6.0</version>
+            <version>7.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -37,7 +36,8 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
-                    <mainClass>de.suma.SolrSearcherWithAuth</mainClass>
+                    <mainClass>de.suma.SolrSearcher</mainClass>
+                    <!--mainClass>de.suma.SolrSearcherWithAuth</mainClass-->
                 </configuration>
             </plugin>
         </plugins>

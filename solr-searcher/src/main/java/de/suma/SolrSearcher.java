@@ -26,15 +26,10 @@ public class SolrSearcher {
 
     private static final boolean DEBUG = false;
 
-
-    // wenn Sie das Programm innerhalb der Ubuntu-VM ausführen, dann schreiben Sie statt der IP einfach localhost
-    // in meinem Fall nutze ich die Entwicklungsumgebung direkt auf dem Wirt und lasse nur den Solr-Server in der VM laufen
-    // in der VM habe ich die IP-Adresse mittels des Befehls ifconfig ermittelt
-    private static final String SOLR_SERVER_URL = "http://192.168.0.14:8983/solr/";
-
+    private static final String SOLR_SERVER_URL = "http://localhost:8983/solr/";
 
     // diesen Core haben wir in der ersten Übung bereits angelegt
-    private static final String SOLR_CORE_NAME = "shakespeare";
+    private static final String SOLR_CORE_NAME = "my1stcore";
 
     private SolrClient solrClient;
 
@@ -151,7 +146,7 @@ public class SolrSearcher {
      * @throws SolrServerException
      */
     private void tryToConnectToUnreachableServer() throws IOException, SolrServerException {
-        String solrServerUrl = "http://192.168.0.14:8984/solr/shakespeare";
+        String solrServerUrl = "http://localhost:8984/solr/shakespeare";
         SolrClient client = new HttpSolrClient.Builder(solrServerUrl).build();
         try {
             client.ping();
