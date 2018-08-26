@@ -29,4 +29,6 @@
     <!-- Definition der Indexfelder -->
     <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
     <field name="_version_" type="plong" indexed="false" stored="false"/>
+    
+    <uniqueKey>id</uniqueKey>
 </schema>
