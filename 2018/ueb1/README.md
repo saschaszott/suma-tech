@@ -179,7 +179,7 @@ bei der Suche gewichtet werden:
 - ein Titeltreffer mit Faktor 8
 - ein Autortreffer mit Faktor 4
 - ein Volltexttreffer (ohne Stemming) mit Faktor 2
-- ein Volltexttreffer (mit Stemming )soll nicht besonders gewichtet werden
+- ein Volltexttreffer (mit Stemming) soll nicht besonders gewichtet werden
  
 Zusätzlich soll ein Boosting auf Basis der Downloadanzahl erfolgen.
 Dazu soll der Logarithmus (zur Basis 10) der Downloadanzahl als 
