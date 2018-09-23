@@ -28,7 +28,7 @@ public class Autocompletion {
         // Verbindung zum Solr-Server prüfen
         try {
             SolrPing ping = new SolrPing();
-            ping.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
+            //ping.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
             SolrPingResponse pingResponse = ping.process(solrClient);
             if (pingResponse.getStatus() != 0) {
                 System.out.println("Es gab einen unerwarteten Fehler beim Ping auf den Solr-Server (Status-Code ist " + pingResponse.getStatus() + ")");
@@ -90,7 +90,7 @@ public class Autocompletion {
         query.setTermsRegex("^[a-zA-Z].*");
 
         QueryRequest request = new QueryRequest(query);
-        request.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
+        //request.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
         try {
             List<TermsResponse.Term> terms = request.process(solrClient).getTermsResponse().getTerms(indexFieldName);
             if (terms != null) {

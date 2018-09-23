@@ -28,7 +28,7 @@ public class SolrSearcher {
         // Verbindung zum Solr-Server prüfen
         try {
             SolrPing ping = new SolrPing();
-            ping.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
+            //ping.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
             SolrPingResponse pingResponse = ping.process(solrClient);
             if (pingResponse.getStatus() != 0) {
                 System.out.println("Es gab einen unerwarteten Fehler beim Ping auf den Solr-Server (Status-Code ist " + pingResponse.getStatus() + ")");
@@ -74,7 +74,7 @@ public class SolrSearcher {
         query.setRows(10);
 
         QueryRequest req = new QueryRequest(query);
-        req.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
+        //req.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
 
         QueryResponse response = null;
         try {
@@ -110,7 +110,7 @@ public class SolrSearcher {
         query.setRows(10);
 
         QueryRequest req = new QueryRequest(query);
-        req.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
+        //req.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
 
         QueryResponse response = null;
         try {

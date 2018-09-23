@@ -1,5 +1,6 @@
 package de.suma;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -9,32 +10,28 @@ import org.apache.solr.client.solrj.request.UpdateRequest;
 import org.apache.solr.client.solrj.response.SolrPingResponse;
 import org.apache.solr.common.SolrInputDocument;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
- * Dieses Programm demonstriert die grundlegenden Schritte um mittels Java Dokumente in einem Solr-Server
- * zu speichern.
+ * Dieses Programm indexiert die ausgewählte Kollektion von 1542 Gutenberg-E-Books.
  *
- * @author Sascha Szott
- * @version 1.0
+ * Die Metadaten sind in RDF/XML-Dateien gespeichert (eine XML-Datei pro E-Book).
+ * Der Volltext zu jedem E-Book ist in einer separaten Textdatei gespeichert.
+ *
+ * Alle Dateien sind UTF-8 codiert.
+ *
+ * Die Rohdaten (Metadaten und Volltexte) laden Sie bitte aus dem Moodle-System
+ * herunter. Dort ist ein ZIP-Archiv gutenberg.zip abgelegt:
+ *
+ * https://elearning.th-wildau.de/mod/resource/view.php?id=148928
+ *
+ * Entpacken Sie die ZIP-Datei bitte im Wurzelverzeichnis des Projekts (ueb1).
+ *
+ * Andernfalls müssen Sie die Pfade beim Zugriff auf die XML- und Textdateien anpassen.
  *
  */
 public class SolrIndexer {
-
-    // wenn Sie das Programm innerhalb der Ubuntu-VM ausführen, dann schreiben Sie statt der IP einfach localhost
-    // in meinem Fall nutze ich die Entwicklungsumgebung direkt auf dem Wirt und lasse nur den Solr-Server in der VM laufen
-    // in der VM habe ich die IP-Adresse mittels des Befehls ifconfig ermittelt
-    private static final String SOLR_SERVER_URL = "http://192.168.144.131:8983/solr/";
-
-    // diesen Core haben wir am Dienstag angelegt
-    private static final String SOLR_CORE_NAME = "solr-ueb2";
-
-    // Zugangsdaten für den Zugriff auf den Solr-Server
-    public static final String USERNAME = "sumatech";
-    public static final String PASSWORD = "suma!tech$17";
 
     private SolrClient solrClient;
 
@@ -43,12 +40,12 @@ public class SolrIndexer {
      */
     private void connect() {
 
-        solrClient = new HttpSolrClient.Builder(SOLR_SERVER_URL + SOLR_CORE_NAME).build();
+        solrClient = new HttpSolrClient.Builder(Configuration.SOLR_SERVER_URL + Configuration.SOLR_CORE_NAME).build();
 
         // Verbindung zum Solr-Server prüfen
         try {
             SolrPing ping = new SolrPing();
-            ping.setBasicAuthCredentials(USERNAME, PASSWORD);
+            //ping.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
             SolrPingResponse pingResponse = ping.process(solrClient);
             if (pingResponse.getStatus() != 0) {
                 System.out.println("Es gab einen unerwarteten Fehler beim Ping auf den Solr-Server (Status-Code ist " + pingResponse.getStatus() + ")");
@@ -83,29 +80,58 @@ public class SolrIndexer {
     }
 
     /**
-     * Erzeugt aus dem übergebenen Dokument ein SolrInputDocument, das indexiert werden kann.
+     * Erzeugt aus dem übergebenen GutenbergDoc ein SolrInputDocument, das schließlich indexiert werden kann.
+     * Hier werden die Felder aus dem Datenmodell auf die Indexfelder abgebildet.
      *
      * @param gutenbergDoc Datenhaltungsobjekt aus der Applikation
-     * @return das zu indexierende Dokument
+     * @return das zu indexierende Solr-Dokument
      */
     private SolrInputDocument buildSolrDoc(GutenbergDoc gutenbergDoc) {
         SolrInputDocument document = new SolrInputDocument();
         document.addField("id", gutenbergDoc.getDocId());
+        document.addField("title", gutenbergDoc.getTitle());
+        document.addField("title_stemmed", gutenbergDoc.getTitle());
+
+        // TODO Abbildung der Daten im übergebenenen GutenbergDoc auf die Indexfelder vervollständigen
+
+        String fulltext = getFulltext(gutenbergDoc.getDocId());
+        // TODO Volltext indexieren (in den Indexfeldern fulltext und fulltext_stemmed ablegen)
 
         return document;
     }
 
     /**
-     * Indexiert das übergebene Dokument und übernimmt die Änderungen in den Solr-Index
+     * Liest die Volltextdatei des E-Books mit der übergebenen ID ein und gibt das Resultat zurück.
+     *
+     * @param docId ID des E-Books
+     * @return Volltext des E-Books oder null, wenn kein Volltext vorhanden oder Fehler beim Einlesen
+     */
+    private String getFulltext(String docId) {
+        File fulltext = new File("gutenberg" + File.separator + "fulltext" + File.separator + docId + ".txt");
+        if (!fulltext.exists()) {
+            return null;
+        }
+
+        String fulltextStr = null;
+        try {
+            fulltextStr = FileUtils.readFileToString(fulltext, "UTF-8");
+        } catch (IOException e) {
+            System.err.println("Fehler beim Einlesen der Volltextdatei von Dokument " + docId);
+        }
+        return fulltextStr;
+    }
+
+    /**
+     * Indexiert das übergebene Gutenberg-Dokument und übernimmt die Änderungen in den Solr-Index
      * durch das Ausführen eines Commits.
      *
      * @param gutenbergDoc das zu indexierende Dokument
      */
-    public void indexAndCommitOneDocument(GutenbergDoc gutenbergDoc) {
+    private void indexAndCommitOneDocument(GutenbergDoc gutenbergDoc) {
         SolrInputDocument document = buildSolrDoc(gutenbergDoc);
 
         UpdateRequest updateRequest = new UpdateRequest();
-        updateRequest.setBasicAuthCredentials(USERNAME, PASSWORD);
+        //updateRequest.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
         updateRequest.add(document);
         updateRequest.setAction(AbstractUpdateRequest.ACTION.COMMIT, false, false);
 
@@ -120,114 +146,37 @@ public class SolrIndexer {
     }
 
     /**
-     * Indexiert die übergebene Liste von Dokumenten und führt am Ende ein Commit durch.
-     *
-     * Tritt während der Indexierung ein Fehler auf, so werden die Änderungen nicht
-     * zurückgenommen, die bereits erfolgreich in den Solr-Index geschrieben werden konnten.
-     *
-     * @param gutenbergDocs die Liste der zu indexierenden Dokumente
+     * Parst nacheinander die RDF/XML-Metadatendateien und
+     * ruft für jedes erzeugte GutenbergDoc-Objekt die Indexierung auf.
      */
-    public void indexDocumentsAndCommit(List<GutenbergDoc> gutenbergDocs) {
-        UpdateRequest updateRequest = new UpdateRequest();
-        updateRequest.setBasicAuthCredentials(USERNAME, PASSWORD);
-        for (GutenbergDoc gutenbergDoc : gutenbergDocs) {
-            SolrInputDocument solrInputDocument = buildSolrDoc(gutenbergDoc);
-            if (gutenbergDoc.getDocId().equals("9")) {
-                // füge zu Dokument 9 ein Feld hinzu, dass es nicht im Solr-Schema gibt
-                solrInputDocument.addField("foo", "bar");
-            }
-            updateRequest.add(solrInputDocument);
-        }
-        updateRequest.setAction(AbstractUpdateRequest.ACTION.COMMIT, false, false);
+    private void indexGutenbergSelection() {
 
-        try {
-            updateRequest.process(solrClient);
-            System.out.println(gutenbergDocs.size() + " Dokumente erfolgreich indexiert!");
-        }
-        catch (SolrServerException|IOException e) {
-            System.err.println("Fehler bei der Indexierung der Dokumente: " + e.getMessage());
-            updateRequest.rollback();
-        }
+        File folder = new File("gutenberg" + File.separator + "selection");
+        GutenbergRDFParser parser = new GutenbergRDFParser();
+
+        // TODO Iteration über die Dateien im Verzeichnis selection
+        // TODO jede Datei mittels der Klasse GutenbergRDFParser parsen
+        // TODO und das erzeugte GutenbergDoc mittels der Methode indexAndCommitOneDocument indexieren
+
     }
 
     /**
-     * Indexiert die übergebene Liste von Dokumenten und führt nach jedem Dokument einen Commit durch.
+     * Löscht alle Dokumente, die nicht mehr als maxNumOfDownloads viele Downloads in den letzten 30 Tagen hatten
      *
-     * Tritt während der Indexierung eines Dokuments ein Fehler auf, so gehen die zuvor bereits
-     * erfolgreich indexierten Dokumente nicht verloren.
-     *
-     * @param gutenbergDocs die Liste der zu indexierenden Dokumente
+     * @param maxNumOfDownloads Schwellwert
      */
-    public void indexAndCommitDocuments(List<GutenbergDoc> gutenbergDocs) {
-        for (GutenbergDoc gutenbergDoc : gutenbergDocs) {
-            UpdateRequest updateRequest = new UpdateRequest();
-            updateRequest.setBasicAuthCredentials(USERNAME, PASSWORD);
-
-            SolrInputDocument solrInputDocument = buildSolrDoc(gutenbergDoc);
-            if (gutenbergDoc.getDocId().equals("9")) {
-                // füge zu Dokument 9 ein Feld hinzu, dass es nicht im Solr-Schema gibt
-                solrInputDocument.addField("foo", "bar");
-            }
-            updateRequest.add(solrInputDocument);
-            updateRequest.setAction(AbstractUpdateRequest.ACTION.COMMIT, false, false);
-
-            try {
-                updateRequest.process(solrClient);
-                System.out.println("Dokument " + gutenbergDoc.getDocId() + " erfolgreich indexiert!");
-            }
-            catch (SolrServerException|IOException e) {
-                System.err.println("Fehler bei der Indexierung der Dokumente: " + e.getMessage());
-                updateRequest.rollback();
-            }
-        }
-    }
-
-    /**
-     * Stößt die Optimierung des Solr-Index an.
-     */
-    public void optimizeIndex() {
+    private void deleteDocsByNumOfDownloads(int maxNumOfDownloads) {
         UpdateRequest updateRequest = new UpdateRequest();
-        updateRequest.setBasicAuthCredentials(USERNAME, PASSWORD);
-        updateRequest.setAction(AbstractUpdateRequest.ACTION.OPTIMIZE, false, false);
-        try {
-            updateRequest.process(solrClient);
-            System.out.println("Index erfolgreich optimiert!");
-        } catch (SolrServerException|IOException e) {
-            System.err.println("Fehler beim Index-Optimize: " + e.getMessage());
-        }
-    }
+        //updateRequest.setBasicAuthCredentials(Configuration.USERNAME, Configuration.PASSWORD);
 
-    /**
-     * Löscht das Dokument mit der übergebene ID aus dem Solr-Index.
-     *
-     * @param id die ID des zu löschenden Dokuments
-     */
-    public void deleteDocById(String id) {
-        UpdateRequest updateRequest = new UpdateRequest();
-        updateRequest.setBasicAuthCredentials(USERNAME, PASSWORD);
-        updateRequest.deleteById(id);
+        // TODO geeignete Delete Query hinzufügen
+
         updateRequest.setAction(AbstractUpdateRequest.ACTION.COMMIT, false, false);
         try {
             updateRequest.process(solrClient);
-            System.out.println("Dokument mit ID " + id + " erfolgreich gelöscht!");
+            System.out.println("Dokumente erfolgreich gelöscht!");
         } catch (SolrServerException|IOException e) {
-            System.err.println("Fehler beim Löschen des Dokuments " + id + ": " + e.getMessage());
-        }
-    }
-
-    /**
-     * Entfernt alle Dokumente aus dem Solr-Index.
-     */
-    public void deleteAllDocs() {
-        UpdateRequest updateRequest = new UpdateRequest();
-        updateRequest.setBasicAuthCredentials(USERNAME, PASSWORD);
-        updateRequest.deleteByQuery("*:*");
-        updateRequest.setAction(AbstractUpdateRequest.ACTION.COMMIT, false, false);
-        try {
-            updateRequest.process(solrClient);
-            System.out.println("Alle Dokumente erfolgreich gelöscht!");
-        } catch (SolrServerException|IOException e) {
-            System.err.println("Fehler beim Löschen aller Dokumente: " + e.getMessage());
+            System.err.println("Fehler beim Löschen: " + e.getMessage());
         }
     }
 
@@ -236,33 +185,7 @@ public class SolrIndexer {
         SolrIndexer solrIndexer = new SolrIndexer();
         solrIndexer.connect();
 
-        List<GutenbergDoc> gutenbergDocs = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            // prepare document and add to Solr index
-            GutenbergDoc doc = new GutenbergDoc();
-            doc.setDocId("" + i);
-            doc.setTitle("Tiny test document");
-            String[] subjectHeadings = new String[] {"Drama", "Computer networks", "Libraries"};
-            doc.setSubjectHeadings(Arrays.asList(subjectHeadings));
-            gutenbergDocs.add(doc);
-        }
-
-
-        if (false) {
-            for (GutenbergDoc gutenbergDoc : gutenbergDocs) {
-                solrIndexer.indexAndCommitOneDocument(gutenbergDoc);
-            }
-        }
-
-        //solrIndexer.indexDocumentsAndCommit(gutenbergDocs);
-
-        //solrIndexer.indexAndCommitDocuments(gutenbergDocs);
-
-        //solrIndexer.deleteDocById("6");
-
-        //solrIndexer.optimizeIndex();
-
-        //solrIndexer.deleteAllDocs();
+        // TODO Methodenaufruf indexGutenbergSelection für Indexierung der Dateien hinzufügen
 
         solrIndexer.close();
     }
