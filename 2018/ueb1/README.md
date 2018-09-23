@@ -66,7 +66,7 @@ aufrufen (dort dürfen keine Fehlermeldungen erscheinen).
 
 ## Verhalten des neuen Indexfeldtyps `text_de`
 
-Testen Sie, wie sich Feldtyp `text_de` während Indexierung und Suche verhält,
+Testen Sie, wie sich der Feldtyp `text_de` während Indexierung und Suche verhält,
 indem Sie in der Solr-Webadministrationsoberfläche den Menüpunkt *Analysis*
 innerhalb des Administrationsbereichs für den Solr-Core `ueb1` öffnen: 
 
