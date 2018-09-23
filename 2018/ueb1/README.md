@@ -185,11 +185,10 @@ Zusätzlich soll ein Boosting auf Basis der Downloadanzahl erfolgen.
 Dazu soll der Logarithmus (zur Basis 10) der Downloadanzahl als 
 Boosting-Faktor einbezogen werden (`bf` Parameter mit Funktionsargument `log`).
 
-Ergänzen Sie dazu die Methode `runQueryOnMultipleFields` und geben Sie im 
-Programm das Top-10-Ranking auf Basis des `Standard Query Parser` (der 
+Ergänzen Sie dazu die Methode `runQueryOnMultipleFields` in der Klasse `SolrSearcher`
+und geben Sie das Top-10-Ranking auf Basis des `Standard Query Parser` (der 
 standardmäßig nur das Indexfeld `fulltext_stemmed` durchsucht) und des
 `DisMax Query Parser` aus.
-
 
 ## Implementierung einer Autovervollständigung mittels `Terms Component`
 
