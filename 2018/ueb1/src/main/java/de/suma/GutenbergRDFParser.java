@@ -21,7 +21,7 @@ public class GutenbergRDFParser {
         try {
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             in = new FileInputStream(file);
-            eventReader = inputFactory.createXMLEventReader(in);
+            eventReader = inputFactory.createXMLEventReader(in, "UTF-8");
             boolean authorStart = false;
             boolean subjectStart = false;
             boolean languageStart = false;
