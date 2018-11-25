@@ -77,7 +77,7 @@ Fällen der Stemmer an seine Grenzen stößt.
 
 Hierzu können Sie auch einen Blick in den Quellcode der Java-Klassen
 
-* des [*German Normalization Filter*](https://github.com/apache/lucene-solr/blob/master/lucene/analysis/common/src/java/org/apache/lucene/analysis/de/GermanNormalizationFilter.java).
+* des [*German Normalization Filter*](https://github.com/apache/lucene-solr/blob/master/lucene/analysis/common/src/java/org/apache/lucene/analysis/de/GermanNormalizationFilter.java)
 * des [*German Light Stemmer*](https://github.com/apache/lucene-solr/blob/master/lucene/analysis/common/src/java/org/apache/lucene/analysis/de/GermanLightStemmer.java)
  
 werfen.
