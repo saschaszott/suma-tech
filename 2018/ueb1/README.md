@@ -61,7 +61,7 @@ Erweitern Sie nun das Indexschema um folgende Indexfelder:
 
 Starten Sie anschließend den Solr-Server neu, um die Änderungen an der 
 Indexschemakonfiguration `schema.xml` zu übernehmen. Prüfen Sie, dass die
-Änderungen erfolgreich übernommen wurden, indem Sie die Solr-Webadministrationoberfläche
+Änderungen erfolgreich übernommen wurden, indem Sie die Solr-Webadministrationsoberfläche
 aufrufen (dort dürfen keine Fehlermeldungen erscheinen).
 
 ## Verhalten des neuen Indexfeldtyps `text_de`
