@@ -8,7 +8,7 @@ Bitte reichen Sie das gesamte Projekt `ueb2` als ein ZIP-Archiv als
 Lösung ein (Upload im Moodle-Raum zur Vorlesung). Rufen Sie vor 
 dem Erzeugen des ZIP-Archivs den Befehl
 ```
-./mvnw clean
+$ ./mvnw clean
 ```
 auf, so dass keine kompilierten `.class`-Dateien im Archiv landen.
 
@@ -82,6 +82,12 @@ Programm berechnet wird.
 
 Führen Sie anschließend die Klasse `IndexSizeComparison` aus. Das Programm
 gibt den Speicherbedarf für die Felder `title` und `fulltext` aus.
+
+Das Programm können Sie auf der Kommandozeile mit dem Befehl
+```
+$ ./mvnw clean compile exec:java
+```
+starten.
 
 Bei der Berechnung für das Feld `fulltext` werden nicht alle 1542 Dokumente
 der Dokumentkollektion betrachtet, sondern nur ein Sample von 200 Dokumenten,
