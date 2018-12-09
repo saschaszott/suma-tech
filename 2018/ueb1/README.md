@@ -61,7 +61,7 @@ Erweitern Sie nun das Indexschema um folgende Indexfelder:
 
 Starten Sie anschließend den Solr-Server neu, um die Änderungen an der 
 Indexschemakonfiguration `schema.xml` zu übernehmen. Prüfen Sie, dass die
-Änderungen erfolgreich übernommen wurden, indem Sie die Solr-Webadministrationoberfläche
+Änderungen erfolgreich übernommen wurden, indem Sie die Solr-Webadministrationsoberfläche
 aufrufen (dort dürfen keine Fehlermeldungen erscheinen).
 
 ## Verhalten des neuen Indexfeldtyps `text_de`
@@ -77,7 +77,7 @@ Fällen der Stemmer an seine Grenzen stößt.
 
 Hierzu können Sie auch einen Blick in den Quellcode der Java-Klassen
 
-* des [*German Normalization Filter*](https://github.com/apache/lucene-solr/blob/master/lucene/analysis/common/src/java/org/apache/lucene/analysis/de/GermanNormalizationFilter.java).
+* des [*German Normalization Filter*](https://github.com/apache/lucene-solr/blob/master/lucene/analysis/common/src/java/org/apache/lucene/analysis/de/GermanNormalizationFilter.java)
 * des [*German Light Stemmer*](https://github.com/apache/lucene-solr/blob/master/lucene/analysis/common/src/java/org/apache/lucene/analysis/de/GermanLightStemmer.java)
  
 werfen.
