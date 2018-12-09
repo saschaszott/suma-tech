@@ -58,8 +58,8 @@ in denen ein Term jeweils an 3 Positionen auftritt):
 ```
 1:[10 42 55] 2:[11 32 52] 
 ``` 
-Für die Speicherung der Positionsangabe vewenden wir eine 32-Bit
-`int` für den ein Speicherbedarf von 4 Bytes anfällt.
+Für die Speicherung einer Positionsangabe vewenden wir einen 32-Bit
+`int`, für den ein Speicherbedarf von 4 Bytes anfällt.
 
 ## Die Klasse `IndexSizeStatistics`  
 
@@ -82,6 +82,16 @@ Programm berechnet wird.
 
 Führen Sie anschließend die Klasse `IndexSizeComparison` aus. Das Programm
 gibt den Speicherbedarf für die Felder `title` und `fulltext` aus.
+
+Vor der Ausführung müssen Sie das Verzeichnis `gutenberg` aus der ersten
+Übung in das Wurzelverzeichnis dieses Projekts verschieben. Alternativ
+können Sie auch einen symbolischen Link erzeugen, so dass keine Kopie
+benötigt wird. Dazu führen Sie im Wurzelverzeichnis des Projekts `ueb2`
+(Verzeichnis, in dem diese `README.md` liegt) den Befehl
+```
+ln -s ../ueb01/gutenberg .
+```
+aus.
 
 Das Programm können Sie auf der Kommandozeile mit dem Befehl
 ```
