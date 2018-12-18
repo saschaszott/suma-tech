@@ -89,7 +89,7 @@ können Sie auch einen symbolischen Link erzeugen, so dass keine Kopie
 benötigt wird. Dazu führen Sie im Wurzelverzeichnis des Projekts `ueb2`
 (Verzeichnis, in dem diese `README.md` liegt) den Befehl
 ```
-ln -s ../ueb01/gutenberg .
+$ ln -s ../ueb1/gutenberg .
 ```
 aus.
 
