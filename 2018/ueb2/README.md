@@ -97,7 +97,11 @@ Das Programm können Sie auf der Kommandozeile mit dem Befehl
 ```
 $ ./mvnw clean compile exec:java
 ```
-starten.
+starten. Setzen Sie ggf. vorher die maximale Größes des allokierten Hauptspeichers
+mittels `MAVEN_OPTS`:
+```
+$ export MAVEN_OPTS='-Xmx2G'
+```
 
 Bei der Berechnung für das Feld `fulltext` werden nicht alle 1542 Dokumente
 der Dokumentkollektion betrachtet, sondern nur ein Sample von 200 Dokumenten,
