@@ -97,7 +97,7 @@ Das Programm können Sie auf der Kommandozeile mit dem Befehl
 ```
 $ ./mvnw clean compile exec:java
 ```
-starten. Setzen Sie ggf. vorher die maximale Größes des allokierten Hauptspeichers
+starten. Setzen Sie ggf. vorher die maximale Größe des allokierten Hauptspeichers
 mittels `MAVEN_OPTS`:
 ```
 $ export MAVEN_OPTS='-Xmx2G'
