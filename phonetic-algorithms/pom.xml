@@ -35,7 +35,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
-                    <mainClass>de.suma.SolrIndexer</mainClass>
+                    <mainClass>de.suma.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>
