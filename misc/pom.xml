@@ -18,14 +18,14 @@
                     <source>1.7</source>
                     <target>1.7</target>
                 </configuration>
+             </plugin>
              <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
                     <mainClass>de.suma.Main</mainClass>
-                </configuration>
-            </plugin>                     
+                </configuration>                                 
             </plugin>
         </plugins>
     </build>
