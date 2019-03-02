@@ -205,6 +205,10 @@ public class LuceneDemo {
 
         // jetzt sollten keine Dokumente im Index sein
         System.out.println("\nAnzahl Dokumente im Index: " + demo.indexWriter.numDocs());
+
+        // am Ende sollte der IndexWriter sauber geschlossen, so dass er auf der Festplatte persistiert werden
+        // (da wir hier einen In-Memory-Index verwenden, ist das Unterlassen des Aufrufs kein Problem)
+        demo.indexWriter.close();
     }
 
     private Document createDocument(String id, String text) {
