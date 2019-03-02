@@ -10,10 +10,7 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.BytesRef;
@@ -28,10 +25,14 @@ public class LuceneDemo {
 
     private static final String TXT_FIELD = "txtField";
 
-    public Directory index() throws IOException {
+    private Directory directory;
+
+    private IndexWriter indexWriter;
+
+    public LuceneDemo() throws IOException {
         // für unseren ersten Test verwenden wir einen Lucene-Index, der nur im Hauptspeicher gehalten wird
         // der Index existiert daher nur solange bis Programm beendet wird
-        Directory directory = new RAMDirectory();
+        directory = new RAMDirectory();
 
         // ein Analyzer ist für die Behandlung der zu indexierenden Daten und der Suchanfrage zuständig
         // der StandardAnalyzer tokenisiert die Eingabe an Whitespaces, führt ein Lower-Casing durch und
@@ -44,8 +45,10 @@ public class LuceneDemo {
         conf.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 
         // der IndexWriter ermöglicht das Hinzufügen von Dokumenten zum Lucene-Index
-        IndexWriter indexWriter = new IndexWriter(directory, conf);
+        indexWriter = new IndexWriter(directory, conf);
+    }
 
+    public void createMy1stDocAndAddToIndex() throws IOException {
         // ein Dokument ist eine Sammlung von Indexfeldern, die jeweils einen Namen und einen Wert haben
         // zusätzlich kann der Typ des Felds angegeben werden, der u.a. festlegt, wie die im Feld gespeicherten
         // Daten während der Indexierung behandelt werden sollen (z.B. soll Tokenisierung durchgeführt werden)
@@ -70,13 +73,11 @@ public class LuceneDemo {
         // nun indexieren wir das Dokument und legen es im Lucene-Index ab
         indexWriter.addDocument(document);
 
-        // nach der Indexierung wird der Index geschlossen
-        indexWriter.close();
-
-        return directory;
+        // nach der Indexierung wird die Änderung übernommen
+        indexWriter.commit();
     }
 
-    public void search(Directory directory, String fieldName, String queryString) throws IOException, ParseException {
+    public void search(String fieldName, String queryString) throws IOException, ParseException {
         // nun können wir eine Suchanfrage auf dem erzeugten Lucene-Index ausführen
         // dazu müssen wir den Index (der im Hauptspeicher existiert) öffnen
         IndexReader indexReader = DirectoryReader.open(directory);
@@ -89,10 +90,13 @@ public class LuceneDemo {
         Query query;
 
         switch (fieldName) {
+            case ID_FIELD:
+                // "exact match" der ID
+                queryParser = new QueryParser(ID_FIELD, new KeywordAnalyzer());
+                break;
             case STR_FIELD:
                 // Suche im Indexfeld strField und Übernahme der Suchanfrage ohne Veränderung ("exact match")
                 queryParser = new QueryParser(STR_FIELD, new KeywordAnalyzer());
-
                 break;
             case TXT_FIELD:
                 // Suche im Indexfeld txtField und Aufspaltung der Suchanfrage
@@ -122,7 +126,7 @@ public class LuceneDemo {
         }
     }
 
-    public void printIndex(Directory directory) throws IOException {
+    public void printIndex() throws IOException {
         IndexReader indexReader = DirectoryReader.open(directory);
 
         Terms terms = MultiFields.getTerms(indexReader, TXT_FIELD);
@@ -155,31 +159,84 @@ public class LuceneDemo {
     public static void main(String[] args) throws IOException, ParseException {
 
         LuceneDemo demo = new LuceneDemo();
-        Directory directory = demo.index();
 
-        demo.search(directory,STR_FIELD, "lucene"); // findet keinen Treffer, weil die Schreibweise nicht übereinstimmt
-        demo.search(directory,STR_FIELD, "LUCENE"); // findet das zuvor indexierte Dokument (exact match)
+        // erzeuge Index und füge ein erstes Testdokument hinzu
+        demo.createMy1stDocAndAddToIndex();
 
-        demo.search(directory,TXT_FIELD, "FIELD"); // findet das zuvor indexierte Dokument (Lower-Casing)
-        demo.search(directory,TXT_FIELD, "a field"); // findet das zuvor indexierte Dokument (Stopword-Removal)
-        demo.search(directory,TXT_FIELD, "multiple field words lucene"); // findet das zuvor indexierte Dokument (Matching der Einzeltokens / partial match)
+        // Demonstration einiger Suchanfragen
+        demo.search(STR_FIELD, "lucene"); // findet keinen Treffer, weil die Schreibweise nicht übereinstimmt
+        demo.search(STR_FIELD, "LUCENE"); // findet das zuvor indexierte Dokument (exact match)
+
+        demo.search(TXT_FIELD, "FIELD"); // findet das zuvor indexierte Dokument (Lower-Casing)
+        demo.search(TXT_FIELD, "a field"); // findet das zuvor indexierte Dokument (Stopword-Removal)
+        demo.search(TXT_FIELD, "multiple field words lucene"); // findet das zuvor indexierte Dokument (Matching der Einzeltokens / partial match)
 
         // Boolesches Retrieval mittels Lucene
-        demo.search(directory,TXT_FIELD, "+field +lucene"); // findet nicht das zuvor indexierte Dokument
-        demo.search(directory,TXT_FIELD, "+field -lucene"); // findet das zuvor indexierte Dokument
+        demo.search(TXT_FIELD, "+field +lucene"); // findet nicht das zuvor indexierte Dokument
+        demo.search(TXT_FIELD, "+field -lucene"); // findet das zuvor indexierte Dokument
 
-        // wir fügen ein weiteres Dokument zum Index hinzu
+
+        // ein weiteres Dokument wird zum Index hinzugefügt
+        demo.addDocument("43", "multiple fields and multiple words and a field");
+
+        // Ausgabe des Index
+        demo.printIndex();
+
+        // lösche das Dokument mit der ID 43 aus dem Index
+        demo.deleteDocumentById("43");
+
+        // Suche nach dem Dokument mit ID 43 sollte nun keinen Treffer mehr liefern
+        demo.search(ID_FIELD, "43");
+
+        // neues Dokument mit ID 43 zum Index hinzufügen
+        demo.addDocument("43", "another test document");
+
+        // Suche nach dem Dokument mit ID 43 sollte nun Treffer liefern
+        demo.search(ID_FIELD, "43");
+
+        // Update des Dokuments mit ID 43: entspricht dem Löschen und Neueinfügen
+        demo.updateDocument("43", "update of test document");
+
+        // Suche nach dem Dokument mit ID 43 sollte nun den neuen Feldinhalt zurückliefern
+        demo.search(ID_FIELD, "43");
+
+        // jetzt löschen wir alle Dokumente aus dem Index
+        demo.deleteAllDocs();
+
+        // jetzt sollten keine Dokumente im Index sein
+        System.out.println("\nAnzahl Dokumente im Index: " + demo.indexWriter.numDocs());
+    }
+
+    private Document createDocument(String id, String text) {
         Document doc = new Document();
-        doc.add(new StringField(ID_FIELD, "43", Field.Store.YES));
-        doc.add(new TextField(TXT_FIELD, "multiple fields and multiple words and a field", Field.Store.YES));
-        IndexWriterConfig conf = new IndexWriterConfig(new StandardAnalyzer());
-        conf.setOpenMode(IndexWriterConfig.OpenMode.APPEND);
-        IndexWriter indexWriter = new IndexWriter(directory, conf);
-        indexWriter.addDocument(doc);
-        indexWriter.close();
+        doc.add(new StringField(ID_FIELD, id, Field.Store.YES));
+        doc.add(new TextField(TXT_FIELD, text, Field.Store.YES));
+        return doc;
+    }
 
-        // Ausgabe des Dictionary
-        demo.printIndex(directory);
+    private void addDocument(String id, String text) throws IOException {
+        Document doc = createDocument(id, text);
+        indexWriter.addDocument(doc);
+        indexWriter.commit();
+    }
+
+    private void updateDocument(String id, String text) throws IOException {
+        Term term = new Term(ID_FIELD, id);
+        Document doc = createDocument(id, text);
+        indexWriter.updateDocument(term, doc);
+        indexWriter.commit();
+    }
+
+    private void deleteDocumentById(String id) throws IOException {
+        Term term = new Term(ID_FIELD, id);
+        Query query = new TermQuery(term);
+        indexWriter.deleteDocuments(query);
+        indexWriter.commit();
+    }
+
+    private void deleteAllDocs() throws IOException {
+        indexWriter.deleteAll();
+        indexWriter.commit();
     }
 
 }
