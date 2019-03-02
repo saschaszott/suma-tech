@@ -63,10 +63,16 @@ public class LuceneDemo {
         // ein TextField überführt den zu speichernden Wert mittels des zuvor festgelegten Analyzers in das Indexfeld
         // später kann z.B. ein Matching mit einer Suchanfrage auch dann erfolgen, wenn die Groß- und
         // Kleinschreibung nicht beachtet wird oder nur einzelne Terme des indexierten Wertes in der Suchanfrage auftreten
-        Field txtField = new TextField(TXT_FIELD, "this field contains multiple words", Field.Store.YES);
+        // die drei Stoppwörter "and", "at" und "this" werden bei der Indexierung des Dokuments verworfen
+        // alle übrigen Terme werden in Kleinbuchstaben ("Lowercasing") umgewandelt
+        // Satzzeichen werden im Rahmen der Tokenisierung entfernt ("words" und "word" bleiben übrig)
+        Field txtField = new TextField(TXT_FIELD, "this field contains multiple words, and at least ONE Stop Word!", Field.Store.YES);
         document.add(txtField);
 
         // es ist üblich jedem Dokument eine eindeutige ID zu geben, auch wenn es Lucene nicht einfordert
+        // intern verwendet Lucene Dokument-IDs vom Typ int, die bei 0 starten - u.a. weil dadurch eine Komprimierung
+        // der Postinglisten ermöglicht wird (d.h. das vorliegende Dokument bekommt die intere ID 0, weil es als erstes
+        // Dokument in den Index hinzugefügt wird)
         Field idField = new StringField(ID_FIELD, "42", Field.Store.YES);
         document.add(idField);
 
@@ -123,28 +129,31 @@ public class LuceneDemo {
             System.out.println("Dokument mit ID " + document.get(ID_FIELD));
             System.out.println("\t" + STR_FIELD + ": " + document.get(STR_FIELD));
             System.out.println("\t" + TXT_FIELD + ": " + document.get(TXT_FIELD));
+            System.out.println("\tscore value: " + doc.score);
         }
     }
 
-    public void printIndex() throws IOException {
+    public void printIndex(String fieldName) throws IOException {
         IndexReader indexReader = DirectoryReader.open(directory);
 
-        Terms terms = MultiFields.getTerms(indexReader, TXT_FIELD);
+        Terms terms = MultiFields.getTerms(indexReader, fieldName);
         TermsEnum it = terms.iterator();
         BytesRef term = it.next();
 
-        System.out.println("Ausgabe des invertierten Index:");
+        System.out.println("Ausgabe des invertierten Index für das Indexfeld " +  fieldName + ":");
 
         while (term != null) {
             String termString = term.utf8ToString();
             System.out.print("\n" + termString + " -> ");
             for (LeafReaderContext lrc : indexReader.leaves()) {
                 LeafReader lr = lrc.reader();
-                PostingsEnum pe = lr.postings(new Term(TXT_FIELD, termString));
+                PostingsEnum pe = lr.postings(new Term(fieldName, termString));
                 if (pe != null) {
                     int docId = pe.nextDoc();
                     while (docId != PostingsEnum.NO_MORE_DOCS) {
                         Document doc = lr.document(docId);
+                        // Achtung: die Ausgabe der IDs ist hier nicht sortiert, z.B. steht in der Postingliste für den
+                        // Term "test" oder "document" die ID 43 erst an der vorletzten Stelle
                         System.out.print(" " + doc.get(ID_FIELD) + ":" + pe.freq());
                         docId = pe.nextDoc();
                     }
@@ -177,10 +186,11 @@ public class LuceneDemo {
 
 
         // ein weiteres Dokument wird zum Index hinzugefügt
-        demo.addDocument("43", "multiple fields and multiple words and a field");
+        // auch hier werden Stoppwörter entfernt
+        demo.addDocument("43", "multiple fields, and multiple words, and A FIELD!");
 
-        // Ausgabe des Index
-        demo.printIndex();
+        // Ausgabe des invertierten Index für das Indexfeld txtField
+        demo.printIndex(TXT_FIELD);
 
         // lösche das Dokument mit der ID 43 aus dem Index
         demo.deleteDocumentById("43");
@@ -188,17 +198,44 @@ public class LuceneDemo {
         // Suche nach dem Dokument mit ID 43 sollte nun keinen Treffer mehr liefern
         demo.search(ID_FIELD, "43");
 
-        // neues Dokument mit ID 43 zum Index hinzufügen
-        demo.addDocument("43", "another test document");
+        // 100 neue Dokumente mit ID 43, .., 142 zum Index hinzufügen
+        for (int i = 0; i < 100; i++) {
+            int docId = 43 + i;
+            demo.addDocument("" + docId, "test another test document");
+        }
+
+        // jetzt sollten insgesamt 101 Dokumente im Index enthalten sein
+        System.out.println("\nAnzahl Dokumente im Index: " + demo.indexWriter.numDocs());
 
         // Suche nach dem Dokument mit ID 43 sollte nun Treffer liefern
         demo.search(ID_FIELD, "43");
 
-        // Update des Dokuments mit ID 43: entspricht dem Löschen und Neueinfügen
-        demo.updateDocument("43", "update of test document");
+        // Suche nach another sollte 100 Treffer liefern, wobei nur 10 Treffer ausgegeben werden (Top-k-Suche)
+        demo.search(TXT_FIELD, "another");
+
+        // Update des Dokuments mit ID 43: entspricht dem Löschen und Neueinfügen des Dokuments
+        // vor dem Update gibt es keine gelöschten Dokumente im Index
+        System.out.println("Es existieren gelöschte Dokumente: " + demo.indexWriter.hasDeletions());
+        demo.updateDocument("43", "new test of update of test document of test with a brand new word");
+        // nach dem Update gibt es ein gelöschtes Dokument im Index (weil Löschen eine Teiloperation vom Update)
+        System.out.println("Es existieren gelöschte Dokumente: " + demo.indexWriter.hasDeletions());
 
         // Suche nach dem Dokument mit ID 43 sollte nun den neuen Feldinhalt zurückliefern
         demo.search(ID_FIELD, "43");
+
+        // Suche nach another sollte nur noch 99 Treffer liefern
+        // beachte, dass sich die Score-Werte vergrößern, weil sich die Document Frequency für den Term "another" verringert
+        demo.search(TXT_FIELD, "another");
+
+        // jetzt sollen alle gelöschten Dokumente tatsächlich aus dem Index verschwinden (wenn man das nicht machen würde,
+        // so würde bei der nachfolgenden Ausgabe des invertierten Index immer noch 43 in der Postingliste von "another"
+        // auftreten, obwohl in dem aktualisierten Dokument mit ID 43 dieser Term gar nicht mehr auftritt
+        System.out.println("Es existieren gelöschte Dokumente: " + demo.indexWriter.hasDeletions());
+        demo.indexWriter.forceMerge(1); // optimize wurde in Lucene 3.5 abgeschafft
+        System.out.println("Es existieren gelöschte Dokumente: " + demo.indexWriter.hasDeletions());
+        demo.indexWriter.commit();
+
+        demo.printIndex(TXT_FIELD);
 
         // jetzt löschen wir alle Dokumente aus dem Index
         demo.deleteAllDocs();
