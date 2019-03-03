@@ -1,6 +1,9 @@
 package de.suma.lucene;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -14,7 +17,9 @@ import org.apache.lucene.store.FSDirectory;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class Indexer {
 
@@ -28,6 +33,7 @@ public class Indexer {
     public static final String FIELD_ID = "id";
     public static final String FIELD_FILENAME = "filename";
     public static final String FIELD_CONTENT = "content";
+    public static final String FIELD_CONTENT_STEMMED = "content_stemmed";
 
     public void index() {
 
@@ -47,7 +53,13 @@ public class Indexer {
             System.exit(1);
         }
 
-        IndexWriterConfig conf = new IndexWriterConfig(new StandardAnalyzer());
+        // Definiton des Default Analyzers (wird verwendet, wenn nichts anderes angegeben ist)
+        Map<String, Analyzer> analyzerPerField = new HashMap<>();
+        analyzerPerField.put(FIELD_CONTENT_STEMMED, new EnglishAnalyzer()); // Stemming und Entfernung von abschließendem 's
+        PerFieldAnalyzerWrapper aWrapper = new PerFieldAnalyzerWrapper(new StandardAnalyzer(), analyzerPerField);
+
+        IndexWriterConfig conf = new IndexWriterConfig(aWrapper);
+
         // evtl. bereits existierenden Lucene-Index im Verzeichnis INDEX_DIR überschreiben
         conf.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 
@@ -105,6 +117,10 @@ public class Indexer {
         // Suchergebnis z.B. in Form eines Snippets nicht mehr zurückgegeben werden)
         // setzt man stored auf yes, dann wird der Index deutlich größer (5,5 MB statt 1,8 MB)
         field = new TextField(FIELD_CONTENT, fileContent, Field.Store.NO);
+        doc.add(field);
+
+        // Feldinhalt wird zusätzlich einem Stemming (Porter Stemmer) unterworfen sowie Entfernung von abschließendem 's
+        field = new TextField(FIELD_CONTENT_STEMMED, fileContent, Field.Store.NO);
         doc.add(field);
 
         indexWriter.addDocument(doc);
