@@ -1,8 +1,7 @@
 package de.suma.lucene;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
@@ -25,6 +24,11 @@ public class Indexer {
     // 37 XML-Datei der Werke von Shakespeare
     public final static String DOCS_DIR = "/Users/sascha/wildau-vorlesung/shakespeare-xml";
 
+    // Feldbezeichnung
+    public static final String FIELD_ID = "id";
+    public static final String FIELD_FILENAME = "filename";
+    public static final String FIELD_CONTENT = "content";
+
     public void index() {
 
         Path docsDirPath = Paths.get(DOCS_DIR);
@@ -43,10 +47,7 @@ public class Indexer {
             System.exit(1);
         }
 
-        // die Werke liegen in englischer Sprache vor: daher nutzen wir einen sprachabhängigen Analyzer
-        Analyzer analyzer = new EnglishAnalyzer();
-
-        IndexWriterConfig conf = new IndexWriterConfig(analyzer);
+        IndexWriterConfig conf = new IndexWriterConfig(new StandardAnalyzer());
         // evtl. bereits existierenden Lucene-Index im Verzeichnis INDEX_DIR überschreiben
         conf.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 
@@ -54,7 +55,7 @@ public class Indexer {
             IndexWriter indexWriter = new IndexWriter(dir, conf);
 
             int docId = 0;
-            // durch die XML-Dateien im Verzeichnis DOCS_DOR iterieren (nicht rekursiv)
+            // durch die XML-Dateien im Verzeichnis DOCS_DIR iterieren (nicht rekursiv)
             Iterator<File> filesIterator = FileUtils.iterateFiles(new File(DOCS_DIR), new String[]{"xml"}, false);
             while (filesIterator.hasNext()) {
                 File file = filesIterator.next();
@@ -69,10 +70,15 @@ public class Indexer {
         }
 
         System.out.println("Index wurde erfolgreich im Dateisystem unter " +  INDEX_DIR + " gespeichert");
+
         long docsSize = FileUtils.sizeOf(new File(DOCS_DIR));
         System.out.println("Ausgangsgröße (37 XML-Dateien): " + docsSize * 1.0 / FileUtils.ONE_MB + " MB");
+
         long indexSize = FileUtils.sizeOf(new File(INDEX_DIR));
         System.out.println("Größe des Lucene-Index: " + indexSize * 1.0 / FileUtils.ONE_MB + " MB");
+
+        System.out.println("Größe des Index im Vergleich zur Größe der Kollektion: " + (100.0 * indexSize / docsSize) + " %");
+
     }
 
     /**
@@ -88,14 +94,17 @@ public class Indexer {
         // neues Lucene-Dokument anlegen und mit Feldern befüllen
         Document doc = new Document();
 
-        Field field = new StringField("id", Integer.toString(docId), Field.Store.YES);
+        Field field = new StringField(FIELD_ID, Integer.toString(docId), Field.Store.YES);
         doc.add(field);
 
-        field = new StringField("filename", file.getName(), Field.Store.YES);
+        field = new StringField(FIELD_FILENAME, file.getName(), Field.Store.YES);
         doc.add(field);
 
         String fileContent = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
-        field = new TextField("content", fileContent, Field.Store.YES);
+        // Feldinhalt wird nur indexiert, aber nicht gespeichert (der Feldinhalt kann daher im
+        // Suchergebnis z.B. in Form eines Snippets nicht mehr zurückgegeben werden)
+        // setzt man stored auf yes, dann wird der Index deutlich größer (5,5 MB statt 1,8 MB)
+        field = new TextField(FIELD_CONTENT, fileContent, Field.Store.NO);
         doc.add(field);
 
         indexWriter.addDocument(doc);
@@ -109,6 +118,5 @@ public class Indexer {
 
         Indexer indexer = new Indexer();
         indexer.index();
-
     }
 }
