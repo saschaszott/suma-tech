@@ -39,7 +39,8 @@ public class Searcher {
                 break;
             }
 
-            // Angabe des Indexfeld, das für die Suche verwendet werden soll
+            // Angabe des Indexfeld, das für die Suche verwendet werden soll sowie eines Analyzers, der die Verarbeitung
+            // der Suchanfrage definiert (hier werden z.B. alle Terme in der Suchanfrage in Kleinbuchstaben umgewandelt)
             QueryParser queryParser = new QueryParser(Indexer.FIELD_CONTENT, new StandardAnalyzer());
             Query q;
             try {
@@ -109,6 +110,18 @@ public class Searcher {
         // Ausgabe einiger statistischer Informationen über den verwendeten Lucene-Index
         searcher.printStats();
 
+        // Unterschiedliche Suchergebnisse für Indexfelder
+        //
+        // Entfernung von abschließendem 's im Indexfeld content_stemmed
+        // Suche nach content:Diana liefert 4 Treffer
+        // Suche nach content_stemmed:Diana liefert 9 Treffer, z.B. auch dream.xml (dort taucht der Term einmal in der Form Diana's auf)
+        //
+        // Stemming (Porter Algoritmus)
+        // Suche nach content:books liefert 16 Treffer
+        // Suche nach content_stemmed:books liefert 0 Treffer, weil der Term "books" aufgrund des Stemmings nicht im Dictionary existiert
+        //
+        // Suche nach content:swim liefert 8 Treffer
+        // Suche nach content_stemmed:swim liefert 10 Treffer (z.B. auch "swims" in coriolan.xml sowie hen_iv_2.xml)
         searcher.search();
 
         searcher.indexReader.close();
