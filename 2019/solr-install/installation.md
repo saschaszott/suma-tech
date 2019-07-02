@@ -102,3 +102,9 @@ Zusätzlich wird ein JSON ausgegeben, in dem u.a. Basisverzeichnis, Versionsnumm
   "uptime":"0 days, 0 hours, 13 minutes, 24 seconds",
   "memory":"130.5 MB (%25.5) of 512 MB"}
 ```
+
+Um den Solr-Server herunterzufahren, nutzen Sie folgenden Befehl
+```
+bin/bash stop
+```
+
