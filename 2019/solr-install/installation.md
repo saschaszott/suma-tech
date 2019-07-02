@@ -89,7 +89,7 @@ bin/solr status
 
 Läuft der Solr-Server zum Zeitpunkt des Aufrufs, so ergibt sich folgende Ausgabe
 ```
-# Solr process 1912 running on port 8983
+Solr process 1912 running on port 8983
 ```
 
 Zusätzlich wird ein JSON ausgegeben, in dem u.a. Basisverzeichnis, Versionsnummer, Uptime und Speichervebrauch angegeben sind 
