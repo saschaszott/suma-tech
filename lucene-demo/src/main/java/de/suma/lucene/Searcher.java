@@ -14,6 +14,11 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 
+/**
+ * Erlaubt das Ausführen von Suchanfragen auf dem für die Shakespeare-Kollektion erzeugten Lucene-Index.
+ *
+ * @author Sascha Szott
+ */
 public class Searcher {
 
     // Top-k-Ranking berechnen
@@ -28,8 +33,13 @@ public class Searcher {
         indexSearcher = new IndexSearcher(indexReader);
     }
 
+    /**
+     * Führt Suchanfragen aus und gibt die resultierenden Top-10-Rankings aus.
+     * Durch das Absetzen einer leeren Suchanfrage wird das Programm beendet.
+     *
+     * @throws IOException
+     */
     public void search() throws IOException {
-
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
 
         while (true) {
@@ -82,6 +92,11 @@ public class Searcher {
         }
     }
 
+    /**
+     * Gibt einige statistische Informationen zu den im Index gespeicherten Feldern aus.
+     *
+     * @throws IOException
+     */
     public void printStats() throws IOException {
         System.out.println("Anzahl Dokument im Index: " + indexReader.numDocs());
 
@@ -101,6 +116,12 @@ public class Searcher {
         }
     }
 
+    /**
+     * Hauptmethode des Programms
+     *
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
 
         System.out.println("Suche auf dem zuvor generierten Lucene-Index im Verzeichnis " + Indexer.INDEX_DIR);

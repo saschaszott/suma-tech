@@ -21,13 +21,19 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * Erzeugt einen Lucene-Index auf Basis der Shakespeare-Kollektion (37 XML-Dateien). Ein Index-Dokument enthält
+ * hierbei vier Indexfelder: id, filename, content, content_stemmed
+ *
+ * @author Sascha Szott
+ */
 public class Indexer {
 
     // Ablageort des erzeugten Lucene-Index
-    public final static String INDEX_DIR = "/tmp/myindex.lucene";
+    public final static String INDEX_DIR = "/tmp/shakespeare-lucene-index";
 
     // 37 XML-Datei der Werke von Shakespeare
-    public final static String DOCS_DIR = "/Users/sascha/wildau-vorlesung/shakespeare-xml";
+    public final static String DOCS_DIR = "/Users/lehre/Desktop/shakespeare-xml";
 
     // Feldbezeichnung
     public static final String FIELD_ID = "id";
@@ -94,7 +100,7 @@ public class Indexer {
     }
 
     /**
-     * Legt ein neues Dokument im Index für die übergenene Datei an.
+     * Legt ein neues Dokument im Index für die übergebene XML-Datei an.
      *
      * @param indexWriter
      * @param file
@@ -128,6 +134,11 @@ public class Indexer {
         System.out.println("Indexierung von Dokument # " + docId + " mit Datei " + file.getName() + " erfolgreich");
     }
 
+    /**
+     * Hauptmethode
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         System.out.println("Indexierung mittels Apache Lucene");
