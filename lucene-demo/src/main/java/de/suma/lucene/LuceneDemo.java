@@ -11,12 +11,27 @@ import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
+import org.apache.lucene.search.spell.LuceneDictionary;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.store.MMapDirectory;
 import org.apache.lucene.util.BytesRef;
+import org.apache.lucene.util.BytesRefIterator;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+/**
+ * Demonstator für die grundlegenden Schritte zum Anlegen und Indexieren von Dokumenten sowie zum Formulieren
+ * und Ausführen von Suchanfragen in Lucene 8.
+ *
+ * Zusätzlich wird der feldspezifische invertierte Index ausgegeben (Terme im Dictionary sowie Postinglisten mit
+ * DocIDs und Positionsangabe).
+ *
+ * Das Programm erzeugten einen temporären Lucene-Index, der unterhalb von /tmp abgelegt wird.
+ *
+ * @author Sascha Szott
+ */
 public class LuceneDemo {
 
     private static final String ID_FIELD = "idField";
@@ -29,10 +44,15 @@ public class LuceneDemo {
 
     private IndexWriter indexWriter;
 
+    /**
+     * Konstruktor
+     *
+     * @throws IOException
+     */
     public LuceneDemo() throws IOException {
-        // für unseren ersten Test verwenden wir einen Lucene-Index, der nur im Hauptspeicher gehalten wird
-        // der Index existiert daher nur solange bis Programm beendet wird
-        directory = new RAMDirectory();
+        // Der erzeugte Lucene-Index wird im Dateisystem unterhalb von /tmp abgelegt.
+        // Er überlebt damit einen Neustart der VM nicht.
+        directory = new MMapDirectory(Files.createTempDirectory(Paths.get("/tmp"), "lucene-demo"));
 
         // ein Analyzer ist für die Behandlung der zu indexierenden Daten und der Suchanfrage zuständig
         // der StandardAnalyzer tokenisiert die Eingabe an Whitespaces, führt ein Lower-Casing durch und
@@ -48,6 +68,11 @@ public class LuceneDemo {
         indexWriter = new IndexWriter(directory, conf);
     }
 
+    /**
+     * Erzeugt ein Testdokument und fügt es zum Index hinzu.
+     *
+     * @throws IOException
+     */
     public void createMy1stDocAndAddToIndex() throws IOException {
         // ein Dokument ist eine Sammlung von Indexfeldern, die jeweils einen Namen und einen Wert haben
         // zusätzlich kann der Typ des Felds angegeben werden, der u.a. festlegt, wie die im Feld gespeicherten
@@ -83,6 +108,16 @@ public class LuceneDemo {
         indexWriter.commit();
     }
 
+    /**
+     * Erlaubt das Formulieren einer feldbasierten Suchanfrage. Die Methode gibt die
+     * Suchergebnisse als Top-10-Ranking auf der Konsole aus.
+     *
+     * @param fieldName Name des Indexfelds
+     * @param queryString Suchanfrage
+     *
+     * @throws IOException
+     * @throws ParseException
+     */
     public void search(String fieldName, String queryString) throws IOException, ParseException {
         // nun können wir eine Suchanfrage auf dem erzeugten Lucene-Index ausführen
         // dazu müssen wir den Index (der im Hauptspeicher existiert) öffnen
@@ -133,21 +168,25 @@ public class LuceneDemo {
         }
     }
 
+    /**
+     * Ausgabe des invertierten Index für das angegebene Indexfeld.
+     *
+     * @param fieldName Name des Indexfelds
+     * @throws IOException
+     */
     public void printIndex(String fieldName) throws IOException {
+        System.out.print("~~~~\n~~~~ Ausgabe des invertierten Index für das Indexfeld " +  fieldName + "\n~~~~");
+
         IndexReader indexReader = DirectoryReader.open(directory);
-
-        Terms terms = MultiFields.getTerms(indexReader, fieldName);
-        TermsEnum it = terms.iterator();
-        BytesRef term = it.next();
-
-        System.out.println("Ausgabe des invertierten Index für das Indexfeld " +  fieldName + ":");
-
-        while (term != null) {
-            String termString = term.utf8ToString();
-            System.out.print("\n" + termString + " -> ");
+        LuceneDictionary ld = new LuceneDictionary(indexReader, fieldName);
+        BytesRefIterator iterator = ld.getEntryIterator();
+        BytesRef byteRef;
+        while ((byteRef = iterator.next()) != null) {
+            String term = byteRef.utf8ToString();
+            System.out.print("\n" + term + " -> ");
             for (LeafReaderContext lrc : indexReader.leaves()) {
                 LeafReader lr = lrc.reader();
-                PostingsEnum pe = lr.postings(new Term(fieldName, termString));
+                PostingsEnum pe = lr.postings(new Term(fieldName, term));
                 if (pe != null) {
                     int docId = pe.nextDoc();
                     while (docId != PostingsEnum.NO_MORE_DOCS) {
@@ -159,12 +198,13 @@ public class LuceneDemo {
                     }
                 }
             }
-            term = it.next();
         }
-
         System.out.println();
     }
 
+    /**
+     * Hauptmethode des Programms
+     */
     public static void main(String[] args) throws IOException, ParseException {
 
         LuceneDemo demo = new LuceneDemo();
@@ -205,7 +245,7 @@ public class LuceneDemo {
         }
 
         // jetzt sollten insgesamt 101 Dokumente im Index enthalten sein
-        System.out.println("\nAnzahl Dokumente im Index: " + demo.indexWriter.numDocs());
+        System.out.println("\nAnzahl Dokumente im Index: " + demo.getNumDocs());
 
         // Suche nach dem Dokument mit ID 43 sollte nun Treffer liefern
         demo.search(ID_FIELD, "43");
@@ -241,13 +281,20 @@ public class LuceneDemo {
         demo.deleteAllDocs();
 
         // jetzt sollten keine Dokumente im Index sein
-        System.out.println("\nAnzahl Dokumente im Index: " + demo.indexWriter.numDocs());
+        System.out.println("\nAnzahl Dokumente im Index: " + demo.getNumDocs());
 
         // am Ende sollte der IndexWriter sauber geschlossen, so dass er auf der Festplatte persistiert werden
         // (da wir hier einen In-Memory-Index verwenden, ist das Unterlassen des Aufrufs kein Problem)
         demo.indexWriter.close();
     }
 
+    /**
+     * Erzeugt ein Lucene-Dokument mit der übergebenen ID und einem Textfeld, das den übergebenen Inhalt enthält.
+     *
+     * @param id Dokument-ID
+     * @param text Textinhalt
+     * @return Lucene-Dokument mit zwei Feldern
+     */
     private Document createDocument(String id, String text) {
         Document doc = new Document();
         doc.add(new StringField(ID_FIELD, id, Field.Store.YES));
@@ -255,12 +302,30 @@ public class LuceneDemo {
         return doc;
     }
 
+    /**
+     * Erzeugt ein Lucene-Dokument mit zwei Feldern, in denen der übergebene Inhalt steht. Fügt das Lucene-Dokument
+     * zum Index hinzu.
+     *
+     * @param id Dokument-ID
+     * @param text Textinhalt
+     *
+     * @throws IOException
+     */
     private void addDocument(String id, String text) throws IOException {
         Document doc = createDocument(id, text);
         indexWriter.addDocument(doc);
         indexWriter.commit();
     }
 
+    /**
+     * Erlaubt die Aktualisierung eines bestehenden Lucene-Dokument im Index. Das Dokument wird hierbei durch seine
+     * ID referenziert.
+     *
+     * @param id Dokument-ID
+     * @param text aktualisierter Textinhalt
+     *
+     * @throws IOException
+     */
     private void updateDocument(String id, String text) throws IOException {
         Term term = new Term(ID_FIELD, id);
         Document doc = createDocument(id, text);
@@ -268,6 +333,13 @@ public class LuceneDemo {
         indexWriter.commit();
     }
 
+    /**
+     * Löscht das Lucene-Dokument mit der übergebenen ID aus dem Index, sofern es existiert.
+     *
+     * @param id ID des zu löschenden Dokuments
+     *
+     * @throws IOException
+     */
     private void deleteDocumentById(String id) throws IOException {
         Term term = new Term(ID_FIELD, id);
         Query query = new TermQuery(term);
@@ -275,9 +347,24 @@ public class LuceneDemo {
         indexWriter.commit();
     }
 
+    /**
+     * Entfernt alle Dokument aus dem Index.
+     *
+     * @throws IOException
+     */
     private void deleteAllDocs() throws IOException {
         indexWriter.deleteAll();
         indexWriter.commit();
+    }
+
+    /**
+     * Ermittelt die aktuelle Dokumentanzahl im Lucene-Index.
+     *
+     * @return Dokumentanzahl
+     */
+    private int getNumDocs() {
+        IndexWriter.DocStats stats = indexWriter.getDocStats();
+        return stats.numDocs;
     }
 
 }
