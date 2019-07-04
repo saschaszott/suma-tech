@@ -62,7 +62,7 @@ public class Searcher {
             }
 
             TopDocs results = indexSearcher.search(q, k);
-            System.out.println("Es wurden " + results.totalHits + " Treffer gefunden");
+            System.out.println("Es wurden " + results.totalHits.value + " Treffer gefunden");
 
 
             // die einzelnen Suchtreffer im Top-k-Ranking ausgeben
