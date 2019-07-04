@@ -28,16 +28,15 @@ import java.nio.file.Paths;
  * Zusätzlich wird der feldspezifische invertierte Index ausgegeben (Terme im Dictionary sowie Postinglisten mit
  * DocIDs und Positionsangabe).
  *
- * Das Programm erzeugten einen temporären Lucene-Index, der unterhalb von /tmp abgelegt wird.
+ * Das Programm erzeugt einen Lucene-Index, der im Dateisystem unterhalb von /tmp abgelegt wird.
  *
  * @author Sascha Szott
  */
 public class LuceneDemo {
 
+    // Namen der Indexfelder
     private static final String ID_FIELD = "idField";
-
     private static final String STR_FIELD = "strField";
-
     private static final String TXT_FIELD = "txtField";
 
     private Directory directory;
@@ -85,26 +84,31 @@ public class LuceneDemo {
         Field strField = new StringField(STR_FIELD, "LUCENE", Field.Store.YES);
         document.add(strField);
 
-        // ein TextField überführt den zu speichernden Wert mittels des zuvor festgelegten Analyzers in das Indexfeld
+        // ein TextField überführt den zu speichernden Wert mittels des zuvor festgelegten Analyzers in das
+        // Indexfeld
         // später kann z.B. ein Matching mit einer Suchanfrage auch dann erfolgen, wenn die Groß- und
-        // Kleinschreibung nicht beachtet wird oder nur einzelne Terme des indexierten Wertes in der Suchanfrage auftreten
+        // Kleinschreibung nicht beachtet wird oder nur einzelne Terme des indexierten Wertes in der Suchanfrage
+        // auftreten
         // die drei Stoppwörter "and", "at" und "this" werden bei der Indexierung des Dokuments verworfen
-        // alle übrigen Terme werden in Kleinbuchstaben ("Lowercasing") umgewandelt
+        // alle übrigen Terme werden in Kleinbuchstaben umgewandelt ("Lowercasing")
         // Satzzeichen werden im Rahmen der Tokenisierung entfernt ("words" und "word" bleiben übrig)
-        Field txtField = new TextField(TXT_FIELD, "this field contains multiple words, and at least ONE Stop Word!", Field.Store.YES);
+        Field txtField = new TextField(
+                TXT_FIELD,
+                "this field contains multiple words, and at least ONE Stop Word!",
+                Field.Store.YES);
         document.add(txtField);
 
         // es ist üblich jedem Dokument eine eindeutige ID zu geben, auch wenn es Lucene nicht einfordert
-        // intern verwendet Lucene Dokument-IDs vom Typ int, die bei 0 starten - u.a. weil dadurch eine Komprimierung
-        // der Postinglisten ermöglicht wird (d.h. das vorliegende Dokument bekommt die intere ID 0, weil es als erstes
-        // Dokument in den Index hinzugefügt wird)
+        // intern verwendet Lucene Dokument-IDs vom Typ int, die bei 0 starten - u.a. weil dadurch eine
+        // Komprimierung der Postinglisten ermöglicht wird (d.h. das vorliegende Dokument bekommt die intere ID 0,
+        // weil es als erstes Dokument in den Index hinzugefügt wird)
         Field idField = new StringField(ID_FIELD, "42", Field.Store.YES);
         document.add(idField);
 
         // nun indexieren wir das Dokument und legen es im Lucene-Index ab
         indexWriter.addDocument(document);
 
-        // nach der Indexierung wird die Änderung übernommen
+        // nach der Indexierung wird die Änderung am Index übernommen
         indexWriter.commit();
     }
 
@@ -120,13 +124,13 @@ public class LuceneDemo {
      */
     public void search(String fieldName, String queryString) throws IOException, ParseException {
         // nun können wir eine Suchanfrage auf dem erzeugten Lucene-Index ausführen
-        // dazu müssen wir den Index (der im Hauptspeicher existiert) öffnen
+        // dazu müssen wir den zuvor unter /tmp gespeicherten Lucene-Index öffnen
         IndexReader indexReader = DirectoryReader.open(directory);
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
 
         // die Erzeugung einer Suchanfrage erfolgt mittels eines QueryParsers
         // bei der Erzeugung des QueryParsers wird festgelegt, welches Indexfeld durchsucht werden soll und
-        // wie die Suchanfrage behandelt werden soll (z.B. soll die Suchanfrage tokenisiert werden?)
+        // wie die Suchanfrage behandelt werden soll (z.B. soll auch die Suchanfrage tokenisiert werden?)
         QueryParser queryParser = null;
         Query query;
 
@@ -191,8 +195,8 @@ public class LuceneDemo {
                     int docId = pe.nextDoc();
                     while (docId != PostingsEnum.NO_MORE_DOCS) {
                         Document doc = lr.document(docId);
-                        // Achtung: die Ausgabe der IDs ist hier nicht sortiert, z.B. steht in der Postingliste für den
-                        // Term "test" oder "document" die ID 43 erst an der vorletzten Stelle
+                        // Achtung: die Ausgabe der IDs ist hier nicht sortiert, z.B. steht in der Postingliste
+                        // für den Term "test" oder "document" die ID 43 erst an der vorletzten Stelle
                         System.out.print(" " + doc.get(ID_FIELD) + ":" + pe.freq());
                         docId = pe.nextDoc();
                     }
@@ -218,7 +222,9 @@ public class LuceneDemo {
 
         demo.search(TXT_FIELD, "FIELD"); // findet das zuvor indexierte Dokument (Lower-Casing)
         demo.search(TXT_FIELD, "a field"); // findet das zuvor indexierte Dokument (Stopword-Removal)
-        demo.search(TXT_FIELD, "multiple field words lucene"); // findet das zuvor indexierte Dokument (Matching der Einzeltokens / partial match)
+
+        // findet das zuvor indexierte Dokument (Matching der Einzeltokens / partial match)
+        demo.search(TXT_FIELD, "multiple field words lucene");
 
         // Boolesches Retrieval mittels Lucene
         demo.search(TXT_FIELD, "+field +lucene"); // findet nicht das zuvor indexierte Dokument
@@ -238,7 +244,7 @@ public class LuceneDemo {
         // Suche nach dem Dokument mit ID 43 sollte nun keinen Treffer mehr liefern
         demo.search(ID_FIELD, "43");
 
-        // 100 neue Dokumente mit ID 43, .., 142 zum Index hinzufügen
+        // 100 neue Testdokumente mit den IDs 43, .., 142 zum Lucene-Index hinzufügen
         for (int i = 0; i < 100; i++) {
             int docId = 43 + i;
             demo.addDocument("" + docId, "test another test document");
@@ -264,12 +270,14 @@ public class LuceneDemo {
         demo.search(ID_FIELD, "43");
 
         // Suche nach another sollte nur noch 99 Treffer liefern
-        // beachte, dass sich die Score-Werte vergrößern, weil sich die Document Frequency für den Term "another" verringert
+        // beachte, dass sich die Score-Werte vergrößern, weil sich die Document Frequency für den Term "another"
+        // verringert
         demo.search(TXT_FIELD, "another");
 
-        // jetzt sollen alle gelöschten Dokumente tatsächlich aus dem Index verschwinden (wenn man das nicht machen würde,
-        // so würde bei der nachfolgenden Ausgabe des invertierten Index immer noch 43 in der Postingliste von "another"
-        // auftreten, obwohl in dem aktualisierten Dokument mit ID 43 dieser Term gar nicht mehr auftritt
+        // jetzt sollen alle gelöschten Dokumente tatsächlich aus dem Index verschwinden (wenn man das nicht
+        // machen würde, so würde bei der nachfolgenden Ausgabe des invertierten Index immer noch 43 in der
+        // Postingliste von "another" auftreten, obwohl in dem aktualisierten Dokument mit ID 43 dieser Term
+        // gar nicht mehr auftritt)
         System.out.println("Es existieren gelöschte Dokumente: " + demo.indexWriter.hasDeletions());
         demo.indexWriter.forceMerge(1); // optimize wurde in Lucene 3.5 abgeschafft
         System.out.println("Es existieren gelöschte Dokumente: " + demo.indexWriter.hasDeletions());
@@ -283,8 +291,8 @@ public class LuceneDemo {
         // jetzt sollten keine Dokumente im Index sein
         System.out.println("\nAnzahl Dokumente im Index: " + demo.getNumDocs());
 
-        // am Ende sollte der IndexWriter sauber geschlossen, so dass er auf der Festplatte persistiert werden
-        // (da wir hier einen In-Memory-Index verwenden, ist das Unterlassen des Aufrufs kein Problem)
+        // am Ende sollte der IndexWriter sauber geschlossen, so dass er vollständig auf der Festplatte
+        // persistiert werden kann
         demo.indexWriter.close();
     }
 
@@ -303,8 +311,8 @@ public class LuceneDemo {
     }
 
     /**
-     * Erzeugt ein Lucene-Dokument mit zwei Feldern, in denen der übergebene Inhalt steht. Fügt das Lucene-Dokument
-     * zum Index hinzu.
+     * Erzeugt ein Lucene-Dokument mit zwei Feldern, in denen der übergebene Inhalt steht.
+     * Fügt das Lucene-Dokument zum Index hinzu.
      *
      * @param id Dokument-ID
      * @param text Textinhalt
@@ -318,8 +326,8 @@ public class LuceneDemo {
     }
 
     /**
-     * Erlaubt die Aktualisierung eines bestehenden Lucene-Dokument im Index. Das Dokument wird hierbei durch seine
-     * ID referenziert.
+     * Erlaubt die Aktualisierung eines bestehenden Lucene-Dokument im Index.
+     * Das Dokument wird hierbei durch seine ID referenziert.
      *
      * @param id Dokument-ID
      * @param text aktualisierter Textinhalt
