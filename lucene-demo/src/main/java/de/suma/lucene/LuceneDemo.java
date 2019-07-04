@@ -160,7 +160,7 @@ public class LuceneDemo {
         // es sollen die 10 relevantesten Dokumente ermittelt werden (Top-10-Ranking)
         TopDocs docs = indexSearcher.search(query, 10);
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println(docs.totalHits + " Treffer gefunden für Suchanfrage " + query);
+        System.out.println(docs.totalHits.value + " Treffer gefunden für Suchanfrage " + query.toString());
 
         // Ausgabe der einzelnen Dokumente im Suchergebnis (0..10)
         for (ScoreDoc doc : docs.scoreDocs) {
@@ -221,7 +221,7 @@ public class LuceneDemo {
         demo.search(STR_FIELD, "LUCENE"); // findet das zuvor indexierte Dokument (exact match)
 
         demo.search(TXT_FIELD, "FIELD"); // findet das zuvor indexierte Dokument (Lower-Casing)
-        demo.search(TXT_FIELD, "a field"); // findet das zuvor indexierte Dokument (Stopword-Removal)
+        demo.search(TXT_FIELD, "the field"); // findet das zuvor indexierte Dokument (Stopword-Removal)
 
         // findet das zuvor indexierte Dokument (Matching der Einzeltokens / partial match)
         demo.search(TXT_FIELD, "multiple field words lucene");
