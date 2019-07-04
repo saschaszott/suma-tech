@@ -14,6 +14,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 
+import static de.suma.lucene.Indexer.*;
+
 /**
  * Erlaubt das Ausführen von Suchanfragen auf dem für die Shakespeare-Kollektion erzeugten Lucene-Index.
  *
@@ -51,7 +53,7 @@ public class Searcher {
 
             // Angabe des Indexfeld, das für die Suche verwendet werden soll sowie eines Analyzers, der die Verarbeitung
             // der Suchanfrage definiert (hier werden z.B. alle Terme in der Suchanfrage in Kleinbuchstaben umgewandelt)
-            QueryParser queryParser = new QueryParser(Indexer.FIELD_CONTENT, new StandardAnalyzer());
+            QueryParser queryParser = new QueryParser(FIELD_CONTENT, new StandardAnalyzer());
             Query q;
             try {
                 q = queryParser.parse(queryString);
@@ -79,13 +81,13 @@ public class Searcher {
 
                     Document document = indexSearcher.doc(hit.doc);
 
-                    String id = document.get("id");
+                    String id = document.get(FIELD_ID);
                     System.out.println("\tDoc ID: " + id);
 
                     float score = hit.score;
                     System.out.println("\tScore: " + score);
 
-                    String fileName = document.get("filename");
+                    String fileName = document.get(FIELD_FILENAME);
                     System.out.println("\tFile Name: " + fileName);
                 }
             }
@@ -100,7 +102,7 @@ public class Searcher {
     public void printStats() throws IOException {
         System.out.println("Anzahl Dokument im Index: " + indexReader.numDocs());
 
-        for (String fieldName : new String[] {Indexer.FIELD_ID, Indexer.FIELD_FILENAME, Indexer.FIELD_CONTENT}) {
+        for (String fieldName : new String[] {FIELD_ID, FIELD_FILENAME, FIELD_CONTENT}) {
 
             System.out.println("Indexfeld " + fieldName);
             CollectionStatistics collectionStatistics = indexSearcher.collectionStatistics(fieldName);
@@ -108,9 +110,9 @@ public class Searcher {
             System.out.println("Summe aller tf-Werte: " + collectionStatistics.sumTotalTermFreq());
         }
 
-        System.out.println("Ausgabe einiger df-Werte für das Indexfeld " + Indexer.FIELD_CONTENT);
+        System.out.println("Ausgabe einiger df-Werte für das Indexfeld " + FIELD_CONTENT);
         for (String termStr : new String[] {"caesar", "calpurnia", "brutus"}) {
-            Term term = new Term(Indexer.FIELD_CONTENT, termStr);
+            Term term = new Term(FIELD_CONTENT, termStr);
             System.out.println("df('" + termStr + "') = " + indexReader.docFreq(term));
             System.out.println("total-tf('" + termStr + "') = " + indexReader.totalTermFreq(term));
         }
