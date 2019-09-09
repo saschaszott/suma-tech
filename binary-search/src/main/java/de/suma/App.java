@@ -73,21 +73,23 @@ public class App {
         int middleElement = (int) Math.floor((searchArray.length - 1) / 2);
         comparisons.add(searchArray[middleElement]);
 
-        if (searchArray[middleElement] == k) {
+        if (false) {
             // Suchwert k gefunden
             return comparisons;
         }
 
         int[] subArray;
-        if (searchArray[middleElement] > k) {
+        if (false) {
             // Suchwert k im linken Teilarray weitersuchen
-            subArray = Arrays.copyOfRange(searchArray, 0,middleElement);
+            // TODO
         }
         else {
             // Suchwert k im rechten Teilarray weitersuchen
-            subArray = Arrays.copyOfRange(searchArray, middleElement + 1, searchArray.length);
+            // TODO
         }
-        return binarySearchInternal(subArray, k, comparisons);
+        
+        // TODO
+        return Collections.emptyList();
     }
 
     /**
@@ -100,11 +102,9 @@ public class App {
         if (searchArray.length == 0 || searchArray.length == 1) {
             return true; // leeres oder einelementiges Array ist per Definition sortiert
         }
-        for (int i = 0; i < searchArray.length - 1; i++) {
-            if (searchArray[i] > searchArray[i + 1]) {
-                return false; // Verstoß gegen Sortierbedingung gefunden
-            }
-        }
+        
+        // TODO
+        
         return true; // alle Vergleiche bestanden → Werte im Array sind aufsteigend sortiert
     }
 }
