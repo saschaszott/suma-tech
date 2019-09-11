@@ -3,3 +3,4 @@ target
 *.iml
 *.png
 *.dot
+!img/fst.png
