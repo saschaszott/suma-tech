@@ -70,7 +70,7 @@ public class App {
             return comparisons;
         }
 
-        int middleElement = (int) Math.floor((searchArray.length - 1) / 2);
+        int middleElement = (int) ((searchArray.length - 1) / 2);
         comparisons.add(searchArray[middleElement]);
 
         if (searchArray[middleElement] == k) {
