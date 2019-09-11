@@ -24,4 +24,17 @@ public class AppTest {
         assertFalse(app.binarySearch(searchArray, 6));
     }
 
+    @Test
+    public void checkForSortedOrderWithSortedArray() {
+        App app = new App();
+        int[] searchArray = new int[] {2, 5, 7};
+        assertTrue(app.checkForSortedOrder(searchArray));
+    }
+
+    @Test
+    public void checkForSortedOrderWithUnsortedArray() {
+        App app = new App();
+        int[] searchArray = new int[] {2, 7, 5};
+        assertFalse(app.checkForSortedOrder(searchArray));
+    }
 }
