@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>MurmurHash3 Computation</title>
+  <script type="text/javascript" src="./murmurHash3.min.js"></script>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h1>MurmurHash3 Computation</h1>
+  <div>
+    <label for="shard1start">Shard1.Start</label>
+    <input type="text" id="shard1start" value="80000000"/>
+    <label for="shard1end">Shard1.End</label>
+    <input type="text" id="shard1end" value="D554FFFF"/>
+  </div>
+  <div>
+    <label for="shard2start">Shard2.Start</label>
+    <input type="text" id="shard2start" value="D5550000"/>
+    <label for="shard2end">Shard2.End</label>
+    <input type="text" id="shard2end" value="2AA9FFFF"/>
+  </div>
+  <div>
+    <label for="shard3start">Shard3.Start</label>
+    <input type="text" id="shard3start" value="2AAA0000"/>
+    <label for="shard3end">Shard3.End</label>
+    <input type="text" id="shard3end" value="7FFFFFFF"/>
+  </div>
+
+  <p/>
+  <div>
+    <label for="docId">Value of Solr Document ID:</label>
+    <input type="text" id="docId" onkeyup="computeShardNo()"/>
+  </div>
+  <p/>
+
+  <div>
+    32 bit Murmur3 hash value is:
+    <code id="hashValue" style="font-size:150%; font-weight:bold;"></code>
+  </div>
+
+  <div>
+    Document is assigned to shard:
+    <code id="shardNo" style="font-size: 150%; color: blue"></code>
+  </div>
+
+  <script>
+  function computeShardNo() {
+
+    var docId = document.getElementById('docId').value;
+    var hashValueElement = document.getElementById('hashValue');
+    var shardNoElement = document.getElementById('shardNo');
+
+    if (docId == '') {
+      hashValueElement.innerHTML = '';
+      shardNoElement.innerHTML = '';
+      return;
+    }
+
+    var hashValue = murmurHash3.x86.hash32(docId);
+    hashValueElement.innerHTML = hashValue.toString(2) + ' (hex: ' + hashValue.toString(16).toUpperCase() + ')';
+
+    var sh1Start = parseInt(document.getElementById('shard1start').value, 16);
+    var sh1End = parseInt(document.getElementById('shard1end').value, 16);
+    if ((sh1Start < sh1End && sh1Start <= hashValue && hashValue <= sh1End) || (sh1Start > sh1End && (sh1Start <= hashValue || hashValue <= sh1End))) {
+      shardNoElement.innerHTML = '1';
+      return;
+    }
+
+    var sh2Start = parseInt(document.getElementById('shard2start').value, 16);
+    var sh2End = parseInt(document.getElementById('shard2end').value, 16);
+    if ((sh2Start < sh2End && sh2Start <= hashValue && hashValue <= sh2End) || (sh2Start > sh2End && (sh2Start <= hashValue || hashValue <= sh2End))) {
+      shardNoElement.innerHTML = '2';
+      return;
+    }
+
+    shardNoElement.innerHTML = '3';
+  }
+  </script>
+</body>
+</html>
