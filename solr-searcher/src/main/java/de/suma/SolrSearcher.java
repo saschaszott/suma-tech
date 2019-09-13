@@ -16,7 +16,7 @@ import java.util.Scanner;
  * Dieses Programm demonstriert die grundlegenden Schritte um mittels Java auf einen Solr-Server zuzugreifen,
  * eine Suchanfrage abzusetzen und das Ergebnis schließlich auf der Kommandozeile auszugeben.
  *
- * Hinweise zur SolrJ-Library unter https://lucene.apache.org/solr/guide/6_6/using-solrj.html
+ * Hinweise zur SolrJ-Library unter https://lucene.apache.org/solr/guide/8_1/using-solrj.html
  *
  * @author Sascha Szott
  * @version 1.0
@@ -29,7 +29,7 @@ public class SolrSearcher {
     private static final String SOLR_SERVER_URL = "http://localhost:8983/solr/";
 
     // diesen Core haben wir in der ersten Übung bereits angelegt
-    private static final String SOLR_CORE_NAME = "my1stcore";
+    private static final String SOLR_CORE_NAME = "my2ndcore";
 
     private SolrClient solrClient;
 
