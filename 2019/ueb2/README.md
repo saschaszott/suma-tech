@@ -170,7 +170,7 @@ Verwendung des _DisMax Query Parsers_ bzw. der erweiterten Version
 _Extended DisMax Query Parser_ an.
 
 Informieren Sie sich über die grundlegene Funktionsweise des _DisMax Query Parser_
-unter [https://lucene.apache.org/solr/guide/7_3/the-dismax-query-parser.html].
+unter [https://lucene.apache.org/solr/guide/8_1/the-dismax-query-parser.html].
 
 Erweitern Sie die Klasse `SolrSearcher`, so dass eine Suche über alle
 Indexfelder ermöglicht wird. Die Indexfelder sollen hierbei unterschiedlich
