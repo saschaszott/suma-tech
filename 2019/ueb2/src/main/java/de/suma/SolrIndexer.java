@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Dieses Programm indexiert die ausgewählte Kollektion von 1542 Gutenberg-E-Books.
+ * Dieses Programm indexiert die ausgewählte Kollektion von 1523 Gutenberg-E-Books.
  *
  * Die Metadaten sind in RDF/XML-Dateien gespeichert (eine XML-Datei pro E-Book).
  * Der Volltext zu jedem E-Book ist in einer separaten Textdatei gespeichert.
@@ -22,11 +22,11 @@ import java.io.IOException;
  * Alle Dateien sind UTF-8 codiert.
  *
  * Die Rohdaten (Metadaten und Volltexte) laden Sie bitte aus dem Moodle-System
- * herunter. Dort ist ein ZIP-Archiv gutenberg.zip abgelegt:
+ * herunter. Dort ist ein TGZ-Archiv gutenberg.tgz abgelegt:
  *
- * https://elearning.th-wildau.de/mod/resource/view.php?id=148928
+ * https://elearning.th-wildau.de/mod/resource/view.php?id=175384
  *
- * Entpacken Sie die ZIP-Datei bitte im Wurzelverzeichnis dieses Projekts (ueb2).
+ * Entpacken Sie die TGZ-Datei bitte im Wurzelverzeichnis dieses Projekts (ueb2).
  *
  * Andernfalls müssen Sie die Pfade beim Zugriff auf die XML- und Textdateien anpassen.
  *
