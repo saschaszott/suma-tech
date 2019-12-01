@@ -97,16 +97,22 @@ Verzeichnis `ueb3`) und entpacken Sie die Datei mittels
 ```bash
 unzip ueb3-ebooks-sample.zip
 ```
+Anschließend sollte sich im Projektverzeichnis (in dem auch diese `README.md` Datei
+liegt) ein Verzeichnis mit dem Namen `ueb3-ebooks-sample` existieren.
 
 Das Programm können Sie auf der Kommandozeile mit dem Befehl
 ```
 $ ./mvnw clean compile exec:java
 ```
 starten. Setzen Sie ggf. vorher die maximale Größe des allokierten Hauptspeichers
-mittels `MAVEN_OPTS`:
+mittels `MAVEN_OPTS` auf 1 GB:
 ```
-$ export MAVEN_OPTS='-Xmx2G'
+$ export MAVEN_OPTS='-Xmx1G'
 ```
+
+Alternativ können Sie das Programm auch direkt aus IntelliJ IDEA starten.
+Dazu importieren Sie das Projekt unter `2019/ueb3` (als Maven-Projekt). Zum
+Ausführen starten Sie dann die Klasse `de.suma.IndexSizeComparison`.
 
 Diskutieren Sie kurz die vom Programm berechneten Werte für den Speicherbedarf
 der unterschiedlichen Indexvarianten bezüglich der beiden Indexfelder `title`
