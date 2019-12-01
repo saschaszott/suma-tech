@@ -1,4 +1,4 @@
-# 3. Übung zum Modul Suchmaschinentechnologie (Jahrgang 2019)
+# 3. Übung zum Modul Suchmaschinentechnologie
 
 ## Vergleich des Speicherbedarfs für Positional Index und Non-Positional Index 
 
