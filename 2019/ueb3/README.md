@@ -89,7 +89,7 @@ Programm berechnet wird.
 Führen Sie anschließend die Klasse `IndexSizeComparison` aus. Das Programm
 gibt den Speicherbedarf für die Felder `title` und `fulltext` aus.
 
-Für diese Übung nutzen wir ein Auswahl von 250 E-Books vom Gutenberg Projekt.
+Für diese Übung nutzen wir ein Auswahl von 200 E-Books vom Gutenberg Projekt.
 Die Auswahl steht in Form einer ZIP-Datei im Moodle-Raum zur Vorlesung unter
 *Übung 3* zum Download zur Verfügung. Laden Sie diese ZIP-Datei herunter (in das
 Verzeichnis `ueb3`) und entpacken Sie die Datei mittels
