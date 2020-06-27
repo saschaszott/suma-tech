@@ -111,10 +111,11 @@ public class Searcher {
         }
 
         System.out.println("Ausgabe einiger df-Werte für das Indexfeld " + FIELD_CONTENT);
-        for (String termStr : new String[] {"caesar", "calpurnia", "brutus"}) {
+        for (String termStr : new String[] {"caesar", "brutus", "calpurnia", "calpurnia's", "brutus"}) {
             Term term = new Term(FIELD_CONTENT, termStr);
             System.out.println("df('" + termStr + "') = " + indexReader.docFreq(term));
             System.out.println("total-tf('" + termStr + "') = " + indexReader.totalTermFreq(term));
+            System.out.println("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~");
         }
     }
 
