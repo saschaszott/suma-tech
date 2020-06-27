@@ -33,7 +33,7 @@ public class Indexer {
     public final static String INDEX_DIR = "/tmp/shakespeare-lucene-index";
 
     // 37 XML-Datei der Werke von Shakespeare
-    public final static String DOCS_DIR = "/Users/lehre/Desktop/shakespeare-xml";
+    public final static String DOCS_DIR = "/home/sumatech/shakespeare-xml";
 
     // Feldbezeichnung
     public static final String FIELD_ID = "id";
@@ -95,7 +95,7 @@ public class Indexer {
         long indexSize = FileUtils.sizeOf(new File(INDEX_DIR));
         System.out.println("Größe des Lucene-Index: " + indexSize * 1.0 / FileUtils.ONE_MB + " MB");
 
-        System.out.println("Größe des Index im Vergleich zur Größe der Kollektion: " + (100.0 * indexSize / docsSize) + " %");
+        System.out.println("Größe des Index im Vergleich zur Größe der Kollektion: " + Math.round(100.0 * indexSize / docsSize) + " %");
 
     }
 
