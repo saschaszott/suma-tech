@@ -24,7 +24,7 @@ import java.io.IOException;
  * Die Rohdaten (Metadaten und Volltexte) laden Sie bitte aus dem Moodle-System
  * herunter. Dort ist ein TGZ-Archiv gutenberg.tgz abgelegt:
  *
- * https://elearning.th-wildau.de/mod/resource/view.php?id=175384
+ * https://elearning.th-wildau.de/mod/resource/view.php?id=225626
  *
  * Entpacken Sie die TGZ-Datei bitte im Wurzelverzeichnis dieses Projekts (ueb2).
  *
