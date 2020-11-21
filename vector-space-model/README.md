@@ -5,7 +5,8 @@
 * Berechnung mittels Skalarprodukt
 * es brauchen nur die Anfrageterme betrachtet, die im Vokabular (Dictionary des invertierten Index) vorkommen
 
-Das Gewicht von Term t in Dokument- und Anfrageverktor wird in diesem Beispiel wie folgt bestimmt:
+Das Gewicht von Term t in Dokument- und Anfrageverktor wird in diesem Beispiel wie folgt bestimmt (V sei die Anzahl der Einträge im Dictionary
+des invertierten Index; die Größe des Term-Vokabulars):
 
 ![\vec{d}[t]=\mathrm{tf}(t,d)](https://render.githubusercontent.com/render/math?math=%5CLarge+%5Cdisplaystyle+%5Cvec%7Bd%7D%5Bt%5D%3D%5Cmathrm%7Btf%7D%28t%2Cd%29)
 
