@@ -6,16 +6,23 @@ Die Übung kann erneut in Zweierteams bearbeitet werden. Bitte speichern Sie
 Ihre Antworten auf die gestellten Fragen in der Textdatei
 `answers.txt`, die ebenfalls im Projektverzeichnis abgelegt ist.
 
-Bitte reichen Sie das gesamte Projekt `ueb3` in Form eines ZIP-Archiv als
+Bitte reichen Sie das gesamte Projekt `ueb3` in Form eines ZIP-Archivs als
 Lösung ein (Upload des ZIP-Archivs im Moodle-Raum zur Vorlesung). Rufen Sie vor 
 dem Erzeugen des ZIP-Archivs den Befehl
 ```
 $ ./mvnw clean
 ```
-auf, so dass keine kompilierten `.class`-Dateien im Archiv landen.
+innerhalb des Verzeichnis `ueb3` auf, so dass keine kompilierten `.class`-Dateien 
+im ZIP-Archiv landen.
+
+Anschließend führen Sie folgenden Befehl (im Oberverzeichnis `2020`) aus:
+```
+$ cd /home/sumatech/suma-tech/2020
+$ zip -r ueb3.zip ueb3/src ueb3/answers.txt
+```
 
 Für Fragen nutzen Sie bitte das Moodle-Diskussionsforum zur Vorlesung:
-https://elearning.th-wildau.de/mod/forum/view.php?id=167636
+https://elearning.th-wildau.de/mod/forum/view.php?id=209376
 
 ## Die Klasse `IndexSizeComparison`
 
