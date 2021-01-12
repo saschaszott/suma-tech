@@ -112,9 +112,9 @@ Das Programm können Sie auf der Kommandozeile mit dem Befehl
 $ ./mvnw clean compile exec:java
 ```
 starten. Setzen Sie ggf. vorher die maximale Größe des allokierten Hauptspeichers
-mittels `MAVEN_OPTS` auf 1 GB:
+mittels `MAVEN_OPTS` auf 2 GB:
 ```
-$ export MAVEN_OPTS='-Xmx1G'
+$ export MAVEN_OPTS='-Xmx2G'
 ```
 
 Alternativ können Sie das Programm auch direkt aus IntelliJ IDEA starten.
