@@ -4,9 +4,9 @@ Diese Demo besteht aus zwei Teilen:
 
 ## Lucene Demo
 
-`LuceneDemo` zeigt die Erzeugung eines _in-memory_ Index. Anschließend werden einige Suchanfragen
-auf dem Index ausgeführt. Der Index besteht aus einem Dokument, das drei Felder besitzt. Nach dem
-Hinzufügen eines weiteren Dokuments wird der invertierte Index ausgegeben.
+`LuceneDemo` zeigt die Erzeugung eines Suchmaschinenindex mittels der Java-Bibliothek Apache Lucene.
+Anschließend werden einige Suchanfragen auf dem Index ausgeführt. Der Index besteht aus einem 
+Dokument, das drei Felder besitzt. Nach dem Hinzufügen eines weiteren Dokuments wird der Index ausgegeben.
 
 ## Indexer / Searcher
 
