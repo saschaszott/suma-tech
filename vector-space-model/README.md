@@ -20,4 +20,4 @@ Der Score-Wert ![formula](https://render.githubusercontent.com/render/math?math=
 
 In diesem Beispiel wird die _Inverse Document Frequency_ zur Berechnung des Score-Werts **nicht** verwendet.
 
-Gemäß SMART-Notation entspricht die o.g. Formel zur Berechnung des Score-Wert damit `nnc.nnc`.
+Gemäß **SMART-Notation** entspricht die o.g. Formel zur Berechnung des Score-Wert damit `nnc.nnc`.
