@@ -1,8 +1,7 @@
 # Vector Space Model / Vektorraum-Modell
 
-* Berechnung der Cosinusähnlich zwischen Dokument- und Anfragevektor
+* Berechnung der Cosinusähnlich (unter Verwendung des Skalarprodukts) zwischen Dokument- und Anfragevektor
 * Bestimmung von Termgewichten (SMART-Notation)
-* Berechnung mittels Skalarprodukt
 * es brauchen generell nur die Anfrageterme betrachtet, die im Vokabular (Dictionary des invertierten Index) vorkommen, d.h. in mindestens einem Dokument aus der Kollektion existieren
 
 Das **Gewicht von Term _t_** in Dokument- und Anfragevektor wird in diesem Beispiel wie folgt bestimmt (_V_ sei die Anzahl der Einträge im Dictionary
