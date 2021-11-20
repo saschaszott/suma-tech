@@ -3,7 +3,7 @@
 * Berechnung der Cosinusähnlich zwischen Dokument- und Anfragevektor
 * Bestimmung von Termgewichten (SMART-Notation)
 * Berechnung mittels Skalarprodukt
-* es brauchen nur die Anfrageterme betrachtet, die im Vokabular (Dictionary des invertierten Index) vorkommen
+* es brauchen generell nur die Anfrageterme betrachtet, die im Vokabular (Dictionary des invertierten Index) vorkommen, d.h. in mindestens einem Dokument aus der Kollektion existieren
 
 Das Gewicht von Term t in Dokument- und Anfragevektor wird in diesem Beispiel wie folgt bestimmt (V sei die Anzahl der Einträge im Dictionary
 des invertierten Index; die Größe des Term-Vokabulars):
