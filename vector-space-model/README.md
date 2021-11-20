@@ -14,7 +14,9 @@ des invertierten Index; die Größe des Term-Vokabulars):
 
 Der Score-Wert ![formula](https://render.githubusercontent.com/render/math?math=s(d,q)) für das Dokument _d_ bezüglich der Suchanfrage _q_ ergibt sich dann mit
 
-![s(d,q)=\frac{\sum_{i=1}^{V}\vec{d}[i]\cdot\vec{q}[i]}{\sqrt{\sum_{i=1}^V\vec{d}[i]^2}\cdot\sqrt{\sum_{i=1}^V\vec{q}[i]^2}}](https://render.githubusercontent.com/render/math?math=%5CLarge+%5Cdisplaystyle+s%28d%2Cq%29%3D%5Cfrac%7B%5Csum_%7Bi%3D1%7D%5E%7BV%7D%5Cvec%7Bd%7D%5Bi%5D%5Ccdot%5Cvec%7Bq%7D%5Bi%5D%7D%7B%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5EV%5Cvec%7Bd%7D%5Bi%5D%5E2%7D%5Ccdot%5Csqrt%7B%5Csum_%7Bi%3D1%7D%5EV%5Cvec%7Bq%7D%5Bi%5D%5E2%7D%7D)
+![s(d,q)= \frac{\sum_{i=1}^V \vec{d}[i]\cdot\vec{q}[i]}{\sqrt{\sum_{i=1}^V \vec{d}[i]^2}\cdot\sqrt{\sum_{i=1}^V \vec{q}[i]^2}}
+=\frac{\sum_{i=1}^V \textrm{tf}(t_i,d)\cdot\textrm{tf}(t_i,q)}{\sqrt{\sum_{i=1}^V \textrm{tf}(t_i,d)^2}\cdot \sqrt{\sum_{i=1}^V \textrm{tf}(t_i,q)^2}}
+=\frac{\sum_{t\in q\cap d} \textrm{tf}(t,d)\cdot\textrm{tf}(t,q)}{\sqrt{\sum_{t\in q\cap d} \textrm{tf}(t,d)^2}\cdot \sqrt{\sum_{t\in q\cap d} \textrm{tf}(t,q)^2}}](https://render.githubusercontent.com/render/math?math=s(d,q)=%20\frac{\sum_{i=1}^V%20\vec{d}[i]\cdot\vec{q}[i]}{\sqrt{\sum_{i=1}^V%20\vec{d}[i]^2}\cdot\sqrt{\sum_{i=1}^V%20\vec{q}[i]^2}}%20=\frac{\sum_{i=1}^V%20\textrm{tf}(t_i,d)\cdot\textrm{tf}(t_i,q)}{\sqrt{\sum_{i=1}^V%20\textrm{tf}(t_i,d)^2}\cdot%20\sqrt{\sum_{i=1}^V%20\textrm{tf}(t_i,q)^2}}%20=\frac{\sum_{t\in%20q\cap%20d}%20\textrm{tf}(t,d)\cdot\textrm{tf}(t,q)}{\sqrt{\sum_{t\in%20q\cap%20d}%20\textrm{tf}(t,d)^2}\cdot%20\sqrt{\sum_{t\in%20q\cap%20d}%20\textrm{tf}(t,q)^2}})
 
 In diesem Beispiel wird die _Inverse Document Frequency_ zur Berechnung des Score-Werts **nicht** verwendet.
 
