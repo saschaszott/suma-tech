@@ -21,8 +21,7 @@ $ cd /home/sumatech/suma-tech/2021
 $ zip -r ueb3.zip ueb3/src ueb3/answers.txt
 ```
 
-Für Fragen nutzen Sie bitte das Moodle-Diskussionsforum zur Vorlesung:
-https://elearning.th-wildau.de/mod/forum/view.php?id=209376
+Für Fragen nutzen Sie bitte das Moodle-Diskussionsforum zur Vorlesung.
 
 ## Die Klasse `IndexSizeComparison`
 
@@ -37,8 +36,8 @@ Es werden hierbei vier Indextypen untersucht:
 * Non-Positional Index mit Drei-Term-Dictionary (Triword-Index)
 
 Zur Bestimmung des Speicherbedarfs verwenden wir die bereits aus 
-der ersten Übung bekannte Dokumentkollektion mit 1523 freien
-E-Books aus dem Gutenberg-Projekt.
+der vorherigen Übung bekannte Dokumentkollektion, diesmal allerdings
+beschränkt auf 200 freie E-Books aus dem Gutenberg-Projekt.
 
 Der Speicherbedarf beim **Non-Positional Index** entsteht durch 
 das Dictionary, in dem jeder Term der Kollektion gespeichert wird.
