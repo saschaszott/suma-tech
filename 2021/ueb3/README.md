@@ -15,9 +15,9 @@ $ ./mvnw clean
 innerhalb des Verzeichnis `ueb3` auf, so dass keine kompilierten `.class`-Dateien 
 im ZIP-Archiv landen.
 
-Anschließend führen Sie folgenden Befehl (im Oberverzeichnis `2020`) aus:
+Anschließend führen Sie folgenden Befehl (im Oberverzeichnis `2021`) aus:
 ```
-$ cd /home/sumatech/suma-tech/2020
+$ cd /home/sumatech/suma-tech/2021
 $ zip -r ueb3.zip ueb3/src ueb3/answers.txt
 ```
 
@@ -118,7 +118,7 @@ $ export MAVEN_OPTS='-Xmx2G'
 ```
 
 Alternativ können Sie das Programm auch direkt aus IntelliJ IDEA starten.
-Dazu importieren Sie das Projekt unter `2020/ueb3` (als Maven-Projekt). Zum
+Dazu importieren Sie das Projekt unter `2021/ueb3` (als Maven-Projekt). Zum
 Ausführen starten Sie dann die Klasse `de.suma.IndexSizeComparison`.
 
 Diskutieren Sie kurz die vom Programm berechneten Werte für den Speicherbedarf
