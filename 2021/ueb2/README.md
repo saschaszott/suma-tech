@@ -7,7 +7,7 @@ abgelegt ist.
 Bitte reichen Sie das gesamte Projekt `ueb2` als ein ZIP-Archiv als Lösung
 ein (Upload der Datei erfolgt im Moodle-Raum zur Vorlesung).
 
-Für Fragen nutzen Sie bitte das Diskussionsforum zur Moodle-Raum zur Vorlesung.
+Für Fragen nutzen Sie bitte das Diskussionsforum im Moodle-Raum zur Vorlesung.
 
 ## Anlegen eines neuen Solr-Cores
 
