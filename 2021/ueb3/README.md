@@ -17,7 +17,7 @@ im ZIP-Archiv landen.
 
 Anschließend führen Sie folgenden Befehl (im Oberverzeichnis `2021`) aus:
 ```
-$ cd /home/sumatech/suma-tech/2021
+$ cd ~/sumatech/suma-tech/2021
 $ zip -r ueb3.zip ueb3/src ueb3/answers.txt
 ```
 
@@ -62,7 +62,7 @@ Die Postinglisten enthalten neben den Dokument-IDs (analog zum
 Non-Positional Index) auch die entsprechenden Positionen eines
 Terms in einem Dokument. Die Häufigkeit eines Terms in einem Dokument
 hat bei dieser Indexvariante Einfluss auf den Speicherplatz. 
-Kommt ein Term mehrfach innerhalb eines Dokument vor, so fällt 
+Kommt ein Term mehrfach innerhalb eines Dokuments vor, so fällt 
 bei dieser Indexvariante mehr Speicherplatz als beim Non-Positional Index 
 an. Wir nehmen hierbei an, dass die Postinglisten im Positional Index 
 folgenden Aufbau haben (hier am Beispiel von zwei Dokumenten mit den IDs `1` und `2`, 
