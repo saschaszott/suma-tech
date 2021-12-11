@@ -19,7 +19,7 @@ Konfigurationsverzeichnis `conf` des neu angelegten Solr-Cores `ueb2`.
 
 Starten Sie anschließend den Solr-Server neu und prüfen Sie über
 die Solr-Webadministrationsoberfläche, dass der neu angelegte Solr-Core
-mit den Konfigurationsänderungen erfolgreich geladen werden konnte.
+`ueb2` mit den Konfigurationsänderungen erfolgreich geladen werden konnte.
 
 ## Definition des Indexschemas
 
