@@ -66,7 +66,9 @@ aufrufen (dort dürfen keine roten Fehlermeldungen erscheinen).
 
 ## Verhalten des neuen Indexfeldtyps `text_de`
 
-Testen Sie, wie sich der Feldtyp `text_de` während Indexierung und Suche verhält,
+Schauen Sie sich in Vorbereitung auf diesen Aufgabenteil das Video zur _Solr Analysis_ im YouTube-Kanal zur Vorlesung an: https://youtu.be/5938k7UeCcg
+
+Testen Sie nun, wie sich der oben definierte Feldtyp `text_de` während Indexierung und Suchanfrageverarbeitung verhält,
 indem Sie in der Solr-Webadministrationsoberfläche den Menüpunkt *Analysis*
 innerhalb des Administrationsbereichs für den Solr-Core `ueb2` öffnen:
 
