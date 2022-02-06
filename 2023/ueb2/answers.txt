@@ -1,0 +1,3 @@
+# Hier können Sie Ihre Antworten zu den Fragen in README.md notieren.
+# Bitte tragen Sie hier auch die Namen der beiden Teammitglieder für die
+# Bewertung der eingereichten Lösung ein.
