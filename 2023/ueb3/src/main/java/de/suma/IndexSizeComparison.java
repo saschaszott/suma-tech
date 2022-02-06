@@ -39,7 +39,7 @@ public class IndexSizeComparison {
      *
      * @param fieldName
      */
-    private void determineMemoryConsumption(String fieldName) throws FileNotFoundException {
+    public void determineMemoryConsumption(String fieldName) throws FileNotFoundException {
         GutenbergRDFParser gutenbergRDFParser = new GutenbergRDFParser();
         String dirName = BASE_DIR_NAME + File.separator + DIR_NAME_METADATA;
         File folder = new File(dirName);
@@ -146,15 +146,15 @@ public class IndexSizeComparison {
         return fulltextStr;
     }
 
-    private String[] getUnigrams(String textToIndex) {
+    public String[] getUnigrams(String textToIndex) {
         return ngrams(1, textToIndex);
     }
 
-    private String[] getBigrams(String textToIndex) {
+    public String[] getBigrams(String textToIndex) {
         return ngrams(2, textToIndex);
     }
 
-    private String[] getTrigrams(String textToIndex) {
+    public String[] getTrigrams(String textToIndex) {
         return ngrams(3, textToIndex);
     }
 
