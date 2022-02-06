@@ -72,7 +72,7 @@ public class IndexSizeStatistics {
     }
 
     public void print() {
-        System.out.println("~~~~~~~~~~~~ Auswertung für das Feld " + fieldName + " ~~~~~~~~~~~~");
+        System.out.println("~~~~~~~~~~~~ Auswertung für das Feld " + fieldName + " ~~~~~~~~~~~~\n");
 
         // Speicherbedarf für die Kollektion (hier wird vereinfachend angenommen, dass wir pro Zeichen 1 Byte benutzen)
         System.out.println("Speicherbedarf für die Kollektion mit " + numOfDocs + " Dokumenten: " + Math.round(numOfOverallCharactersInCollection / 1024) + " kB");
@@ -80,13 +80,14 @@ public class IndexSizeStatistics {
         // Speicherbedarf für das Dictionary (hier wird vereinfachend angenommen, dass wir pro Zeichen 1 Byte benötigen)
         for (int n = 1; n <= 3; n++) {
             System.out.println("Anzahl der Dictionary-Einträge (für n = " + n + "): " + dictionary.get(n - 1).size());
+
             long dictionarySize = 0;
             // TODO berechnen Sie den Speicherplatz in kB für das Dictionary mit n-Grammen
             // TODO Hinweis: vermeiden Sie hierbei die Verwendung der Methode toString()
             System.out.println("Speicherbedarf für das Dictionary: " + dictionarySize + " kB");
 
             if (n == 1) {
-                System.out.println("Anzahl der Positionseinträge in allen Postinglisten: " + numOfPositionsInAllPostingLists);
+                System.out.println("\n\nAnzahl der Positionseinträge in allen Postinglisten: " + numOfPositionsInAllPostingLists);
                 // Dokument-ID wird einmal gespeichert; zusätzlich alle Positionen innerhalb des Dokuments, an denen ein Term auftritt
                 // Speicherbedarf für eine Dokument-ID bzw. eine Positionsangabe beträgt 4 Byte (32-Bit int)
                 long positionalIndexSize = dictionarySize + 0; // TODO berechnen Sie den Speicherplatz für den Positional Index in kB
@@ -97,7 +98,7 @@ public class IndexSizeStatistics {
             // Speicherbedarf für eine Dokument-ID beträgt 4 Byte (32-Bit int)
             long nonPositionalIndexSize = dictionarySize + 0; // TODO berechnen Sie den Speicherplatz für den Non-Positional Index in kB mit n-Grammen im Dictionary
             System.out.println("Speicherbedarf für Non-Positional Index (für n = " + n + "): " + nonPositionalIndexSize + " kB");
-       }
+        }
 
         System.out.println("");
     }
