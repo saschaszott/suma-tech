@@ -56,8 +56,8 @@ public class IndexSizeComparison {
 
                 GutenbergDoc doc = gutenbergRDFParser.parse(file);
 
-                // ermittle den zu indexierenden Dokumentinhalt und forme ihn in Kleinschreibung um
-                String textToIndex = StringUtils.lowerCase(getTextToIndex(fieldName, doc));
+                // ermittle den zu indexierenden Dokumentinhalt
+                String textToIndex = getTextToIndex(fieldName, doc);
                 if (StringUtils.isEmpty(textToIndex)) {
                     continue;
                 }
@@ -159,13 +159,15 @@ public class IndexSizeComparison {
     }
 
     /**
-     * Ermittelt alle n-Gramme für den übergebenen Text. Ein n-Gramm besteht hierbei aus n aufeinanderfolgenden Token.
+     * Ermittelt alle n-Gramme für den übergebenen Text.
+     * Ein n-Gramm besteht hierbei aus n aufeinanderfolgenden Token.
      * @param n
      * @param textToIndex
      * @return
      */
     private String[] ngrams(int n, String textToIndex) {
-        String[] tokens = StringUtils.split(textToIndex);
+        String[] tokens = new Tokenizer().getTokens(textToIndex);
+
         if (n == 1) {
             return tokens;
         }
