@@ -174,8 +174,10 @@ public class IndexSizeComparison {
             return new String[0];
         }
 
-        // TODO berechnen Sie die n-Gramme (n > 1) für den übergebenen Text
-        // TODO ein n-Gramm ist eine Folge von n aufeinanderfolgenden Token (jeweils durch Leerzeichen getrennt)
+        // TODO berechnen Sie die n-Gramme (beliebiges n mit n > 1) für den übergebenen Text textToIndex
+        // TODO beachten Sie, dass die Methode für beliebiges n die korrekte Liste der n-Gramme berechnet
+        // TODO ein n-Gramm ist eine Folge von n aufeinanderfolgenden Token in textToIndex
+        // TODO Token sind hierbei zusammenhängende Zeichenketten, die durch Leerzeichen vom vorherigen bzw. nachfolgenden Token getrennt sind
         return null; // TODO entfernen und durch das von ihnen berechnete Ergebnis ersetzen
     }
 }

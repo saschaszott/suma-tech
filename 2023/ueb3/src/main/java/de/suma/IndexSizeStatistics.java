@@ -80,7 +80,9 @@ public class IndexSizeStatistics {
         // Speicherbedarf für das Dictionary (hier wird vereinfachend angenommen, dass wir pro Zeichen 1 Byte benötigen)
         for (int n = 1; n <= 3; n++) {
             System.out.println("Anzahl der Dictionary-Einträge (für n = " + n + "): " + dictionary.get(n - 1).size());
-            long dictionarySize = 0; // TODO berechnen Sie den Speicherplatz in kB für das Dictionary mit n-Grammen
+            long dictionarySize = 0;
+            // TODO berechnen Sie den Speicherplatz in kB für das Dictionary mit n-Grammen
+            // TODO Hinweis: vermeiden Sie hierbei die Verwendung der Methode toString()
             System.out.println("Speicherbedarf für das Dictionary: " + dictionarySize + " kB");
 
             if (n == 1) {
