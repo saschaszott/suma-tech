@@ -25,8 +25,10 @@ Für Fragen nutzen Sie bitte das Moodle-Diskussionsforum zur Vorlesung.
 
 ## Die Klasse `IndexSizeComparison`
 
-In der Übung soll untersucht werden wieviel Speicherplatz für
-unterschiedliche Typen des invertierten Index benötigt wird.
+In der Übung soll untersucht werden wie viel Speicherplatz für
+unterschiedliche Typen des invertierten Index benötigt wird. Außerdem werden Sie
+einen kurzen praktischen Einblick in das programmatische Testen von Programmcode,
+dem sogenannten _Unit Testing_, unter Verwendung von **JUnit 5** erhalten.
 
 Es werden hierbei vier Indextypen untersucht:
 
@@ -86,40 +88,107 @@ u.a.
 Die Methode `print` ermöglicht die Berechnung und Ausgabe des
 Speicherbedarfs.
 
-## Aufgaben
+## Vorbereitung
 
-Vervollständigen Sie die mit `TODO` im Quelltext gekennzeichneten Stellen, so
-dass der Speicherbedarf für die vier oben genannten Index-Typen vom
-Programm berechnet wird.
-
-Führen Sie anschließend die Klasse `IndexSizeComparison` aus. Das Programm
-gibt den Speicherbedarf für die Felder `title` und `fulltext` aus.
-
-Für diese Übung nutzen wir ein Auswahl von 200 E-Books vom Gutenberg Projekt.
+Für diese Übung nutzen wir eine Auswahl von 200 E-Books vom Gutenberg Projekt.
 Die Auswahl steht in Form einer ZIP-Datei im Moodle-Raum zur Vorlesung unter
-*Übung 3* zum Download zur Verfügung. Laden Sie diese ZIP-Datei herunter (in das
-Verzeichnis `ueb3`) und entpacken Sie die Datei mittels
+*Übung 3* zum Download zur Verfügung. Laden Sie diese ZIP-Datei aus Moodle herunter
+und legen Sie die ZIP-Datei in das Projektverzeichnis `ueb3` (das Verzeichnis, in dem sich
+diese `README.md` befindet). Entpacken Sie die ZIP-Datei anschließend mittels
 
 ```bash
 unzip ueb3-ebooks-sample.zip
 ```
-Anschließend sollte sich im Projektverzeichnis (in dem auch diese `README.md` Datei
-liegt) ein Verzeichnis mit dem Namen `ueb3-ebooks-sample` existieren.
+Anschließend sollte im Projektverzeichnis ein Verzeichnis mit dem Namen `ueb3-ebooks-sample` existieren.
 
-Das Programm können Sie auf der Kommandozeile mit dem Befehl
+## Aufgaben
+
+Das Projekt enthält _Unit Tests_, die automatisch prüfen, ob die von Ihnen vorgenommene
+Implementierung in der Methode `ngrams` korrekt ist. Aufgrund der initial
+unvollständigen Implementierung dieser Methode werden die Tests erst einmal nicht erfolgreich
+durchlaufen.
+
+Sie können die Testausführung direkt in IntelliJ starten, indem Sie einen Rechtsklick
+auf die Testklasse `IndexSizeComparisonTest` durchführen und den Eintrag _Run_
+auswählen. Anschließend werden die in der Testklasse enthaltenen Testmethoden (erkennbar
+an der Annotation `@Test`) nacheinander ausgeführt.
+
+Analog können Sie die Tests auch auf der Kommandozeile starten, indem Sie im
+Projektverzeichnis das folgende Kommando aufrufen:
+
+```
+./mvnw test
+```
+           
+In beiden Fällen sollte Sie folgende Ausgabe erhalten (in IntelliJ etwas gekürzt):
+
+```
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running de.suma.IndexSizeComparisonTest
+[ERROR] Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.107 s <<< FAILURE! - in de.suma.IndexSizeComparisonTest
+[ERROR] generateTrigram  Time elapsed: 0.014 s  <<< ERROR!
+java.lang.NullPointerException
+	at de.suma.IndexSizeComparisonTest.generateTrigram(IndexSizeComparisonTest.java:66)
+
+[ERROR] generateBigram  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at de.suma.IndexSizeComparisonTest.generateBigram(IndexSizeComparisonTest.java:39)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   IndexSizeComparisonTest.generateBigram:39 NullPointer
+[ERROR]   IndexSizeComparisonTest.generateTrigram:66 NullPointer
+[INFO] 
+[ERROR] Tests run: 6, Failures: 0, Errors: 2, Skipped: 0
+```
+
+Beginnen Sie nun mit der Implementierung der fehlenden Teile in der Methode `ngrams`.
+Die Stelle ist im Quellcode mit `TODO` markiert. Sie können jederzeit die Tests erneut ausführen, 
+um zu prüfen, ob die von Ihnen vorgenommene Implementierung der Methode die Spezifikation erfüllt, 
+d.h. tatsächlich die _n_-Gramme einer übergebenen Zeichenkette `textToIndex` berechnet.
+
+Haben Sie eine korrekte Implementierung der Methode `ngrams` vorgenommen, so ergibt die Testausführung 
+folgende Ausgabe:
+
+```
+INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running de.suma.IndexSizeComparisonTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 s - in de.suma.IndexSizeComparisonTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+```
+
+Implementieren Sie nun noch die fehlenden Teile (ebenfalls im Quellcode mit `TODO` gekennzeichnet)
+in der Klasse `IndexSizeStatistics`. In dieser Klasse wird der Speicherbedarf für die vier o.g.
+Indextypen ermittelt.
+
+Führen Sie anschließend die Klasse `IndexSizeComparison` aus. Das Java-Programm
+gibt auf der Standardausgabe den Speicherbedarf für die vier o.g. Indextypen bezogen auf
+die beiden Felder `title` und `fulltext` aus.
+
+Das Java-Programm können Sie in IntelliJ ausführen (Rechtsklick auf die Klasse `IndexSizeComparision`
+und den Eintrag _Run_ auswählen) oder Sie rufen auf der Kommandozeile den Befehl aus:
+
 ```
 $ ./mvnw clean compile exec:java
 ```
-starten. Setzen Sie ggf. vorher die maximale Größe des allokierten Hauptspeichers
-mittels `MAVEN_OPTS` auf 2 GB:
+
+Setzen Sie ggf. vorher die maximale Größe des allokierten Hauptspeichers mittels `MAVEN_OPTS` auf 2 GB:
 ```
 $ export MAVEN_OPTS='-Xmx2G'
 ```
 
-Alternativ können Sie das Programm auch direkt aus IntelliJ IDEA starten.
-Dazu importieren Sie das Projekt unter `2021/ueb3` (als Maven-Projekt). Zum
-Ausführen starten Sie dann die Klasse `de.suma.IndexSizeComparison`.
-
-Diskutieren Sie kurz die vom Programm berechneten Werte für den Speicherbedarf
+Diskutieren Sie die vom Programm berechneten Werte für den Speicherbedarf
 der unterschiedlichen Indexvarianten bezüglich der beiden Indexfelder `title`
-und `fulltext`.
+und `fulltext`. Vergleichen Sie die unterschiedlichen Indextypen bezüglich
+ihrer Speichergröße. Ihre Diskussion fügen Sie bitte in die Datei `answers.txt` ein.
