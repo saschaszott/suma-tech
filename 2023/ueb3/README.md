@@ -127,8 +127,8 @@ In beiden Fällen sollte Sie folgende Ausgabe erhalten (in IntelliJ etwas gekür
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running de.suma.IndexSizeComparisonTest
-[ERROR] Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.13 s <<< FAILURE! - in de.suma.IndexSizeComparisonTest
-[ERROR] generateTrigram  Time elapsed: 0.013 s  <<< ERROR!
+[ERROR] Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.092 s <<< FAILURE! - in de.suma.IndexSizeComparisonTest
+[ERROR] generateTrigram  Time elapsed: 0.014 s  <<< ERROR!
 java.lang.NullPointerException
 	at de.suma.IndexSizeComparisonTest.generateTrigram(IndexSizeComparisonTest.java:66)
 
@@ -137,7 +137,7 @@ java.lang.NullPointerException
 	at de.suma.IndexSizeComparisonTest.generateBigram(IndexSizeComparisonTest.java:39)
 
 [INFO] Running de.suma.TokenizerTest
-[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.009 s - in de.suma.TokenizerTest
+[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.001 s - in de.suma.TokenizerTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -163,10 +163,12 @@ INFO]
 [INFO] -------------------------------------------------------
 [INFO] Running de.suma.IndexSizeComparisonTest
 [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 s - in de.suma.IndexSizeComparisonTest
+[INFO] Running de.suma.TokenizerTest
+[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.001 s - in de.suma.TokenizerTest
 [INFO] 
 [INFO] Results:
 [INFO] 
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 3
 ```
 
 Implementieren Sie nun noch die fehlenden Teile (ebenfalls im Quellcode mit `TODO` gekennzeichnet)
@@ -202,7 +204,7 @@ Jedes so entstehende Token wird anschließend durch einen Lowercasing-Schritt in
 Beispielsweise ergibt das Whitespace-Tokenizing für den Feldwert 
 
 ```
-The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog
 ```
 
 die folgende Liste von Tokens
@@ -298,4 +300,5 @@ String[] tokens = new Tokenizer().getTokensImproved(textToIndex);
 Führen Sie anschließend (analog zu oben) die Klasse `IndexSizeComparison` aus. Vergleichen Sie
 die Ausgabe mit der Ausgabe bei der vorherigen Ausführung der Klasse unter Nutzung der einfachen
 Whitespace-Tokenisierung, bei der bis auf das Lowercasing keine weitere Behandlung der Tokens
-erfolgte. Wie sind die Unterschiede in den berechneten Werten zu erklären?
+erfolgte. Wie sind die Unterschiede in den berechneten Werten zu erklären? Ihre Diskussion 
+fügen Sie bitte ebenfalls in die Datei `answers.txt` ein.
