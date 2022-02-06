@@ -123,13 +123,12 @@ Projektverzeichnis das folgende Kommando aufrufen:
 In beiden Fällen sollte Sie folgende Ausgabe erhalten (in IntelliJ etwas gekürzt):
 
 ```
-[INFO] 
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running de.suma.IndexSizeComparisonTest
-[ERROR] Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.107 s <<< FAILURE! - in de.suma.IndexSizeComparisonTest
-[ERROR] generateTrigram  Time elapsed: 0.014 s  <<< ERROR!
+[ERROR] Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.13 s <<< FAILURE! - in de.suma.IndexSizeComparisonTest
+[ERROR] generateTrigram  Time elapsed: 0.013 s  <<< ERROR!
 java.lang.NullPointerException
 	at de.suma.IndexSizeComparisonTest.generateTrigram(IndexSizeComparisonTest.java:66)
 
@@ -137,6 +136,8 @@ java.lang.NullPointerException
 java.lang.NullPointerException
 	at de.suma.IndexSizeComparisonTest.generateBigram(IndexSizeComparisonTest.java:39)
 
+[INFO] Running de.suma.TokenizerTest
+[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.009 s - in de.suma.TokenizerTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -144,7 +145,7 @@ java.lang.NullPointerException
 [ERROR]   IndexSizeComparisonTest.generateBigram:39 NullPointer
 [ERROR]   IndexSizeComparisonTest.generateTrigram:66 NullPointer
 [INFO] 
-[ERROR] Tests run: 6, Failures: 0, Errors: 2, Skipped: 0
+[ERROR] Tests run: 12, Failures: 0, Errors: 2, Skipped: 3
 ```
 
 Beginnen Sie nun mit der Implementierung der fehlenden Teile in der Methode `ngrams`.
@@ -191,4 +192,110 @@ $ export MAVEN_OPTS='-Xmx2G'
 Diskutieren Sie die vom Programm berechneten Werte für den Speicherbedarf
 der unterschiedlichen Indexvarianten bezüglich der beiden Indexfelder `title`
 und `fulltext`. Vergleichen Sie die unterschiedlichen Indextypen bezüglich
-ihrer Speichergröße. Ihre Diskussion fügen Sie bitte in die Datei `answers.txt` ein.
+ihrer Speichergröße. Wie sind die Unterschiede in den berechneten Werten zu
+erklären? Ihre Diskussion fügen Sie bitte in die Datei `answers.txt` ein.
+
+In der vorliegenden Implementierung wird mittels eines _Whitespace-Tokenizers_ aus dem Feldwert (d.h. aus dem
+Titel oder Volltext) eine Liste von Tokens erzeugt. Hierbei wird der Feldwert an Whitespace-Zeichen aufgespalten.
+Jedes so entstehende Token wird anschließend durch einen Lowercasing-Schritt in Kleinbuchstaben umgewandelt.
+
+Beispielsweise ergibt das Whitespace-Tokenizing für den Feldwert 
+
+```
+The quick brown fox jumps over the lazy dog.
+```
+
+die folgende Liste von Tokens
+
+```
+the
+quick
+brown
+fox
+jumps
+over
+the
+lazy
+dog
+```
+
+Sie sollen nun den Tokenisierungsschritt verbessern. Dazu sollen Sie die Methode `getTokensImproved`
+in der Klasse `Tokenizer` implementieren. Die durchzuführenden Operationen sind als `TODO`-Kommentare
+in der Methode vermerkt.
+
+Um die Korrektheit Ihrer Implementierung sicherzustellen, stehen in der Testklasse `TokenizerTest`
+entsprechende Unit-Tests zur Verfügung. Die Tests laufen aktuell nicht erfolgreich durch und wurden
+deshalb mit der Annotation `@Disabled` versehen. Entfernen Sie die Annotation (dreimal) in der Testklasse
+und führen Sie die Testklasse anschließend aus (analog zur Ausführung von `IndexSizeComparisonTest`).
+
+Es sollte sich folgende Ausgabe ergeben:
+
+```
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running de.suma.IndexSizeComparisonTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.122 s - in de.suma.IndexSizeComparisonTest
+[INFO] Running de.suma.TokenizerTest
+[ERROR] Tests run: 6, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.028 s <<< FAILURE! - in de.suma.TokenizerTest
+[ERROR] testGetTokensImprovedWithMultipleTokensAndParentheses  Time elapsed: 0.014 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <token1> but was: <(token1;>
+	at de.suma.TokenizerTest.testGetTokensImprovedWithMultipleTokensAndParentheses(TokenizerTest.java:47)
+
+[ERROR] testGetTokensImprovedWithMultipleTokens  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <token1> but was: <token1,>
+	at de.suma.TokenizerTest.testGetTokensImprovedWithMultipleTokens(TokenizerTest.java:37)
+
+[ERROR] testGetTokensImprovedWithApostropheS  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <token1> but was: <(token1's,>
+	at de.suma.TokenizerTest.testGetTokensImprovedWithApostropheS(TokenizerTest.java:59)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   TokenizerTest.testGetTokensImprovedWithApostropheS:59 expected: <token1> but was: <(token1's,>
+[ERROR]   TokenizerTest.testGetTokensImprovedWithMultipleTokens:37 expected: <token1> but was: <token1,>
+[ERROR]   TokenizerTest.testGetTokensImprovedWithMultipleTokensAndParentheses:47 expected: <token1> but was: <(token1;>
+[INFO] 
+[ERROR] Tests run: 12, Failures: 3, Errors: 0, Skipped: 0
+```
+              
+Implementieren Sie die Methode `getTokensImproved`. Sie können die Korrektheit Ihrer Implementierung
+jederzeit prüfen, indem Sie die Testklasse erneut ausführen.
+
+Sofern Sie eine korrekte Implementierung erzielt haben, zeigt sich folgende Ausgabe nach der
+Ausführung der Tests:
+
+```
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running de.suma.IndexSizeComparisonTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.09 s - in de.suma.IndexSizeComparisonTest
+[INFO] Running de.suma.TokenizerTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in de.suma.TokenizerTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
+```
+
+Tauschen Sie nun den Aufruf der Tokenizer-Methode innerhalb der Klasse `IndexSizeComparison` aus.
+Dazu ersetzen Sie in der Methode `ngrams` den Aufruf von
+
+```
+String[] tokens = new Tokenizer().getTokens(textToIndex);
+```
+
+durch
+
+```
+String[] tokens = new Tokenizer().getTokensImproved(textToIndex);
+```
+
+Führen Sie anschließend (analog zu oben) die Klasse `IndexSizeComparison` aus. Vergleichen Sie
+die Ausgabe mit der Ausgabe bei der vorherigen Ausführung der Klasse unter Nutzung der einfachen
+Whitespace-Tokenisierung, bei der bis auf das Lowercasing keine weitere Behandlung der Tokens
+erfolgte. Wie sind die Unterschiede in den berechneten Werten zu erklären?
