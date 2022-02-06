@@ -15,9 +15,9 @@ $ ./mvnw clean
 innerhalb des Verzeichnis `ueb3` auf, so dass keine kompilierten `.class`-Dateien 
 im ZIP-Archiv landen.
 
-Anschließend führen Sie folgenden Befehl (im Oberverzeichnis `2021`) aus:
+Anschließend führen Sie folgenden Befehl (im Oberverzeichnis `2023`) aus:
 ```
-$ cd ~/sumatech/suma-tech/2021
+$ cd ~/sumatech/suma-tech/2023
 $ zip -r ueb3.zip ueb3/src ueb3/answers.txt
 ```
 
