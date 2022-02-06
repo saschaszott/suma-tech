@@ -10,10 +10,10 @@ public class IndexSizeComparisonTest {
     @Test
     void generateUnigram() {
         IndexSizeComparison isc = new IndexSizeComparison();
-        String[] unigrams = isc.getUnigrams("The quick brown fox jumps over the lazy dog.");
+        String[] unigrams = isc.getUnigrams("The quick brown fox jumps over the lazy dog");
         assertEquals(9, unigrams.length, "Es sollten 9 Unigramme existieren.");
         assertArrayEquals(
-                new String[]{"The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog."}, unigrams,
+                new String[]{"the", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog"}, unigrams,
                 "Die erzeugten Unigramme sind fehlerhaft.");
     }
 
@@ -35,18 +35,18 @@ public class IndexSizeComparisonTest {
     @Test
     void generateBigram() {
         IndexSizeComparison isc = new IndexSizeComparison();
-        String[] bigrams = isc.getBigrams("The quick brown fox jumps over the lazy dog.");
+        String[] bigrams = isc.getBigrams("The quick brown fox jumps over the lazy dog");
         assertEquals(8, bigrams.length, "Es sollten 8 Bigramme existieren.");
         assertArrayEquals(
                 new String[]{
-                        "The quick",
+                        "the quick",
                         "quick brown",
                         "brown fox",
                         "fox jumps",
                         "jumps over",
                         "over the",
                         "the lazy",
-                        "lazy dog."},
+                        "lazy dog"},
                 bigrams,
                 "Die erzeugten Bigramme sind fehlerhaft.");
     }
@@ -62,17 +62,17 @@ public class IndexSizeComparisonTest {
     @Test
     void generateTrigram() {
         IndexSizeComparison isc = new IndexSizeComparison();
-        String[] trigram = isc.getTrigrams("The quick brown fox jumps over the lazy dog.");
+        String[] trigram = isc.getTrigrams("The quick brown fox jumps over the lazy dog");
         assertEquals(7, trigram.length, "Es sollten 7 Bigramme existieren.");
         assertArrayEquals(
                 new String[]{
-                        "The quick brown",
+                        "the quick brown",
                         "quick brown fox",
                         "brown fox jumps",
                         "fox jumps over",
                         "jumps over the",
                         "over the lazy",
-                        "the lazy dog."},
+                        "the lazy dog"},
                 trigram,
                 "Die erzeugten Trigramme sind fehlerhaft.");
     }
