@@ -4,3 +4,4 @@ target/
 *.iml
 .idea
 target
+/ueb3-ebooks-sample/
