@@ -105,6 +105,6 @@ Zusätzlich wird ein JSON ausgegeben, in dem u.a. Basisverzeichnis, Versionsnumm
 
 Um den Solr-Server herunterzufahren, nutzen Sie folgenden Befehl
 ```
-bin/bash stop
+bin/solr stop
 ```
 
