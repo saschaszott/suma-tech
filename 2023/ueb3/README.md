@@ -2,21 +2,24 @@
 
 ## Vergleich des Speicherbedarfs für Positional Index und Non-Positional Index 
 
-Die Übung kann erneut in Zweierteams bearbeitet werden. Bitte speichern Sie
-Ihre Antworten auf die gestellten Fragen in der Textdatei
+Diese Übung kann erneut in Teams mit bis zu 3 Personen bearbeitet werden. 
+Bitte speichern Sie Ihre Antworten auf die gestellten Fragen in der Textdatei
 `answers.txt`, die ebenfalls im Projektverzeichnis abgelegt ist.
 
 Bitte reichen Sie das gesamte Projekt `ueb3` in Form eines ZIP-Archivs als
 Lösung ein (Upload des ZIP-Archivs im Moodle-Raum zur Vorlesung). Rufen Sie vor 
 dem Erzeugen des ZIP-Archivs den Befehl
-```
+
+```sh
 $ ./mvnw clean
 ```
+
 innerhalb des Verzeichnis `ueb3` auf, so dass keine kompilierten `.class`-Dateien 
 im ZIP-Archiv landen.
 
 Anschließend führen Sie folgenden Befehl (im Oberverzeichnis `2023`) aus:
-```
+
+```sh
 $ cd ~/sumatech/suma-tech/2023
 $ zip -r ueb3.zip ueb3/src ueb3/answers.txt
 ```
