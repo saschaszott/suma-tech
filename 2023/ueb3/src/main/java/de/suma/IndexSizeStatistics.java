@@ -77,8 +77,14 @@ public class IndexSizeStatistics {
         // Speicherbedarf für die Kollektion (hier wird vereinfachend angenommen, dass wir pro Zeichen 1 Byte benutzen)
         System.out.println("Speicherbedarf für die Kollektion mit " + numOfDocs + " Dokumenten: " + Math.round(numOfOverallCharactersInCollection / 1024) + " kB");
 
-        // Speicherbedarf für das Dictionary (hier wird vereinfachend angenommen, dass wir pro Zeichen 1 Byte benötigen)
         for (int n = 1; n <= 3; n++) {
+            // Speicherbedarf für das Dictionary (hier wird vereinfachend angenommen, dass wir pro Zeichen 1 Byte benötigen)
+            int numOfCharactersInAllDictionaryTerms = 0;
+
+            for (String term : dictionary.get(n - 1)) {
+                numOfCharactersInAllDictionaryTerms += term.length();
+            }
+
             System.out.println("Anzahl der Dictionary-Einträge (für n = " + n + "): " + dictionary.get(n - 1).size());
 
             long dictionarySize = 0;
@@ -87,18 +93,18 @@ public class IndexSizeStatistics {
             System.out.println("Speicherbedarf für das Dictionary: " + dictionarySize + " kB");
 
             if (n == 1) {
-                System.out.println("\n\nAnzahl der Positionseinträge in allen Postinglisten: " + numOfPositionsInAllPostingLists);
+                System.out.println("Anzahl der Positionseinträge in allen Postinglisten: " + numOfPositionsInAllPostingLists);
                 // Dokument-ID wird einmal gespeichert; zusätzlich alle Positionen innerhalb des Dokuments, an denen ein Term auftritt
                 // Speicherbedarf für eine Dokument-ID bzw. eine Positionsangabe beträgt 4 Byte (32-Bit int)
-                long positionalIndexSize = dictionarySize + 0; // TODO berechnen Sie den Speicherplatz für den Positional Index in kB
+                long positionalIndexSize = dictionarySize + 0; // TODO berechnen Sie hier den Speicherplatz für den Positional Index in kB
                 System.out.println("Speicherbedarf für Positional Index: " + positionalIndexSize + " kB");
             }
 
             System.out.println("Anzahl der DocId-Einträge in allen Postinglisten (für n = " + n + "): " + numOfDocIdsInAllPostingLists[n - 1]);
             // Speicherbedarf für eine Dokument-ID beträgt 4 Byte (32-Bit int)
-            long nonPositionalIndexSize = dictionarySize + 0; // TODO berechnen Sie den Speicherplatz für den Non-Positional Index in kB mit n-Grammen im Dictionary
+            long nonPositionalIndexSize = dictionarySize + 0; // TODO berechnen Sie hier den Speicherplatz für den Non-Positional Index in kB mit n-Grammen im Dictionary
             System.out.println("Speicherbedarf für Non-Positional Index (für n = " + n + "): " + nonPositionalIndexSize + " kB");
-        }
+       }
 
         System.out.println("");
     }

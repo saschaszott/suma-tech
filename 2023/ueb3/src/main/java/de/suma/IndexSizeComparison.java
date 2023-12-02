@@ -39,7 +39,7 @@ public class IndexSizeComparison {
      *
      * @param fieldName
      */
-    public void determineMemoryConsumption(String fieldName) throws FileNotFoundException {
+    private void determineMemoryConsumption(String fieldName) throws FileNotFoundException {
         GutenbergRDFParser gutenbergRDFParser = new GutenbergRDFParser();
         String dirName = BASE_DIR_NAME + File.separator + DIR_NAME_METADATA;
         File folder = new File(dirName);
@@ -68,7 +68,7 @@ public class IndexSizeComparison {
 
                 for (int n = 1; n <= 3; n++) {
                     // Tokenisierung durchführen
-                    String[] tokens = null;
+                    List<String> tokens = null;
                     switch (n) {
                         case 1:
                             tokens = getUnigrams(textToIndex);
@@ -85,11 +85,11 @@ public class IndexSizeComparison {
                         // beim Positional Index betrachten wir nur Unigramme im Dictionary
 
                         // für jedes Token muss eine Positionsangabe im Positional Index gespeichert werden
-                        stats.addNumOfPositionsInAllPostingLists(tokens.length);
+                        stats.addNumOfPositionsInAllPostingLists(tokens.size());
                     }
 
                     // ermittle die Menge der Terme, die im aktuellen Dokument existieren (jedes Token wird nur einmal berücksichtigt)
-                    Set<String> tokenSet = new HashSet<>(Arrays.asList(tokens));
+                    Set<String> tokenSet = new HashSet<>(tokens);
 
                     // füge ggf. neu auftretende Terme zum Dictionary hinzu
                     stats.getDictionary(n).addAll(tokenSet);
@@ -146,40 +146,44 @@ public class IndexSizeComparison {
         return fulltextStr;
     }
 
-    public String[] getUnigrams(String textToIndex) {
+    public List<String> getUnigrams(String textToIndex) {
         return ngrams(1, textToIndex);
     }
 
-    public String[] getBigrams(String textToIndex) {
+    public List<String> getBigrams(String textToIndex) {
         return ngrams(2, textToIndex);
     }
 
-    public String[] getTrigrams(String textToIndex) {
+    public List<String> getTrigrams(String textToIndex) {
         return ngrams(3, textToIndex);
     }
 
     /**
      * Ermittelt alle n-Gramme für den übergebenen Text.
-     * Ein n-Gramm besteht hierbei aus n aufeinanderfolgenden Token.
+     * Ein n-Gramm besteht hierbei aus n aufeinanderfolgenden Token, wobei die Token durch Leerzeichen getrennt werden.
      * @param n
      * @param textToIndex
      * @return
      */
-    private String[] ngrams(int n, String textToIndex) {
+    private List<String> ngrams(int n, String textToIndex) {
         String[] tokens = new Tokenizer().getTokens(textToIndex);
 
         if (n == 1) {
-            return tokens;
+            return Arrays.asList(tokens);
         }
         if (tokens.length - n < 0) {
-            // es können keine n-Gramme gebildet werden, da der übergebene Text zu kurz ist
-            return new String[0];
+            // es können keine n-Gramme aus textToIndex gebildet werden, da der textToIndex zu kurz ist
+            return Collections.EMPTY_LIST;
         }
 
-        // TODO berechnen Sie die n-Gramme (beliebiges n mit n > 1) für den übergebenen Text textToIndex
-        // TODO beachten Sie, dass die Methode für beliebiges n die korrekte Liste der n-Gramme berechnet
-        // TODO ein n-Gramm ist eine Folge von n aufeinanderfolgenden Token in textToIndex
-        // TODO Token sind hierbei zusammenhängende Zeichenketten, die durch Leerzeichen vom vorherigen bzw. nachfolgenden Token getrennt sind
-        return null; // TODO entfernen und durch das von ihnen berechnete Ergebnis ersetzen
+        // berechnen Sie im nachfolgenden TODO die n-Gramme (n > 1) für den übergebenen Text in textToIndex
+        // ein n-Gramm ist hierbei eine Folge von n aufeinanderfolgenden Token (jeweils durch Leerzeichen getrennt)
+        List<String> ngrams = new ArrayList<>();
+
+        // TODO
+        // TODO hier fügen Sie die Berechnung ein und speichern das Ergebnis in ngrams
+        // TODO
+
+        return ngrams;
     }
 }
