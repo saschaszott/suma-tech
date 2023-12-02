@@ -103,7 +103,7 @@ Die Auswahl steht in Form einer ZIP-Datei im Moodle-Raum zur Vorlesung unter
 und legen Sie die ZIP-Datei in das Projektverzeichnis `ueb3` (das Verzeichnis, in dem sich
 diese `README.md` befindet). Entpacken Sie die ZIP-Datei anschließend mittels
 
-```bash
+```sh
 unzip ueb3-ebooks-sample.zip
 ```
 Anschließend sollte im Projektverzeichnis ein Verzeichnis mit dem Namen `ueb3-ebooks-sample` existieren.
@@ -123,36 +123,37 @@ an der Annotation `@Test`) nacheinander ausgeführt.
 Analog können Sie die Tests auch auf der Kommandozeile starten, indem Sie im
 Projektverzeichnis das folgende Kommando aufrufen:
 
-```
+```sh
 ./mvnw test
 ```
            
 In beiden Fällen sollte Sie folgende Ausgabe erhalten (in IntelliJ etwas gekürzt):
 
 ```
+[INFO] 
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running de.suma.IndexSizeComparisonTest
-[ERROR] Tests run: 6, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.092 s <<< FAILURE! - in de.suma.IndexSizeComparisonTest
-[ERROR] generateTrigram  Time elapsed: 0.014 s  <<< ERROR!
-java.lang.NullPointerException
-	at de.suma.IndexSizeComparisonTest.generateTrigram(IndexSizeComparisonTest.java:66)
-
-[ERROR] generateBigram  Time elapsed: 0.002 s  <<< ERROR!
-java.lang.NullPointerException
-	at de.suma.IndexSizeComparisonTest.generateBigram(IndexSizeComparisonTest.java:39)
-
 [INFO] Running de.suma.TokenizerTest
-[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.001 s - in de.suma.TokenizerTest
+[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.092 s - in de.suma.TokenizerTest
+[INFO] Running de.suma.IndexSizeComparisonTest
+[ERROR] Tests run: 6, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.037 s <<< FAILURE! - in de.suma.IndexSizeComparisonTest
+[ERROR] generateTrigram  Time elapsed: 0.018 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Es sollten 7 Bigramme existieren. ==> expected: <7> but was: <0>
+        at de.suma.IndexSizeComparisonTest.generateTrigram(IndexSizeComparisonTest.java:69)
+
+[ERROR] generateBigram  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Es sollten 8 Bigramme existieren. ==> expected: <8> but was: <0>
+        at de.suma.IndexSizeComparisonTest.generateBigram(IndexSizeComparisonTest.java:42)
+
 [INFO] 
 [INFO] Results:
 [INFO] 
-[ERROR] Errors: 
-[ERROR]   IndexSizeComparisonTest.generateBigram:39 NullPointer
-[ERROR]   IndexSizeComparisonTest.generateTrigram:66 NullPointer
+[ERROR] Failures: 
+[ERROR]   IndexSizeComparisonTest.generateBigram:42 Es sollten 8 Bigramme existieren. ==> expected: <8> but was: <0>
+[ERROR]   IndexSizeComparisonTest.generateTrigram:69 Es sollten 7 Bigramme existieren. ==> expected: <7> but was: <0>
 [INFO] 
-[ERROR] Tests run: 12, Failures: 0, Errors: 2, Skipped: 3
+[ERROR] Tests run: 12, Failures: 2, Errors: 0, Skipped: 3
 ```
 
 Beginnen Sie nun mit der Implementierung der fehlenden Teile in der Methode `ngrams`.
@@ -294,13 +295,13 @@ Ausführung der Tests:
 Tauschen Sie nun den Aufruf der Tokenizer-Methode innerhalb der Klasse `IndexSizeComparison` aus.
 Dazu ersetzen Sie in der Methode `ngrams` den Aufruf von
 
-```
+```java
 String[] tokens = new Tokenizer().getTokens(textToIndex);
 ```
 
 durch
 
-```
+```java
 String[] tokens = new Tokenizer().getTokensImproved(textToIndex);
 ```
 
