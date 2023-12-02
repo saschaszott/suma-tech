@@ -42,7 +42,7 @@ Es werden hierbei vier Indextypen untersucht:
 
 Zur Bestimmung des Speicherbedarfs verwenden wir die bereits aus 
 der vorherigen Übung bekannte Dokumentkollektion, diesmal allerdings
-beschränkt auf 200 freie E-Books aus dem Gutenberg-Projekt.
+beschränkt auf 180 freie E-Books aus dem Gutenberg-Projekt.
 
 Der Speicherbedarf beim **Non-Positional Index** entsteht durch 
 das Dictionary, in dem jeder Term der Kollektion gespeichert wird.
@@ -93,7 +93,7 @@ Speicherbedarfs.
 
 ## Vorbereitung
 
-Für diese Übung nutzen wir eine Auswahl von 200 E-Books vom Gutenberg Projekt.
+Für diese Übung nutzen wir eine Auswahl von 180 E-Books vom Gutenberg Projekt.
 Die Auswahl steht in Form einer ZIP-Datei im Moodle-Raum zur Vorlesung unter
 *Übung 3* zum Download zur Verfügung. Laden Sie diese ZIP-Datei aus Moodle herunter
 und legen Sie die ZIP-Datei in das Projektverzeichnis `ueb3` (das Verzeichnis, in dem sich
