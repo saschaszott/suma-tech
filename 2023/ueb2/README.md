@@ -46,18 +46,18 @@ Definieren Sie zwei weitere Feldtypen:
 
 Erweitern Sie nun das Indexschema um folgende Indexfelder:
 
-| Feldname | Feldtyp | Unterstützt Suche? | Erlaubt Ausgabe? | Mehrwertig? |
-|----------|---------|--------------------|------------------|-------------|
-| `title_stemmed`      | `text_de` | ja | nein | nein |
-| `author`             | `text_general` | ja | nein | nein |
-| `author_exact`       | `string` | ja | ja | nein |
-| `authorWikipediaURL` | `string` | nein | ja | nein |
-| `numOfDownloadsLast30Days` | `pint` | ja | ja | nein |
-| `docType`            | `string` | ja | ja | nein |
-| `fulltext`           | `text_general` | ja | nein | nein |
-| `fulltext_stemmed`   | `text_de` | ja | nein | nein |
-| `languages`          | `string` | ja | ja | ja |
-| `subjectHeadings`    | `text_general` | ja | ja | ja | nein |
+| Feldname | Feldtyp | Unterstützt Suche? | Erlaubt Ausgabe? | Mehrwertig? | Pflichtfeld / "required"? |
+|----------|---------|--------------------|------------------|-------------|---------------------------|
+| `title_stemmed`      | `text_de` | ja | nein | nein | ja |
+| `author`             | `text_general` | ja | nein | nein | nein |
+| `author_exact`       | `string` | ja | ja | nein | nein |
+| `authorWikipediaURL` | `string` | nein | ja | nein | nein |
+| `numOfDownloadsLast30Days` | `pint` | ja | ja | nein | nein |
+| `docType`            | `string` | ja | ja | nein | nein |
+| `fulltext`           | `text_general` | ja | nein | nein | nein |
+| `fulltext_stemmed`   | `text_de` | ja | nein | nein | nein |
+| `languages`          | `string` | ja | ja | ja | nein |
+| `subjectHeadings`    | `text_general` | ja | ja | ja | nein | nein |
 
 Starten Sie anschließend den Solr-Server neu, um die Änderungen an der
 Indexschemakonfiguration `schema.xml` zu übernehmen. Prüfen Sie, dass die
