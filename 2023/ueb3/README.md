@@ -44,6 +44,16 @@ Es werden hierbei vier Indextypen untersucht:
 * Non-Positional Index mit Zwei-Term-Dictionary (Biword-Index)
 * Non-Positional Index mit Drei-Term-Dictionary (Triword-Index)
 
+Bitte beachten Sie, dass statt Uniword in der Literatur auch die Bezeichnung
+(Word-)Unigramm verwendet wird. Analog werden Biwords als (Word-)Bigramme und 
+Triwords als (Word-)Trigramme bezeichnet. Es sollte stets aus dem Kontext
+klar sein, ob ein _n-Gramm_ eine Folge von Zeichen (wie im _k_-Gramm-Index)
+oder eine Folge von Wörtern (wie im _k_-Word-Index) bezeichnet.
+
+Im vorliegenden Java-Code werden die englischen Bezeichnungen 
+_Unigram_, _Bigram_ sowie _Trigram_ verwendet, um einzelne Terme,
+Term-Paare bzw. Term-Tripel zu bezeichnen.
+
 Zur Bestimmung des Speicherbedarfs verwenden wir die bereits aus 
 der vorherigen Übung bekannte Dokumentkollektion, diesmal allerdings
 beschränkt auf 180 freie E-Books aus dem Gutenberg-Projekt.
