@@ -24,6 +24,10 @@ $ cd ~/sumatech/suma-tech/2023
 $ zip -r ueb3.zip ueb3/src ueb3/answers.txt
 ```
 
+Das dadurch erzeugte ZIP-Archiv `ueb3.zip` laden Sie bitte im Moodle-Raum zur Vorlesung hoch.
+Reichen Sie bitte pro Team nur eine Lösung ein und vermerken Sie in der Datei `answers.txt`
+die Namen der Team-Mitglieder.
+
 Für Fragen nutzen Sie bitte das Moodle-Diskussionsforum zur Vorlesung.
 
 ## Die Klasse `IndexSizeComparison`
