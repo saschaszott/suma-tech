@@ -52,11 +52,11 @@ Erweitern Sie nun das Indexschema um folgende Indexfelder:
 | `author`             | `text_general` | ja | nein | nein | nein |
 | `author_exact`       | `string` | ja | ja | nein | nein |
 | `authorWikipediaURL` | `string` | nein | ja | nein | nein |
-| `numOfDownloadsLast30Days` | `pint` | ja | ja | nein | nein |
-| `docType`            | `string` | ja | ja | nein | nein |
-| `fulltext`           | `text_general` | ja | nein | nein | nein |
-| `fulltext_stemmed`   | `text_de` | ja | nein | nein | nein |
-| `languages`          | `string` | ja | ja | ja | nein |
+| `numOfDownloadsLast30Days` | `pint` | ja | ja | nein | ja |
+| `docType`            | `string` | ja | ja | nein | ja |
+| `fulltext`           | `text_general` | ja | nein | nein | ja |
+| `fulltext_stemmed`   | `text_de` | ja | nein | nein | ja |
+| `languages`          | `string` | ja | ja | ja | ja |
 | `subjectHeadings`    | `text_general` | ja | ja | ja | nein | nein |
 
 Starten Sie anschließend den Solr-Server neu, um die Änderungen an der
