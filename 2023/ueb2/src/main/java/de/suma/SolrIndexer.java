@@ -92,7 +92,7 @@ public class SolrIndexer {
         document.addField("title", gutenbergDoc.getTitle());
         document.addField("title_stemmed", gutenbergDoc.getTitle());
 
-        // TODO Abbildung der Daten im übergebenenen GutenbergDoc auf die Indexfelder vervollständigen
+        // TODO Abbildung der Daten im übergebenen GutenbergDoc auf die Indexfelder vervollständigen
 
         String fulltext = getFulltext(gutenbergDoc.getDocId());
         // TODO Volltext indexieren (in den Indexfeldern fulltext und fulltext_stemmed ablegen)
