@@ -67,7 +67,7 @@ public class IndexSizeStatistics {
         numOfDocs++;
     }
 
-    public long getSizeOfNWordDictionary(int n) {
+    public long getSizeOfNWordDictionaryInBytes(int n) {
         // Speicherbedarf für das Dictionary, wobei hier vereinfachend angenommen wird, dass pro Zeichen 1 Byte benötigt wird
         int numOfCharactersInAllDictionaryTerms = 0;
         for (String term : dictionary.get(n - 1)) {
@@ -81,7 +81,7 @@ public class IndexSizeStatistics {
         return 0;
     }
 
-    public long getOverallSizeOfPositionalIndex(long dictionarySize) {
+    public long getOverallSizeOfPositionalIndexInBytes(long dictionarySize) {
         // in der Postingliste eines Terms t: Dokument-ID wird einmal gespeichert; zusätzlich alle Positionen innerhalb des Dokuments, an denen Term t auftritt
         // Speicherbedarf für eine Dokument-ID bzw. eine Positionsangabe beträgt 4 Byte (32-Bit int)
 
@@ -91,7 +91,7 @@ public class IndexSizeStatistics {
         return positionalIndexSize;
     }
 
-    public long getOverallSizeOfNonPositionalNWordIndex(int n, long dictionarySize) {
+    public long getOverallSizeOfNonPositionalNWordIndexInBytes(int n, long dictionarySize) {
         // Speicherbedarf für eine Dokument-ID beträgt 4 Byte (32-Bit int)
 
         // TODO berechnen Sie hier den Speicherplatz für den Non-Positional Index in kB
@@ -101,27 +101,31 @@ public class IndexSizeStatistics {
         return nonPositionalIndexSize;
     }
 
+    private long convertToKiloByte(long valueInBytes) {
+        return Math.round(valueInBytes / 1024.0);
+    }
+
     public void print() {
         System.out.println("~~~~~~~~~~~~ Auswertung für das Feld " + fieldName + " ~~~~~~~~~~~~\n");
 
         // Speicherbedarf für die Kollektion (hier wird vereinfachend angenommen, dass wir pro Zeichen 1 Byte benutzen)
-        System.out.println("Speicherbedarf für die Kollektion mit " + numOfDocs + " Dokumenten: " + Math.round(numOfOverallCharactersInCollection / 1024) + " kB");
+        System.out.println("Speicherbedarf für die Kollektion mit " + numOfDocs + " Dokumenten: " + convertToKiloByte(numOfOverallCharactersInCollection) + " kB");
 
         for (int n = 1; n <= 3; n++) {
             System.out.println("Anzahl der Dictionary-Einträge (für n = " + n + "): " + dictionary.get(n - 1).size());
 
-            long dictionarySize = getSizeOfNWordDictionary(n);
-            System.out.println("Speicherbedarf für das Dictionary: " + dictionarySize + " kB");
+            long dictionarySize = getSizeOfNWordDictionaryInBytes(n);
+            System.out.println("Speicherbedarf für das Dictionary: " + convertToKiloByte(dictionarySize) + " kB");
 
             if (n == 1) {
                 System.out.println("Anzahl der Positionseinträge in allen Postinglisten: " + numOfPositionsInAllPostingLists);
-                System.out.println("Speicherbedarf für Positional Index: " + getOverallSizeOfPositionalIndex(dictionarySize) + " kB");
+                System.out.println("Speicherbedarf für Positional Index: " + convertToKiloByte(getOverallSizeOfPositionalIndexInBytes(dictionarySize)) + " kB");
             }
 
             System.out.println("Anzahl der DocId-Einträge in allen Postinglisten (für n = " + n + "): " + numOfDocIdsInAllPostingLists[n - 1]);
 
-            System.out.println("Speicherbedarf für Non-Positional Index (für n = " + n + "): " + getOverallSizeOfNonPositionalNWordIndex(n, dictionarySize) + " kB");
-       }
+            System.out.println("Speicherbedarf für Non-Positional Index (für n = " + n + "): " + convertToKiloByte(getOverallSizeOfNonPositionalNWordIndexInBytes(n, dictionarySize)) + " kB");
+        }
 
         System.out.println("");
     }
