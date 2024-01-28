@@ -120,50 +120,61 @@ Anschließend sollte im Projektverzeichnis ein Verzeichnis mit dem Namen `ueb3-e
 
 ## Aufgaben
 
+### Vervollständigung der Klasse `IndexSizeComparison`
+                           
+Wir beschäftigen uns zuerst mit der Implementierung der fehlenden Teile der 
+Klasse `IndexSizeComparison`. Diese sind in der Klasse mit `TODO` markiert.
+
 Das Projekt enthält _Unit Tests_, die automatisch prüfen, ob die von Ihnen vorgenommene
 Implementierung in der Methode `ngrams` korrekt ist. Aufgrund der initial
-unvollständigen Implementierung dieser Methode werden die Tests erst einmal nicht erfolgreich
-durchlaufen.
+unvollständigen Implementierung dieser Methode werden die Tests erst einmal 
+nicht erfolgreich durchlaufen.
 
 Sie können die Testausführung direkt in IntelliJ starten, indem Sie einen Rechtsklick
 auf die Testklasse `IndexSizeComparisonTest` durchführen und den Eintrag _Run_
 auswählen. Anschließend werden die in der Testklasse enthaltenen Testmethoden (erkennbar
 an der Annotation `@Test`) nacheinander ausgeführt.
 
-Analog können Sie die Tests auch auf der Kommandozeile starten, indem Sie im
-Projektverzeichnis das folgende Kommando aufrufen:
+Analog können Sie die Tests in der Klasse `IndexSizeComparisonTest` auch auf der Kommandozeile
+starten, indem Sie im Projektverzeichnis das folgende Kommando aufrufen:
 
 ```sh
-./mvnw test
+./mvnw -Dtest=IndexSizeComparisonTest test
 ```
            
 In beiden Fällen sollte Sie folgende Ausgabe erhalten (in IntelliJ etwas gekürzt):
 
 ```
-[INFO] 
+[INFO]
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running de.suma.TokenizerTest
-[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.092 s - in de.suma.TokenizerTest
 [INFO] Running de.suma.IndexSizeComparisonTest
-[ERROR] Tests run: 6, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.037 s <<< FAILURE! - in de.suma.IndexSizeComparisonTest
-[ERROR] generateTrigram  Time elapsed: 0.018 s  <<< FAILURE!
+[ERROR] Tests run: 6, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.157 s <<< FAILURE! - in de.suma.IndexSizeComparisonTest
+[ERROR] generateTrigram  Time elapsed: 0.02 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: Es sollten 7 Bigramme existieren. ==> expected: <7> but was: <0>
-        at de.suma.IndexSizeComparisonTest.generateTrigram(IndexSizeComparisonTest.java:69)
+	at de.suma.IndexSizeComparisonTest.generateTrigram(IndexSizeComparisonTest.java:69)
 
-[ERROR] generateBigram  Time elapsed: 0.003 s  <<< FAILURE!
+[ERROR] generateBigram  Time elapsed: 0.002 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: Es sollten 8 Bigramme existieren. ==> expected: <8> but was: <0>
-        at de.suma.IndexSizeComparisonTest.generateBigram(IndexSizeComparisonTest.java:42)
+	at de.suma.IndexSizeComparisonTest.generateBigram(IndexSizeComparisonTest.java:42)
 
-[INFO] 
+[INFO]
 [INFO] Results:
-[INFO] 
-[ERROR] Failures: 
+[INFO]
+[ERROR] Failures:
 [ERROR]   IndexSizeComparisonTest.generateBigram:42 Es sollten 8 Bigramme existieren. ==> expected: <8> but was: <0>
 [ERROR]   IndexSizeComparisonTest.generateTrigram:69 Es sollten 7 Bigramme existieren. ==> expected: <7> but was: <0>
-[INFO] 
-[ERROR] Tests run: 12, Failures: 2, Errors: 0, Skipped: 3
+[INFO]
+[ERROR] Tests run: 6, Failures: 2, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 5.684 s
+[INFO] Finished at: 2024-01-28T16:03:16+01:00
+[INFO] Final Memory: 10M/40M
+[INFO] ------------------------------------------------------------------------
 ```
 
 Beginnen Sie nun mit der Implementierung der fehlenden Teile in der Methode `ngrams`.
@@ -175,29 +186,148 @@ Haben Sie eine korrekte Implementierung der Methode `ngrams` vorgenommen, so erg
 folgende Ausgabe:
 
 ```
-INFO] 
+[INFO]
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running de.suma.IndexSizeComparisonTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 s - in de.suma.IndexSizeComparisonTest
-[INFO] Running de.suma.TokenizerTest
-[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.001 s - in de.suma.TokenizerTest
-[INFO] 
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.124 s - in de.suma.IndexSizeComparisonTest
+[INFO]
 [INFO] Results:
-[INFO] 
-[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 3
+[INFO]
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 6.401 s
+[INFO] Finished at: 2024-01-28T16:09:17+01:00
+[INFO] Final Memory: 14M/54M
+[INFO] ------------------------------------------------------------------------
 ```
 
-Implementieren Sie nun noch die fehlenden Teile (ebenfalls im Quellcode mit `TODO` gekennzeichnet)
-in der Klasse `IndexSizeStatistics`. In dieser Klasse wird der Speicherbedarf für die vier o.g.
-Indextypen ermittelt.
+### Vervollständigung der Klasse `IndexSizeStatistics`
 
-Führen Sie anschließend die Klasse `IndexSizeComparison` aus. Das Java-Programm
-gibt auf der Standardausgabe den Speicherbedarf für die vier o.g. Indextypen bezogen auf
+In der Klasse `IndexSizeStatistics` wird der Speicherbedarf für die vier o.g.
+Indextypen ermittelt. Mehrere Methoden in dieser Klasse sind mit `TODO` markiert
+und müssen von Ihnen implementiert werden.
+
+Auch für diese Klasse stehen _Unit Tests_ in der Klasse `IndexSizeStatisticsTest` zur Verfügung.
+Sie können die Testfälle in dieser Testklasse direkt in IntelliJ starten, indem Sie einen Rechtsklick
+auf die Testklasse `IndexSizeStatisticsTest` durchführen und den Eintrag _Run_
+auswählen. Anschließend werden die in der Testklasse enthaltenen Testmethoden (erkennbar
+an der Annotation `@Test`) nacheinander ausgeführt.
+
+Analog können Sie die Tests in der Klasse `IndexSizeStatisticsTest` auch auf der Kommandozeile
+starten, indem Sie im Projektverzeichnis das folgende Kommando aufrufen:
+
+```sh
+./mvnw -Dtest=IndexSizeStatisticsTest test
+```
+
+In beiden Fällen sollte Sie folgende Ausgabe erhalten (in IntelliJ etwas gekürzt):
+
+```
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running de.suma.IndexSizeStatisticsTest
+[ERROR] Tests run: 7, Failures: 7, Errors: 0, Skipped: 0, Time elapsed: 0.201 s <<< FAILURE! - in de.suma.IndexSizeStatisticsTest
+[ERROR] testNonPositionalTriwordIndexWithSingleDoc  Time elapsed: 0.136 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Die Speichergröße des Non-Positional Triword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Tripeln) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
+	at de.suma.IndexSizeStatisticsTest.testNonPositionalTriwordIndexWithSingleDoc(IndexSizeStatisticsTest.java:107)
+
+[ERROR] testPositionalIndexSizeWithSingleDoc  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Die Speichergröße des Positional Index ergibt sich als Summe aus der Speichergröße des Term-Dictionary sowie der Speichergröße für die DocIds in allen Positinglisten sowie der Speichergröße für die Positionsangaben. ==> expected: <98> but was: <0>
+	at de.suma.IndexSizeStatisticsTest.testPositionalIndexSizeWithSingleDoc(IndexSizeStatisticsTest.java:59)
+
+[ERROR] testDictionarySizeOfUniwordIndex  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Es gibt 8 unterschiedliche Terme im Term-Dictionary, die aus insgesamt 26 Zeichen bestehen. ==> expected: <26> but was: <0>
+	at de.suma.IndexSizeStatisticsTest.testDictionarySizeOfUniwordIndex(IndexSizeStatisticsTest.java:23)
+
+[ERROR] testNonPositionalUniwordIndexWithSingleDoc  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Die Speichergröße des Non-Positional Uniword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus einzelnen Termen) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
+	at de.suma.IndexSizeStatisticsTest.testNonPositionalUniwordIndexWithSingleDoc(IndexSizeStatisticsTest.java:75)
+
+[ERROR] testDictionarySizeOfBiwordIndex  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Es gibt 8 Biwords und die Gesamtzahl der Zeichen in allen Biwords ist 54, wobei pro Biword ein Leerzeichen mitzuzählen ist. ==> expected: <54> but was: <0>
+	at de.suma.IndexSizeStatisticsTest.testDictionarySizeOfBiwordIndex(IndexSizeStatisticsTest.java:34)
+
+[ERROR] testDictionarySizeOfTriwordIndex  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Es gibt 8 Triwords und die Gesamtzahl der Zeichen in allen Triwords ist 65, wobei pro Triword zwei Leerzeichen mitzuzählen sind. ==> expected: <81> but was: <0>
+	at de.suma.IndexSizeStatisticsTest.testDictionarySizeOfTriwordIndex(IndexSizeStatisticsTest.java:45)
+
+[ERROR] testNonPositionalBiwordIndexWithSingleDoc  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Die Speichergröße des Non-Positional Biword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Paaren) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
+	at de.suma.IndexSizeStatisticsTest.testNonPositionalBiwordIndexWithSingleDoc(IndexSizeStatisticsTest.java:91)
+
+[INFO]
+[INFO] Results:
+[INFO]
+[ERROR] Failures:
+[ERROR]   IndexSizeStatisticsTest.testDictionarySizeOfBiwordIndex:34 Es gibt 8 Biwords und die Gesamtzahl der Zeichen in allen Biwords ist 54, wobei pro Biword ein Leerzeichen mitzuzählen ist. ==> expected: <54> but was: <0>
+[ERROR]   IndexSizeStatisticsTest.testDictionarySizeOfTriwordIndex:45 Es gibt 8 Triwords und die Gesamtzahl der Zeichen in allen Triwords ist 65, wobei pro Triword zwei Leerzeichen mitzuzählen sind. ==> expected: <81> but was: <0>
+[ERROR]   IndexSizeStatisticsTest.testDictionarySizeOfUniwordIndex:23 Es gibt 8 unterschiedliche Terme im Term-Dictionary, die aus insgesamt 26 Zeichen bestehen. ==> expected: <26> but was: <0>
+[ERROR]   IndexSizeStatisticsTest.testNonPositionalBiwordIndexWithSingleDoc:91 Die Speichergröße des Non-Positional Biword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Paaren) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
+[ERROR]   IndexSizeStatisticsTest.testNonPositionalTriwordIndexWithSingleDoc:107 Die Speichergröße des Non-Positional Triword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Tripeln) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
+[ERROR]   IndexSizeStatisticsTest.testNonPositionalUniwordIndexWithSingleDoc:75 Die Speichergröße des Non-Positional Uniword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus einzelnen Termen) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
+[ERROR]   IndexSizeStatisticsTest.testPositionalIndexSizeWithSingleDoc:59 Die Speichergröße des Positional Index ergibt sich als Summe aus der Speichergröße des Term-Dictionary sowie der Speichergröße für die DocIds in allen Positinglisten sowie der Speichergröße für die Positionsangaben. ==> expected: <98> but was: <0>
+[INFO]
+[ERROR] Tests run: 7, Failures: 7, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 9.560 s
+[INFO] Finished at: 2024-01-28T16:43:15+01:00
+[INFO] Final Memory: 14M/50M
+[INFO] ------------------------------------------------------------------------
+```
+
+Wie Sie der Ausgabe entnehmen können, scheitern anfänglich die 7 Testfälle in der
+Testklasse `IndexSizeStatisticsTest`.
+
+Implementieren Sie nun die fehlenden Teile in der Klasse `IndexSizeStatistics`.
+Die Stellen sind im Quellcode mit `TODO` markiert. Sie können jederzeit die Tests erneut ausführen,
+um zu prüfen, ob die von Ihnen vorgenommene Implementierung korrekt ist.
+
+Haben Sie eine korrekte Implementierung vorgenommen, so ergibt die Testausführung
+folgende Ausgabe:
+
+```
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running de.suma.IndexSizeStatisticsTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.106 s - in de.suma.IndexSizeStatisticsTest
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 5.363 s
+[INFO] Finished at: 2024-01-28T17:09:21+01:00
+[INFO] Final Memory: 14M/50M
+[INFO] ------------------------------------------------------------------------
+```
+       
+### Ermittlung der unterschiedlichen Indexgrößen für die vorgegebene Testkollektion
+
+Nachdem Sie die fehlenden Teile in der Klassen `IndexSizeComparison` und `IndexSizeStatistics`
+implementiert haben (und die _Unit Tests_ erfolgreich durchlaufen werden), können Sie
+die unterschiedlichen Indexgrößen für die vorgegebene Testkollektion mittels des Java-Programms
+berechnen.
+
+Führen Sie dazu die Klasse `IndexSizeComparison` aus (hierbei wird die Methode `main` gestartet). 
+Das Java-Programm gibt auf der Standardausgabe den Speicherbedarf für die vier o.g. Indextypen bezogen auf
 die beiden Felder `title` und `fulltext` aus.
 
-Das Java-Programm können Sie in IntelliJ ausführen (Rechtsklick auf die Klasse `IndexSizeComparision`
+Das Java-Programm können Sie direkt in IntelliJ ausführen (Rechtsklick auf die Klasse `IndexSizeComparision`
 und den Eintrag _Run_ auswählen) oder Sie rufen auf der Kommandozeile den Befehl aus:
 
 ```
@@ -208,16 +338,67 @@ Setzen Sie ggf. vorher die maximale Größe des allokierten Hauptspeichers mitte
 ```
 $ export MAVEN_OPTS='-Xmx2G'
 ```
+           
+Die Programm sollte für die Testkollektion aus 180 Dokumenten folgende Ausgabe generieren:
 
-Diskutieren Sie die vom Programm berechneten Werte für den Speicherbedarf
-der unterschiedlichen Indexvarianten bezüglich der beiden Indexfelder `title`
-und `fulltext`. Vergleichen Sie die unterschiedlichen Indextypen bezüglich
-ihrer Speichergröße. Wie sind die Unterschiede in den berechneten Werten zu
-erklären? Ihre Diskussion fügen Sie bitte in die Datei `answers.txt` ein.
+```
+~~~~~~~~~~~~ Auswertung für das Feld title ~~~~~~~~~~~~
 
-In der vorliegenden Implementierung wird mittels eines _Whitespace-Tokenizers_ aus dem Feldwert (d.h. aus dem
-Titel oder Volltext) eine Liste von Tokens erzeugt. Hierbei wird der Feldwert an Whitespace-Zeichen aufgespalten.
-Jedes so entstehende Token wird anschließend durch einen Lowercasing-Schritt in Kleinbuchstaben umgewandelt.
+Speicherbedarf für die Kollektion mit 180 Dokumenten: 8 kB
+Anzahl der Dictionary-Einträge (für n = 1): 655
+Speicherbedarf für das Dictionary: 5 kB
+Anzahl der Positionseinträge in allen Postinglisten: 1135
+Speicherbedarf für Positional Index: 14 kB
+Anzahl der DocId-Einträge in allen Postinglisten (für n = 1): 1089
+Speicherbedarf für Non-Positional Index (für n = 1): 9 kB
+Anzahl der Dictionary-Einträge (für n = 2): 890
+Speicherbedarf für das Dictionary: 12 kB
+Anzahl der DocId-Einträge in allen Postinglisten (für n = 2): 950
+Speicherbedarf für Non-Positional Index (für n = 2): 15 kB
+Anzahl der Dictionary-Einträge (für n = 3): 765
+Speicherbedarf für das Dictionary: 15 kB
+Anzahl der DocId-Einträge in allen Postinglisten (für n = 3): 787
+Speicherbedarf für Non-Positional Index (für n = 3): 18 kB
+
+~~~~~~~~~~~~ Auswertung für das Feld fulltext ~~~~~~~~~~~~
+
+Speicherbedarf für die Kollektion mit 180 Dokumenten: 44804 kB
+Anzahl der Dictionary-Einträge (für n = 1): 448736
+Speicherbedarf für das Dictionary: 4383 kB
+Anzahl der Positionseinträge in allen Postinglisten: 6934957
+Speicherbedarf für Positional Index: 38200 kB
+Anzahl der DocId-Einträge in allen Postinglisten (für n = 1): 1722079
+Speicherbedarf für Non-Positional Index (für n = 1): 11110 kB
+Anzahl der Dictionary-Einträge (für n = 2): 2926307
+Speicherbedarf für das Dictionary: 40813 kB
+Anzahl der DocId-Einträge in allen Postinglisten (für n = 2): 5180610
+Speicherbedarf für Non-Positional Index (für n = 2): 61049 kB
+Anzahl der Dictionary-Einträge (für n = 3): 5382021
+Speicherbedarf für das Dictionary: 99940 kB
+Anzahl der DocId-Einträge in allen Postinglisten (für n = 3): 6600747
+Speicherbedarf für Non-Positional Index (für n = 3): 125724 kB
+```
+             
+### Diskussion der Ergebnisse
+
+Diskutieren Sie abschließend die vom Java-Programm berechneten Werte für den 
+Speicherbedarf der unterschiedlichen Indexvarianten bezüglich der beiden 
+Indexfelder `title` und `fulltext`.
+
+Vergleichen Sie die unterschiedlichen Indextypen bezüglich
+ihrer Speichergröße. 
+
+Wie sind die Unterschiede in den berechneten Werten zu
+erklären? 
+
+Ihre Diskussion fügen Sie bitte in die Datei `answers.txt` ein.
+
+### Verbesserung der Tokenisierung (in der Klasse `Tokenizer`)
+
+In der vorliegenden Implementierung wird mittels eines _Whitespace-Tokenizers_ 
+aus dem Feldwert (d.h. aus dem Titel oder Volltext) eine Liste von Tokens erzeugt.
+Hierbei wird der Feldwert an Whitespace-Zeichen aufgespalten. Jedes so entstehende Token
+wird anschließend durch einen _Lowercasing_-Schritt in Kleinbuchstaben umgewandelt.
 
 Beispielsweise ergibt das Whitespace-Tokenizing für den Feldwert 
 
@@ -245,62 +426,68 @@ in der Methode vermerkt.
 
 Um die Korrektheit Ihrer Implementierung sicherzustellen, stehen in der Testklasse `TokenizerTest`
 entsprechende Unit-Tests zur Verfügung. Die Tests laufen aktuell nicht erfolgreich durch und wurden
-deshalb mit der Annotation `@Disabled` versehen. Entfernen Sie die Annotation (dreimal) in der Testklasse
-und führen Sie die Testklasse anschließend aus (analog zur Ausführung von `IndexSizeComparisonTest`).
+deshalb mit der Annotation `@Disabled` versehen. 
 
-Es sollte sich folgende Ausgabe ergeben:
+Eine Ausführung der Testklasse `TokenizerTest` in IntelliJ (wie oben beschrieben) oder auf der
+Kommandozeile mit dem Befehl:
 
 ```
-[INFO] 
+./mvnw -Dtest=TokenizerTest test
+```
+
+ergibt anfänglich folgende Aussage:
+
+```
+[INFO]
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running de.suma.IndexSizeComparisonTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.122 s - in de.suma.IndexSizeComparisonTest
 [INFO] Running de.suma.TokenizerTest
-[ERROR] Tests run: 6, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.028 s <<< FAILURE! - in de.suma.TokenizerTest
-[ERROR] testGetTokensImprovedWithMultipleTokensAndParentheses  Time elapsed: 0.014 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <token1> but was: <(token1;>
-	at de.suma.TokenizerTest.testGetTokensImprovedWithMultipleTokensAndParentheses(TokenizerTest.java:47)
-
-[ERROR] testGetTokensImprovedWithMultipleTokens  Time elapsed: 0.003 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <token1> but was: <token1,>
-	at de.suma.TokenizerTest.testGetTokensImprovedWithMultipleTokens(TokenizerTest.java:37)
-
-[ERROR] testGetTokensImprovedWithApostropheS  Time elapsed: 0.003 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <token1> but was: <(token1's,>
-	at de.suma.TokenizerTest.testGetTokensImprovedWithApostropheS(TokenizerTest.java:59)
-
-[INFO] 
+[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.096 s - in de.suma.TokenizerTest
+[INFO]
 [INFO] Results:
-[INFO] 
-[ERROR] Failures: 
-[ERROR]   TokenizerTest.testGetTokensImprovedWithApostropheS:59 expected: <token1> but was: <(token1's,>
-[ERROR]   TokenizerTest.testGetTokensImprovedWithMultipleTokens:37 expected: <token1> but was: <token1,>
-[ERROR]   TokenizerTest.testGetTokensImprovedWithMultipleTokensAndParentheses:47 expected: <token1> but was: <(token1;>
-[INFO] 
-[ERROR] Tests run: 12, Failures: 3, Errors: 0, Skipped: 0
+[INFO]
+[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 5.239 s
+[INFO] Finished at: 2024-01-28T17:17:28+01:00
+[INFO] Final Memory: 14M/50M
+[INFO] ------------------------------------------------------------------------
 ```
-              
-Implementieren Sie die Methode `getTokensImproved`. Sie können die Korrektheit Ihrer Implementierung
-jederzeit prüfen, indem Sie die Testklasse erneut ausführen.
 
-Sofern Sie eine korrekte Implementierung erzielt haben, zeigt sich folgende Ausgabe nach der
-Ausführung der Tests:
+Wie Sie der Ausgabe entnehmen können, werden 3 Testfälle in der Testklasse `TokenizerTest` übersprungen.
+
+Implementieren Sie nun die Methode `getTokensImproved` in der Klasse `Tokenizer`. Entfernen Sie die drei
+`@Disabled`-Annotationen in der Testklasse `TokenizerTest` und führen Sie die Testklasse erneut anschließend
+aus. 
+
+Sofern Ihre Implementierung der Methode `getTokensImproved` korrekt ist, erhalten Sie folgende Ausgabe:
 
 ```
+[INFO]
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running de.suma.IndexSizeComparisonTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.09 s - in de.suma.IndexSizeComparisonTest
 [INFO] Running de.suma.TokenizerTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in de.suma.TokenizerTest
-[INFO] 
+[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.127 s - in de.suma.TokenizerTest
+[INFO]
 [INFO] Results:
-[INFO] 
-[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[WARNING] Tests run: 6, Failures: 0, Errors: 0, Skipped: 3
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 6.813 s
+[INFO] Finished at: 2024-01-28T17:22:14+01:00
+[INFO] Final Memory: 14M/54M
+[INFO] ------------------------------------------------------------------------
 ```
+
+### Ermittlung der unterschiedlichen Indexgrößen mit dem verbesserten Tokenizer
 
 Tauschen Sie nun den Aufruf der Tokenizer-Methode innerhalb der Klasse `IndexSizeComparison` aus.
 Dazu ersetzen Sie in der Methode `ngrams` den Aufruf von
@@ -315,8 +502,13 @@ durch
 String[] tokens = new Tokenizer().getTokensImproved(textToIndex);
 ```
 
-Führen Sie anschließend (analog zu oben) die Klasse `IndexSizeComparison` aus. Vergleichen Sie
-die Ausgabe mit der Ausgabe bei der vorherigen Ausführung der Klasse unter Nutzung der einfachen
-Whitespace-Tokenisierung, bei der bis auf das Lowercasing keine weitere Behandlung der Tokens
-erfolgte. Wie sind die Unterschiede in den berechneten Werten zu erklären? Ihre Diskussion 
-fügen Sie bitte ebenfalls in die Datei `answers.txt` ein.
+Führen Sie anschließend (analog zu oben) die Klasse `IndexSizeComparison` aus. 
+
+Vergleichen Sie die Ausgabe des Java-Programms mit der Ausgabe des Programms 
+bei der vorherigen Ausführung der Klasse unter Nutzung der einfachen Whitespace-Tokenisierung,
+bei der bis auf das _Lowercasing_ keine weitere Behandlung der Tokens
+erfolgte. 
+
+Wie sind die Unterschiede in den berechneten Werten zu erklären? 
+
+Ihre Diskussion fügen Sie bitte ebenfalls in die Datei `answers.txt` ein.
