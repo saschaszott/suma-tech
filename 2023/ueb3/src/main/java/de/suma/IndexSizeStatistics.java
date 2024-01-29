@@ -70,15 +70,12 @@ public class IndexSizeStatistics {
     public long getSizeOfNWordDictionaryInBytes(int n) {
         // Speicherbedarf für das Dictionary, wobei hier vereinfachend angenommen wird, dass pro Zeichen 1 Byte benötigt wird
         int numOfCharactersInAllDictionaryTerms = 0;
-        for (String term : dictionary.get(n - 1)) {
-            numOfCharactersInAllDictionaryTerms += term.length();
-        }
 
-        // TODO berechnen Sie den Speicherplatz in kB für das Dictionary mit n-Grammen (d.h. für Folgen von n
-        //  aufeinanderfolgenden Termen)
+        // TODO berechnen Sie den Speicherplatz in kB für das Dictionary mit n-Grammen,
+        // TODO d.h. für Folgen von n aufeinanderfolgenden Termen
         // TODO Hinweis: vermeiden Sie hierbei die Verwendung der Methode toString()
 
-        return 0;
+        return numOfCharactersInAllDictionaryTerms;
     }
 
     public long getOverallSizeOfPositionalIndexInBytes(long dictionarySize) {

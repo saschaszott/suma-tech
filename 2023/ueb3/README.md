@@ -114,7 +114,7 @@ und legen Sie die ZIP-Datei in das Projektverzeichnis `ueb3` (das Verzeichnis, i
 diese `README.md` befindet). Entpacken Sie die ZIP-Datei anschließend mittels
 
 ```sh
-unzip ueb3-ebooks-sample.zip
+$ unzip ueb3-ebooks-sample.zip
 ```
 Anschließend sollte im Projektverzeichnis ein Verzeichnis mit dem Namen `ueb3-ebooks-sample` existieren.
 
@@ -139,7 +139,7 @@ Analog können Sie die Tests in der Klasse `IndexSizeComparisonTest` auch auf de
 starten, indem Sie im Projektverzeichnis das folgende Kommando aufrufen:
 
 ```sh
-./mvnw -Dtest=IndexSizeComparisonTest test
+$ ./mvnw -Dtest=IndexSizeComparisonTest test
 ```
            
 In beiden Fällen sollte Sie folgende Ausgabe erhalten (in IntelliJ etwas gekürzt):
@@ -222,7 +222,7 @@ Analog können Sie die Tests in der Klasse `IndexSizeStatisticsTest` auch auf de
 starten, indem Sie im Projektverzeichnis das folgende Kommando aufrufen:
 
 ```sh
-./mvnw -Dtest=IndexSizeStatisticsTest test
+$ ./mvnw -Dtest=IndexSizeStatisticsTest test
 ```
 
 In beiden Fällen sollte Sie folgende Ausgabe erhalten (in IntelliJ etwas gekürzt):
@@ -330,12 +330,12 @@ die beiden Felder `title` und `fulltext` aus.
 Das Java-Programm können Sie direkt in IntelliJ ausführen (Rechtsklick auf die Klasse `IndexSizeComparision`
 und den Eintrag _Run_ auswählen) oder Sie rufen auf der Kommandozeile den Befehl aus:
 
-```
+```sh
 $ ./mvnw clean compile exec:java
 ```
 
 Setzen Sie ggf. vorher die maximale Größe des allokierten Hauptspeichers mittels `MAVEN_OPTS` auf 2 GB:
-```
+```sh
 $ export MAVEN_OPTS='-Xmx2G'
 ```
            
@@ -431,8 +431,8 @@ deshalb mit der Annotation `@Disabled` versehen.
 Eine Ausführung der Testklasse `TokenizerTest` in IntelliJ (wie oben beschrieben) oder auf der
 Kommandozeile mit dem Befehl:
 
-```
-./mvnw -Dtest=TokenizerTest test
+```sh
+$ ./mvnw -Dtest=TokenizerTest test
 ```
 
 ergibt anfänglich folgende Aussage:
