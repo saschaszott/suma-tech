@@ -70,13 +70,14 @@ public class IndexSizeStatistics {
     public long getSizeOfNWordDictionaryInBytes(int n) {
         // Speicherbedarf für das Dictionary, wobei hier vereinfachend angenommen wird, dass pro Zeichen 1 Byte benötigt wird
         int numOfCharactersInAllDictionaryTerms = 0;
+
+        // TODO berechnen Sie den Speicherplatz in kB für das Dictionary mit n-Grammen,
+        // TODO d.h. für Folgen von n aufeinanderfolgenden Termen
+        // TODO Hinweis: vermeiden Sie hierbei die Verwendung der Methode toString()
+
         for (String term : dictionary.get(n - 1)) {
             numOfCharactersInAllDictionaryTerms += term.length();
         }
-
-        // TODO berechnen Sie den Speicherplatz in kB für das Dictionary mit n-Grammen (d.h. für Folgen von n
-        //  aufeinanderfolgenden Termen)
-        // TODO Hinweis: vermeiden Sie hierbei die Verwendung der Methode toString()
 
         return numOfCharactersInAllDictionaryTerms;
     }
@@ -95,7 +96,7 @@ public class IndexSizeStatistics {
         // Speicherbedarf für eine Dokument-ID beträgt 4 Byte (32-Bit int)
 
         // TODO berechnen Sie hier den Speicherplatz für den Non-Positional Index in kB
-        //  mit n-Grammen (Folge von n aufeinanderfolgenden Termen) im Dictionary
+        // TODO mit n-Grammen (Folge von n aufeinanderfolgenden Termen) im Dictionary
         long nonPositionalIndexSize = dictionarySize + 4 * numOfDocIdsInAllPostingLists[n - 1];
 
         return nonPositionalIndexSize;

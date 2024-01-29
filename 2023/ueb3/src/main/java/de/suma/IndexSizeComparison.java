@@ -160,7 +160,7 @@ public class IndexSizeComparison {
 
     /**
      * Ermittelt alle n-Gramme für den übergebenen Text.
-     * Ein n-Gramm besteht hierbei aus n aufeinanderfolgenden Token.
+     * Ein n-Gramm besteht hierbei aus n aufeinanderfolgenden Token, wobei die Token durch Leerzeichen getrennt werden.
      * @param n
      * @param textToIndex
      * @return
@@ -172,12 +172,12 @@ public class IndexSizeComparison {
             return Arrays.asList(tokens);
         }
         if (tokens.length - n < 0) {
-            // es können keine n-Gramme gebildet werden, da der übergebene Text zu kurz ist
+            // es können keine n-Gramme aus textToIndex gebildet werden, da der textToIndex zu kurz ist
             return Collections.EMPTY_LIST;
         }
 
-        // TODO berechnen Sie die n-Gramme (n > 1) für den übergebenen Text
-        // TODO ein n-Gramm ist eine Folge von n aufeinanderfolgenden Token (jeweils durch Leerzeichen getrennt)
+        // berechnen Sie im nachfolgenden TODO die n-Gramme (n > 1) für den übergebenen Text in textToIndex
+        // ein n-Gramm ist hierbei eine Folge von n aufeinanderfolgenden Token (jeweils durch Leerzeichen getrennt)
         List<String> ngrams = new ArrayList<>();
         String whitespace = " ";
         for (int i = 0; i < tokens.length - n + 1; i++) {
