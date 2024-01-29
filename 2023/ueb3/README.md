@@ -233,47 +233,47 @@ In beiden Fällen sollte Sie folgende Ausgabe erhalten (in IntelliJ etwas gekür
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running de.suma.IndexSizeStatisticsTest
-[ERROR] Tests run: 7, Failures: 7, Errors: 0, Skipped: 0, Time elapsed: 0.201 s <<< FAILURE! - in de.suma.IndexSizeStatisticsTest
-[ERROR] testNonPositionalTriwordIndexWithSingleDoc  Time elapsed: 0.136 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: Die Speichergröße des Non-Positional Triword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Tripeln) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
-	at de.suma.IndexSizeStatisticsTest.testNonPositionalTriwordIndexWithSingleDoc(IndexSizeStatisticsTest.java:107)
+[ERROR] Tests run: 7, Failures: 7, Errors: 0, Skipped: 0, Time elapsed: 0.02 s <<< FAILURE! - in de.suma.IndexSizeStatisticsTest
+[ERROR] testNonPositionalTriwordIndexWithSingleDoc  Time elapsed: 0.014 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Die Speichergröße des Non-Positional Triword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Tripeln) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <113> but was: <0>
+        at de.suma.IndexSizeStatisticsTest.testNonPositionalTriwordIndexWithSingleDoc(IndexSizeStatisticsTest.java:107)
 
-[ERROR] testPositionalIndexSizeWithSingleDoc  Time elapsed: 0.003 s  <<< FAILURE!
+[ERROR] testPositionalIndexSizeWithSingleDoc  Time elapsed: 0 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: Die Speichergröße des Positional Index ergibt sich als Summe aus der Speichergröße des Term-Dictionary sowie der Speichergröße für die DocIds in allen Positinglisten sowie der Speichergröße für die Positionsangaben. ==> expected: <98> but was: <0>
-	at de.suma.IndexSizeStatisticsTest.testPositionalIndexSizeWithSingleDoc(IndexSizeStatisticsTest.java:59)
+        at de.suma.IndexSizeStatisticsTest.testPositionalIndexSizeWithSingleDoc(IndexSizeStatisticsTest.java:59)
 
-[ERROR] testDictionarySizeOfUniwordIndex  Time elapsed: 0.002 s  <<< FAILURE!
+[ERROR] testDictionarySizeOfUniwordIndex  Time elapsed: 0.001 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: Es gibt 8 unterschiedliche Terme im Term-Dictionary, die aus insgesamt 26 Zeichen bestehen. ==> expected: <26> but was: <0>
-	at de.suma.IndexSizeStatisticsTest.testDictionarySizeOfUniwordIndex(IndexSizeStatisticsTest.java:23)
+        at de.suma.IndexSizeStatisticsTest.testDictionarySizeOfUniwordIndex(IndexSizeStatisticsTest.java:23)
 
-[ERROR] testNonPositionalUniwordIndexWithSingleDoc  Time elapsed: 0.002 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: Die Speichergröße des Non-Positional Uniword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus einzelnen Termen) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
-	at de.suma.IndexSizeStatisticsTest.testNonPositionalUniwordIndexWithSingleDoc(IndexSizeStatisticsTest.java:75)
+[ERROR] testNonPositionalUniwordIndexWithSingleDoc  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Die Speichergröße des Non-Positional Uniword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus einzelnen Termen) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <58> but was: <0>
+        at de.suma.IndexSizeStatisticsTest.testNonPositionalUniwordIndexWithSingleDoc(IndexSizeStatisticsTest.java:75)
 
-[ERROR] testDictionarySizeOfBiwordIndex  Time elapsed: 0.003 s  <<< FAILURE!
+[ERROR] testDictionarySizeOfBiwordIndex  Time elapsed: 0.001 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: Es gibt 8 Biwords und die Gesamtzahl der Zeichen in allen Biwords ist 54, wobei pro Biword ein Leerzeichen mitzuzählen ist. ==> expected: <54> but was: <0>
-	at de.suma.IndexSizeStatisticsTest.testDictionarySizeOfBiwordIndex(IndexSizeStatisticsTest.java:34)
+        at de.suma.IndexSizeStatisticsTest.testDictionarySizeOfBiwordIndex(IndexSizeStatisticsTest.java:34)
 
-[ERROR] testDictionarySizeOfTriwordIndex  Time elapsed: 0.002 s  <<< FAILURE!
+[ERROR] testDictionarySizeOfTriwordIndex  Time elapsed: 0 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: Es gibt 8 Triwords und die Gesamtzahl der Zeichen in allen Triwords ist 65, wobei pro Triword zwei Leerzeichen mitzuzählen sind. ==> expected: <81> but was: <0>
-	at de.suma.IndexSizeStatisticsTest.testDictionarySizeOfTriwordIndex(IndexSizeStatisticsTest.java:45)
+        at de.suma.IndexSizeStatisticsTest.testDictionarySizeOfTriwordIndex(IndexSizeStatisticsTest.java:45)
 
-[ERROR] testNonPositionalBiwordIndexWithSingleDoc  Time elapsed: 0.002 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: Die Speichergröße des Non-Positional Biword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Paaren) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
-	at de.suma.IndexSizeStatisticsTest.testNonPositionalBiwordIndexWithSingleDoc(IndexSizeStatisticsTest.java:91)
+[ERROR] testNonPositionalBiwordIndexWithSingleDoc  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Die Speichergröße des Non-Positional Biword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Paaren) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <86> but was: <0>
+        at de.suma.IndexSizeStatisticsTest.testNonPositionalBiwordIndexWithSingleDoc(IndexSizeStatisticsTest.java:91)
 
-[INFO]
+[INFO] 
 [INFO] Results:
-[INFO]
-[ERROR] Failures:
+[INFO] 
+[ERROR] Failures: 
 [ERROR]   IndexSizeStatisticsTest.testDictionarySizeOfBiwordIndex:34 Es gibt 8 Biwords und die Gesamtzahl der Zeichen in allen Biwords ist 54, wobei pro Biword ein Leerzeichen mitzuzählen ist. ==> expected: <54> but was: <0>
 [ERROR]   IndexSizeStatisticsTest.testDictionarySizeOfTriwordIndex:45 Es gibt 8 Triwords und die Gesamtzahl der Zeichen in allen Triwords ist 65, wobei pro Triword zwei Leerzeichen mitzuzählen sind. ==> expected: <81> but was: <0>
 [ERROR]   IndexSizeStatisticsTest.testDictionarySizeOfUniwordIndex:23 Es gibt 8 unterschiedliche Terme im Term-Dictionary, die aus insgesamt 26 Zeichen bestehen. ==> expected: <26> but was: <0>
-[ERROR]   IndexSizeStatisticsTest.testNonPositionalBiwordIndexWithSingleDoc:91 Die Speichergröße des Non-Positional Biword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Paaren) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
-[ERROR]   IndexSizeStatisticsTest.testNonPositionalTriwordIndexWithSingleDoc:107 Die Speichergröße des Non-Positional Triword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Tripeln) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
-[ERROR]   IndexSizeStatisticsTest.testNonPositionalUniwordIndexWithSingleDoc:75 Die Speichergröße des Non-Positional Uniword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus einzelnen Termen) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <32> but was: <0>
+[ERROR]   IndexSizeStatisticsTest.testNonPositionalBiwordIndexWithSingleDoc:91 Die Speichergröße des Non-Positional Biword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Paaren) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <86> but was: <0>
+[ERROR]   IndexSizeStatisticsTest.testNonPositionalTriwordIndexWithSingleDoc:107 Die Speichergröße des Non-Positional Triword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus Term-Tripeln) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <113> but was: <0>
+[ERROR]   IndexSizeStatisticsTest.testNonPositionalUniwordIndexWithSingleDoc:75 Die Speichergröße des Non-Positional Uniword Index ergibt sich als Summe aus der Speichergröße für das Term-Dictionary (aus einzelnen Termen) sowie die Speichergröße für die DocIds in allen Postinglisten. ==> expected: <58> but was: <0>
 [ERROR]   IndexSizeStatisticsTest.testPositionalIndexSizeWithSingleDoc:59 Die Speichergröße des Positional Index ergibt sich als Summe aus der Speichergröße des Term-Dictionary sowie der Speichergröße für die DocIds in allen Positinglisten sowie der Speichergröße für die Positionsangaben. ==> expected: <98> but was: <0>
-[INFO]
+[INFO] 
 [ERROR] Tests run: 7, Failures: 7, Errors: 0, Skipped: 0
 [INFO]
 [INFO] ------------------------------------------------------------------------
