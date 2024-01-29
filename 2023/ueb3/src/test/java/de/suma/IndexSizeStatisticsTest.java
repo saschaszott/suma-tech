@@ -73,8 +73,8 @@ public class IndexSizeStatisticsTest {
         stats.getDictionary(1).addAll(tokenSet);
         stats.addNumOfDocIdsInAllPostingLists(1, tokenSet.size());
         assertEquals(
-                4 * 8,
-                stats.getOverallSizeOfNonPositionalNWordIndexInBytes(1, 0),
+                26 + 4 * 8,
+                stats.getOverallSizeOfNonPositionalNWordIndexInBytes(1, stats.getSizeOfNWordDictionaryInBytes(1)),
                 "Die Speichergröße des Non-Positional Uniword Index ergibt sich als Summe aus der " +
                 "Speichergröße für das Term-Dictionary (aus einzelnen Termen) sowie die Speichergröße für die " +
                 "DocIds in allen Postinglisten.");
@@ -83,14 +83,14 @@ public class IndexSizeStatisticsTest {
     @Test
     void testNonPositionalBiwordIndexWithSingleDoc() {
         IndexSizeStatistics stats = new IndexSizeStatistics("title");
-        List<String> unigrams = indexSizeComparison.getUnigrams(TEXT_TO_INDEX);
-        stats.addNumOfPositionsInAllPostingLists(unigrams.size());
-        Set<String> tokenSet = new HashSet<>(unigrams);
+        List<String> bigrams = indexSizeComparison.getBigrams(TEXT_TO_INDEX);
+        stats.addNumOfPositionsInAllPostingLists(bigrams.size());
+        Set<String> tokenSet = new HashSet<>(bigrams);
         stats.getDictionary(2).addAll(tokenSet);
         stats.addNumOfDocIdsInAllPostingLists(2, tokenSet.size());
         assertEquals(
-                8 * 4,
-                stats.getOverallSizeOfNonPositionalNWordIndexInBytes(2, 0),
+                46 + 8 + 8 * 4,
+                stats.getOverallSizeOfNonPositionalNWordIndexInBytes(2, stats.getSizeOfNWordDictionaryInBytes(2)),
                 "Die Speichergröße des Non-Positional Biword Index ergibt sich als Summe aus der " +
                 "Speichergröße für das Term-Dictionary (aus Term-Paaren) sowie die Speichergröße für die " +
                 "DocIds in allen Postinglisten.");
@@ -99,14 +99,14 @@ public class IndexSizeStatisticsTest {
     @Test
     void testNonPositionalTriwordIndexWithSingleDoc() {
         IndexSizeStatistics stats = new IndexSizeStatistics("title");
-        List<String> unigrams = indexSizeComparison.getUnigrams(TEXT_TO_INDEX);
-        stats.addNumOfPositionsInAllPostingLists(unigrams.size());
-        Set<String> tokenSet = new HashSet<>(unigrams);
+        List<String> trigrams = indexSizeComparison.getTrigrams(TEXT_TO_INDEX);
+        stats.addNumOfPositionsInAllPostingLists(trigrams.size());
+        Set<String> tokenSet = new HashSet<>(trigrams);
         stats.getDictionary(3).addAll(tokenSet);
         stats.addNumOfDocIdsInAllPostingLists(3, tokenSet.size());
         assertEquals(
-                8 * 4,
-                stats.getOverallSizeOfNonPositionalNWordIndexInBytes(3, 0),
+                65 + 2 * 8 + 8 * 4,
+                stats.getOverallSizeOfNonPositionalNWordIndexInBytes(3, stats.getSizeOfNWordDictionaryInBytes(3)),
                 "Die Speichergröße des Non-Positional Triword Index ergibt sich als Summe aus der " +
                 "Speichergröße für das Term-Dictionary (aus Term-Tripeln) sowie die Speichergröße für die " +
                 "DocIds in allen Postinglisten.");
