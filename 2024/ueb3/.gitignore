@@ -1,0 +1,7 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+*.iml
+.idea
+target
+/ueb3-ebooks-sample/
