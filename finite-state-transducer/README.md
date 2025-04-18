@@ -34,7 +34,7 @@ Eintrag in `dict` den Term `cards` repräsentiert und demzufolge der ausgehende 
 
 In der Darstellung wird nicht jeder Term aus dem Dictionary durch einen Pfad vom Start- zum Zielzustand repräsentiert.
 Daher sind einige Knoten im FST mit einer dicken eingehenden Kante markiert, so z.B. die oberste Kante mit der 
-Beschriftung `r`. Hierdurch soll angezeigt werden, dass an dem Knoten, auf die die dick markierte Kante zeigt, ein Pfad
+Beschriftung `r`. Hierdurch soll angezeigt werden, dass an dem Knoten, auf den die dick markierte Kante zeigt, ein Pfad
 (ausgehend vom Startzustand) endet, der mit einem Dictionary Term korrespondiert (in diesem Fall ist das der Term `car`).
 Die Ermittlung der Indexposition des Terms in `dict` erfolgt analog zum oben beschriebenen Verfahren (`car` erhält
 demnach den Wert `1`, wonach an der ersten Stelle in `dict` der Eintrag für den Term `car` steht).
