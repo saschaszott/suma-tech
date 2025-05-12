@@ -12,6 +12,7 @@ git clone https://github.com/saschaszott/suma-tech.git
 cd suma-tech/praxisteile/01
 python3 -m venv venv
 ```
+
 ## Python-Umgebung startem
 
 ```sh
