@@ -1,8 +1,16 @@
 # Installation der erforderlichen Infrastruktur
 
-## Git Client
+## Git
 
-tbd
+**Git** ist ein Versionskontrollsystem, das wir für die Verwaltung von Quellcode verwenden werden. Der Quellcode sämtlicher Programme sowie die benötigten Konfigurationsdateien werden über Git verteilt. Hierzu existiert bei GitHub ein öffentliches Projekt. Mit git können Sie auch Ihre lokal ausgeführten Änderungen an Quelltexten und Konfigurationsdateien versionieren.
+
+Die Installation von git unterscheidet sich je nach Betriebssystem:
+
+*	Windows: Lade den Git-Installer von der offiziellen Seite https://git-scm.com herunter und führe ihn aus. Die Standardoptionen des Installationsassistenten sind in der Regel ausreichend. Nach der Installation steht dir die „Git Bash“ zur Verfügung – ein Terminal speziell für Git-Befehle.
+*	macOS: Du kannst Git entweder über Homebrew installieren (`brew install git``) oder es wird automatisch installiert, sobald du den ersten Git-Befehl im Terminal eingibst, z.B. `git --version`.
+*	Linux (z. B. Ubuntu/Debian): Öffne ein Terminal und installiere Git mit dem Paketmanager: `sudo apt update && sudo apt install git`
+
+Nach der Installation von git kannst du mit dem Befehl `git --version` prüfen, ob Git korrekt installiert wurde.
 
 ## Visual Studio Code
 
