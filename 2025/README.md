@@ -22,7 +22,7 @@ Die Installationsdatei von VS Code kann kostenfrei unter https://code.visualstud
 
 ## Python
 
-**Python** ist eine weit verbreitete, leicht verständliche Programmiersprache, die sich besonders gut für Einsteiger eignet. Sie wird häufig in der Datenanalyse, Künstlichen Intelligenz, Webentwicklung oder der Automatisierung eingesetzt. Python ist bekannt für seine klare Syntax, eine große Standardbibliothek und eine aktive Community. Bitte beachten Sie, dass wir Python in der aktuellen Version 3.10 (oder höher) verwenden.
+**Python** ist eine weit verbreitete, leicht verständliche Programmiersprache, die sich besonders gut für Einsteiger eignet. Sie wird häufig in der Datenanalyse, Künstlichen Intelligenz, Webentwicklung oder der Automatisierung eingesetzt. Python ist bekannt für seine klare Syntax, eine große Standardbibliothek und eine aktive Community. Bitte beachten Sie, dass wir Python in einer aktuellen Version (Versionsnummer 3.10 oder höher) verwenden.
 
 Den Installer für Windows können Sie unter https://www.python.org/downloads/windows/ herunterladen (Sie benötigen Windows 8 oder höher). Unter macOS bietet sich - analog zu git - die Installation mittels Homebrew an (`brew install python`). Linux-Nutzende können ebenfalls Python mittels Paket-Manager installieren, z.B. unter Ubuntu mittels `sudo apt update && sudo apt install python3 python3-pip`.
 
