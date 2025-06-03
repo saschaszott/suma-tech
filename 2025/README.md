@@ -2,23 +2,33 @@
 
 ## Git
 
-**Git** ist ein Versionskontrollsystem, das wir für die Verwaltung von Quellcode verwenden werden. Der Quellcode sämtlicher Programme sowie die benötigten Konfigurationsdateien werden über Git verteilt. Hierzu existiert bei GitHub ein öffentliches Projekt. Mit git können Sie auch Ihre lokal ausgeführten Änderungen an Quelltexten und Konfigurationsdateien versionieren.
+**Git** ist ein Versionskontrollsystem, das wir für die Verwaltung von Quellcode verwenden werden. Der Quellcode sämtlicher Programme sowie die benötigten Konfigurationsdateien werden über Git verteilt. Hierzu existiert bei GitHub das öffentliches Projekt suma-tech (https://github.com/saschaszott/suma-tech). Git erlaubt es Ihnen zudem lokal ausgeführte Änderungen an Quelltexten und Konfigurationsdateien zu versionieren, so dass Sie den Änderungsverlauf später einfach nachvollziehen können. Auch im Hinblick auf eine Masterarbeit mit Implementierungsanteil ist die Beschäftigung mit git sehr zu empfehlen.
 
 Die Installation von git unterscheidet sich je nach Betriebssystem:
 
-*	Windows: Lade den Git-Installer von der offiziellen Seite https://git-scm.com herunter und führe ihn aus. Die Standardoptionen des Installationsassistenten sind in der Regel ausreichend. Nach der Installation steht dir die „Git Bash“ zur Verfügung – ein Terminal speziell für Git-Befehle.
-*	macOS: Du kannst Git entweder über Homebrew installieren (`brew install git``) oder es wird automatisch installiert, sobald du den ersten Git-Befehl im Terminal eingibst, z.B. `git --version`.
-*	Linux (z. B. Ubuntu/Debian): Öffne ein Terminal und installiere Git mit dem Paketmanager: `sudo apt update && sudo apt install git`
+*	Windows: Git-Installer von der offiziellen Website https://git-scm.com herunterladen und ausführen (Standardoptionen des Installationsassistenten sind in der Regel ausreichend).
+*	macOS: sofern git noch nicht installiert ist (Prüfung mittels `git --version`) wird git über Homebrew (`brew install git``) installiert
+*	Linux (z. B. Ubuntu, Debian): Terminal öffnen und git mit Apt-Paketmanager installieren: `sudo apt update && sudo apt install git`
 
-Nach der Installation von git kannst du mit dem Befehl `git --version` prüfen, ob Git korrekt installiert wurde.
+Nach der Installation von git kann mit dem Befehl `git --version` geprüft werden, ob es korrekt installiert wurde. Beachten Sie, dass Sie eine aktuelle Version (Versionsnummer 2.40 oder höher) besitzen.
+
+Nach der Installation von git können Sie git mit dem Kommandozeilenbefehl `git <command>` bedienen. Sofern Sie eine graphische Benutzeroberfläche bevorzugen, können Sie optional einen graphischen Git-Client installieren. Eine Liste der verfügbaren Clients finden Sie beispielsweise unter https://git-scm.com/downloads/guis
 
 ## Visual Studio Code
 
-tbd
+**Visual Studio Code** (auch **VS Code**) ist ein Quelltexteditor aus dem Hause Microsoft. Er bietet Syntax-Highlighting, Autovervollständigung, integrierte Git-Unterstützung, Debugging-Tools und eine große Auswahl an Erweiterungen für viele Programmiersprachen und Entwicklungsumgebungen.
+
+Die Installationsdatei von VS Code kann kostenfrei unter https://code.visualstudio.com/Download heruntergeladen werden. Für Windows und macOS empfiehlt sich der Installationsassistent. Unter Linux können Sie VS Code auch über die Kommandozeile installieren. Für Ubuntu gibt es sogar ein Snap-Paket.
 
 ## Python
 
-tbd
+**Python** ist eine weit verbreitete, leicht verständliche Programmiersprache, die sich besonders gut für Einsteiger eignet. Sie wird häufig in der Datenanalyse, Künstlichen Intelligenz, Webentwicklung oder der Automatisierung eingesetzt. Python ist bekannt für seine klare Syntax, eine große Standardbibliothek und eine aktive Community. Bitte beachten Sie, dass wir Python in der aktuellen Version 3.10 (oder höher) verwenden.
+
+Den Installer für Windows können Sie unter https://www.python.org/downloads/windows/ herunterladen (Sie benötigen Windows 8 oder höher). Unter macOS bietet sich - analog zu git - die Installation mittels Homebrew an (`brew install python`). Linux-Nutzende können ebenfalls Python mittels Paket-Manager installieren, z.B. unter Ubuntu mittels `sudo apt update && sudo apt install python3 python3-pip`.
+
+Nach der Installation können Sie mit dem Befehl `python3 --version` prüfen, ob Sie eine aktuelle Version auf Ihrem System installiert haben. Es wird empfohlen die Version mit der Versionsnummer 3.10 oder höher zu verwenden.
+
+Wir werden im Verlauf der Vorlesung verschiedene Python-Programmbibliotheken benötigen. Für die Installation der erforderlichen Python-Pakete werden wir den Python-Paketmanager `pip` nutzen. Optional kann auch der Paketmanager `conda` verwendet werden, der z.B. bei der Installation von Anaconda automatisch installiert wird.
 
 ## Docker Desktop
 
