@@ -184,7 +184,7 @@ Anschließend können Sie auf ihrem Rechner die Web-Admin-Oberfläche des Solr-S
 http://localhost:8983
 ```
 
-aufrufen. Schauen Sie sich in der Admin-Oberfläche etwas um. Wir werden im Praxistag intensiv mit der Oberfläche arbeiten.
+aufrufen. Schauen Sie sich in der Admin-Oberfläche etwas um. Wir werden in der Vorlesung intensiv mit der Oberfläche arbeiten.
 
 ## Basisbefehle für das Arbeiten mit Docker Containern
 
