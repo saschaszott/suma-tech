@@ -30,7 +30,7 @@ Nach der Installation können Sie mit dem Befehl `python3 --version` prüfen, ob
 
 Wir werden im Verlauf der Vorlesung verschiedene Python-Programmbibliotheken benötigen. Für die Installation der erforderlichen Python-Pakete werden wir den Python-Paketmanager `pip` nutzen. Optional kann auch der Paketmanager `conda` verwendet werden, der z.B. bei der Installation von Anaconda automatisch installiert wird.
 
-## Docker Desktop
+## Docker
 
 Wir werden uns im Modul Suchmaschinentechnologie intensiv mit der Open Source Software **Apache Solr** auseinandersetzen.
 
@@ -52,6 +52,8 @@ Ein **Docker Container** ist eine laufende Instanz eines Images, vergleichbar mi
 Normalerweise müsste Solr manuell installiert, konfiguriert und mit den richtigen Abhängigkeiten versehen werden. 
 Mit Docker genügt ein einzelner Befehl, um Solr in einer standardisierten Umgebung zu starten – unabhängig vom Betriebssystem des Hosts. 
 Das macht die Nutzung für alle Studierenden einheitlich und vermeidet typische Installationsprobleme.
+
+## Docker Desktop
 
 Die **Docker Engine** ist das Herzstück von Docker. Sie führt die Container aus und verwaltet sie. 
 Auf Linux-Systemen wird die Docker Engine direkt im Betriebssystem installiert. 
@@ -90,6 +92,8 @@ sudo usermod -aG docker $USER
 
 Wir benötigen zudem die Software **Docker Compose**. Docker Compose ist in der aktuellen Version von Docker Desktop 
 bereits enthalten, so dass keine zusätzliche Installation erforderlich ist.
+
+## Test der Docker-Installation
 
 Nach der Installation von Docker Desktop können Sie testweise einen Container starten, der `Hello from Docker!` auf der Kommandozeile ausgibt. Starten Sie dazu ein Terminal / die Kommandozeile und geben Sie anschließend folgenden Befehl ein:
 
@@ -143,8 +147,13 @@ Sobald der Container gestartet ist, führt er dieses Programm aus und zeigt die 
 Damit bestätigt Docker, dass die Installation erfolgreich ist und korrekt funktioniert.
 Nachdem die Nachricht ausgegeben wurde, beendet sich der Container automatisch, da er seine Aufgabe erfüllt hat.
 
-
 ## Installation von Apache Solr in einem Docker Container
+
+Zuerst legen Sie sich ein lokales Arbeitsverzeichnis für das Modul Suchmaschinentechnologie an, z.B. `suma-tech-2025`.
+
+Starten Sie nun das Programm Visual Studio Code. Wählen Sie im Menü _Datei_ den Eintrag _Ordner öffnen…_ und wählen Sie das zuvor neu angelegte Arbeitsverzeichnis aus.
+
+Nun öffnen Sie die Quellcodeverwaltung über das Menü _Anzeigen_ und den Eintrag _Quellcodeverwaltung_.
 
 Wir wechseln in das Unterverzeichnis `solr` und führen folgenden Befehl aus, um einen Docker Container mit dem Namen `solr-server` zu erzeugen, in dem schließlich ein Solr Server gestartet wird:
 
