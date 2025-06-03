@@ -93,7 +93,7 @@ sudo usermod -aG docker $USER
 Wir benötigen zudem die Software **Docker Compose**. Docker Compose ist in der aktuellen Version von Docker Desktop 
 bereits enthalten, so dass keine zusätzliche Installation erforderlich ist.
 
-## Test der Docker-Installation
+## Test der Docker-Installation: Ausführung eines Docker Containers
 
 Nach der Installation von Docker Desktop können Sie testweise einen Container starten, der `Hello from Docker!` auf der Kommandozeile ausgibt. Starten Sie dazu ein Terminal / die Kommandozeile und geben Sie anschließend folgenden Befehl ein:
 
@@ -149,20 +149,23 @@ Nachdem die Nachricht ausgegeben wurde, beendet sich der Container automatisch, 
 
 ## Installation von Apache Solr in einem Docker Container
 
-Zuerst legen Sie sich ein lokales Arbeitsverzeichnis für das Modul Suchmaschinentechnologie an, z.B. `suma-tech-2025`.
+Starten Sie nun das zuvor installierte Programm Visual Studio Code. Wählen Sie im Menü _Anzeigen_ den Eintrag _Quellcodeverwaltung_.
 
-Starten Sie nun das Programm Visual Studio Code. Wählen Sie im Menü _Datei_ den Eintrag _Ordner öffnen…_ und wählen Sie das zuvor neu angelegte Arbeitsverzeichnis aus.
+Auf der linken Seite erscheint der Bereich _Quellcodeverwaltung_. Klicken Sie auf den Button _Repository klonen_. Geben Sie nun die Repository-URL ein: https://github.com/saschaszott/suma-tech.git
 
-Nun öffnen Sie die Quellcodeverwaltung über das Menü _Anzeigen_ und den Eintrag _Quellcodeverwaltung_.
+Sie können nun ein beliebiges Arbeitsverzeichnis auf Ihrem Rechner festlegen, in dem das Git-Repository `suma-tech` heruntergeladen wird. Nehmen wir an, dass Sie als Arbeitsverzeichnis `sumatech2025` auswählen, dann existiert in diesem Verzeichnis nach dem Klonen das Unterverzeichnis `suma-tech`.
 
-Wir wechseln in das Unterverzeichnis `solr` und führen folgenden Befehl aus, um einen Docker Container mit dem Namen `solr-server` zu erzeugen, in dem schließlich ein Solr Server gestartet wird:
+Wählen Sie nach dem Klonen im Dialog _Möchten Sie das geklonte Repository öffnen?_ den Button _Öffnen_.
+
+Auf der linken Seite wird nun der Inhalt des Verzeichnis `suma-tech` angezeigt. Wählen Sie das Unterverzeichnis `2025` und anschließend das Unterverzeichnis `solr`. Klicken Sie im Kontextmenü (rechte Maustaste) den Eintrag _In integriertem Terminal öffnen_.
+
+Führen Sie folgenden Befehl aus, um einen Docker Container mit dem Namen `solr-server` zu erzeugen, in dem schließlich ein Solr Server gestartet wird:
 
 ```sh
-cd solr
 docker compose up -d
 ```
 
-Der `docker compose` Befehl liest die Datei `docker-compose.yml` ein. In dieser Datei sind die Dienste (Services) definiert, die beim Start (`up`) in einzelnen Docker Containern gestartet werden. In unserem Fall steht in der Datei nur ein Service mit dem Namen `solr`. Dazu wird zuerst das offizielle Docker Image `solr:9.8.1` aus dem Docker Hub heruntergeladen. Anschließend wird ein Docker Container mit dem Namen `solr-server` erzeugt, in dem schließlich ein Solr-Server gestartet wird. Die Option `-d` im obigen Befehl führt dazu, dass der Container im Hintergrund ausgeführt wird und nach der Beendigung des Befehls weiterhin ausgeführt wird. 
+Der `docker compose` Befehl liest die Datei `docker-compose.yml` ein (aus dem Verzeichnis `2025/solr`). In dieser Datei sind die Dienste (Services) definiert, die beim Start (`up`) in einzelnen Docker Containern gestartet werden. In unserem Fall steht in der Datei nur ein Service mit dem Namen `solr`. Dazu wird zuerst das offizielle Docker Image `solr:9.8.1` aus dem Docker Hub heruntergeladen. Anschließend wird ein Docker Container mit dem Namen `solr-server` erzeugt, in dem schließlich ein Solr-Server gestartet wird. Die Option `-d` im obigen Befehl führt dazu, dass der Container im Hintergrund ausgeführt wird und nach der Beendigung des Befehls weiterhin ausgeführt wird. 
 
 Damit haben wir unser Ziel erreicht.
 
@@ -180,7 +183,7 @@ http://localhost:8983
 
 aufrufen. Schauen Sie sich in der Admin-Oberfläche etwas um. Wir werden im Praxistag intensiv mit der Oberfläche arbeiten.
 
-## Basisbefehle für das Arbeiten mit dem Docker Container
+### Basisbefehle für das Arbeiten mit dem Docker Container
 
 Nun möchte ich Ihnen noch einige Befehle vorstellen, die Sie für die Verwaltung des Docker Containers nutzen können.
 
@@ -228,7 +231,7 @@ Ein neuer Docker Container kann erzeugt werden mittels
 docker compose up -d
 ```
 
-## Bind Mounts
+### Bind Mounts
 
 Docker-Container sind isolierte Umgebungen, und standardmäßig gehen alle darin gespeicherten Daten verloren, sobald der Container gelöscht wird. Um Daten persistent zu speichern, nutzt man **Docker Volumes** oder **Bind Mounts** (Volumes eher für Produktivszenarien; Bind Mounts für lokale Entwicklungsumgebungen).
 
@@ -242,7 +245,7 @@ In der Datei `docker-compose.yml` ist ein Bind Mount definiert:
       - ./solrdata:/var/solr
 ```
 
-Dadurch wird das Verzeichnis `solrdata` (innerhalb des Verzeichnisses, in dem die Datei `docker-compose.yml` gespeichert ist) des Docker Host mit dem Verzeichnis `/var/solr` im Docker Container verbunden. Alle Änderungen, die innerhalb dieses Verzeichnisses (auch in Unterverzeichnissen) ausgeführt werden, sind im Docker Host und Container sichtbar. Werden z.B. vom Solr-Server (der im Container ausgeführt wird) Dateien in diesem Verzeichnis gespeichert, so können Sie im Docker Host ebenfalls auf diese Dateien zugreifen.
+Dadurch wird das Verzeichnis `solrdata` (innerhalb des Verzeichnisses, in dem die Datei `docker-compose.yml` gespeichert ist, d.h. `2025/solr/solrdata`) des Docker Host mit dem Verzeichnis `/var/solr` im Docker Container verbunden. Alle Änderungen, die innerhalb dieses Verzeichnisses (auch in Unterverzeichnissen) ausgeführt werden, sind im Docker Host und Container sichtbar. Werden z.B. vom Solr-Server (der im Container ausgeführt wird) Dateien in diesem Verzeichnis gespeichert, so können Sie im Docker Host ebenfalls auf diese Dateien zugreifen.
 
 Im Unterverzeichnis `solrdata/logs` werden die Protkolldateien (Log-Files) des Solr-Servers gespeichert. Die wichtigste Logdatei eines Solr-Servers heißt `solr.log`. Falls unerwartete Probleme beim Betrieb eines Solr-Servers bzw. bei Indexierung oder Suche auftreten, kann man dort nach möglichen Fehlerursachen suchen. 
 
