@@ -2,17 +2,17 @@
 
 ## Git
 
-**Git** ist ein Versionskontrollsystem, das wir für die Verwaltung von Quellcode verwenden werden. Der Quellcode sämtlicher Programme sowie die benötigten Konfigurationsdateien werden über Git verteilt. Hierzu existiert bei GitHub das öffentliches Projekt suma-tech (https://github.com/saschaszott/suma-tech). Git erlaubt es Ihnen zudem lokal ausgeführte Änderungen an Quelltexten und Konfigurationsdateien zu versionieren, so dass Sie den Änderungsverlauf später einfach nachvollziehen können. Auch im Hinblick auf eine Masterarbeit mit Implementierungsanteil ist die Beschäftigung mit git sehr zu empfehlen.
+**Git** ist ein Versionskontrollsystem, das wir für die Verwaltung von Quellcode verwenden werden. Der Quellcode sämtlicher Programme sowie die benötigten Konfigurationsdateien werden über Git verteilt. Hierzu existiert bei GitHub das öffentliches Projekt suma-tech (https://github.com/saschaszott/suma-tech). Git erlaubt es Ihnen zudem lokal ausgeführte Änderungen an Quelltexten und Konfigurationsdateien zu versionieren, so dass Sie den Änderungsverlauf später einfach nachvollziehen können. Auch im Hinblick auf eine Masterarbeit mit Implementierungsanteil ist die Beschäftigung mit Git sehr zu empfehlen.
 
-Die Installation von git unterscheidet sich je nach Betriebssystem:
+Die Installation von Git unterscheidet sich je nach Betriebssystem:
 
 *	Windows: Git-Installer von der offiziellen Website https://git-scm.com herunterladen und ausführen (Standardoptionen des Installationsassistenten sind in der Regel ausreichend).
-*	macOS: sofern git noch nicht installiert ist (Prüfung mittels `git --version`) wird git über Homebrew (`brew install git``) installiert
-*	Linux (z. B. Ubuntu, Debian): Terminal öffnen und git mit Apt-Paketmanager installieren: `sudo apt update && sudo apt install git`
+*	macOS: sofern Git noch nicht installiert ist (Prüfung mittels `git --version`) kann Git über Homebrew (`brew install git``) installiert werden
+*	Linux (z. B. Ubuntu, Debian): Terminal öffnen und Git mittels Apt-Paketmanager installieren: `sudo apt update && sudo apt install git`
 
-Nach der Installation von git kann mit dem Befehl `git --version` geprüft werden, ob es korrekt installiert wurde. Beachten Sie, dass Sie eine aktuelle Version (Versionsnummer 2.40 oder höher) besitzen.
+Nach der Installation von Git kann mit dem Befehl `git --version` geprüft werden, ob es korrekt installiert wurde. Beachten Sie, dass Sie eine aktuelle Git-Version (Versionsnummer 2.40 oder höher) besitzen.
 
-Nach der Installation von git können Sie git mit dem Kommandozeilenbefehl `git <command>` bedienen. Sofern Sie eine graphische Benutzeroberfläche bevorzugen, können Sie optional einen graphischen Git-Client installieren. Eine Liste der verfügbaren Clients finden Sie beispielsweise unter https://git-scm.com/downloads/guis
+Sie können Git mit dem Kommandozeilenbefehl `git <command>` bedienen (oder später mit Visual Studio Code). Sofern Sie zusätzlich eine graphische Benutzeroberfläche bevorzugen, können Sie optional einen graphischen Git-Client installieren. Eine Liste der verfügbaren Git-Clients finden Sie beispielsweise unter https://git-scm.com/downloads/guis
 
 ## Visual Studio Code
 
