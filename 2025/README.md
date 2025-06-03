@@ -22,7 +22,7 @@ Die Installationsdatei von VS Code kann kostenfrei unter https://code.visualstud
 
 ## Python
 
-**Python** ist eine weit verbreitete, leicht verständliche Programmiersprache, die sich besonders gut für Einsteiger eignet. Sie wird häufig in der Datenanalyse, Künstlichen Intelligenz, Webentwicklung oder der Automatisierung eingesetzt. Python ist bekannt für seine klare Syntax, eine große Standardbibliothek und eine aktive Community. Bitte beachten Sie, dass wir Python in einer aktuellen Version (Versionsnummer 3.10 oder höher) verwenden.
+**Python** ist eine weit verbreitete, leicht verständliche Programmiersprache, die sich besonders gut für Einsteiger eignet. Sie wird häufig in der Data Science / Datenanalyse, Künstlichen Intelligenz, Webentwicklung oder der Automatisierung eingesetzt. Python ist bekannt für seine klare Syntax, eine große Standardbibliothek und eine aktive Community. Bitte beachten Sie, dass wir Python in einer aktuellen Version (Versionsnummer 3.10 oder höher) verwenden.
 
 Den Installer für Windows können Sie unter https://www.python.org/downloads/windows/ herunterladen (Sie benötigen Windows 8 oder höher). Unter macOS bietet sich - analog zu git - die Installation mittels Homebrew an (`brew install python`). Linux-Nutzende können ebenfalls Python mittels Paket-Manager installieren, z.B. unter Ubuntu mittels `sudo apt update && sudo apt install python3 python3-pip`.
 
@@ -99,7 +99,7 @@ Starten Sie nun das zuvor installierte Programm Visual Studio Code. Wählen Sie 
 
 Auf der linken Seite erscheint der Bereich _Quellcodeverwaltung_. Klicken Sie auf den Button _Repository klonen_. Geben Sie nun die Repository-URL ein: https://github.com/saschaszott/suma-tech.git
 
-Sie können nun ein beliebiges Arbeitsverzeichnis auf Ihrem Rechner festlegen, in dem das Git-Repository `suma-tech` heruntergeladen wird. Nehmen wir an, dass Sie als Arbeitsverzeichnis `sumatech2025` auswählen, dann existiert in diesem Verzeichnis nach dem Klonen das Unterverzeichnis `suma-tech`.
+Sie können nun ein beliebiges Arbeitsverzeichnis auf Ihrem Rechner festlegen, in dem das Git-Repository `suma-tech` heruntergeladen wird. Nehmen wir an, dass Sie als Arbeitsverzeichnis `sumatech2025` auswählen, dann existiert in diesem Verzeichnis nach dem Klonen das Unterverzeichnis `suma-tech`. Alle Pfadangaben, die im Folgenden angegeben werden, sind relativ zum Arbeitsverzeichnis.
 
 Wählen Sie nach dem Klonen im Dialog _Möchten Sie das geklonte Repository öffnen?_ den Button _Öffnen_.
 
@@ -168,7 +168,7 @@ Führen Sie nun den folgenden Befehl aus, um einen Docker Container mit dem Name
 docker compose up -d
 ```
 
-Der `docker compose` Befehl liest die Datei `docker-compose.yml` ein (aus dem Verzeichnis `2025/solr`). In dieser Datei sind die Dienste (Services) definiert, die beim Start (`up`) in einzelnen Docker Containern gestartet werden. In unserem Fall steht in der Datei nur ein Service mit dem Namen `solr`. Dazu wird zuerst das offizielle Docker Image `solr:9.8.1` aus dem Docker Hub heruntergeladen. Anschließend wird ein Docker Container mit dem Namen `solr-server` erzeugt, in dem schließlich ein Solr-Server gestartet wird. Die Option `-d` im obigen Befehl führt dazu, dass der Container im Hintergrund ausgeführt wird und nach der Beendigung des Befehls weiterhin ausgeführt wird. 
+Der `docker compose` Befehl liest die Datei `docker-compose.yml` ein (aus dem Verzeichnis `suma-tech/2025/solr`). In dieser Datei sind die Dienste (Services) definiert, die beim Start (`up`) in einzelnen Docker Containern gestartet werden. In unserem Fall steht in der Datei nur ein Service mit dem Namen `solr`. Dazu wird zuerst das offizielle Docker Image `solr:9.8.1` aus dem Docker Hub heruntergeladen. Anschließend wird ein Docker Container mit dem Namen `solr-server` erzeugt, in dem schließlich ein Solr-Server gestartet wird. Die Option `-d` im obigen Befehl führt dazu, dass der Container im Hintergrund ausgeführt wird und nach der Beendigung des Befehls weiterhin ausgeführt wird. 
 
 Damit haben wir unser Ziel erreicht.
 
@@ -226,7 +226,7 @@ Der Docker Container `solr-server` kann entfernt werden mittels
 docker compose down
 ```
 
-Das lokale Verzeichnis `solr/solrdata` wird beim Entfernen des Docker Containers **nicht** entfernt, da es als Bind Mount eingebunden ist (siehe unten).
+Das lokale Verzeichnis `suma-tech/2025/solr/solrdata` wird beim Entfernen des Docker Containers **nicht** entfernt, da es als Bind Mount eingebunden ist (siehe unten).
 
 Ein neuer Docker Container kann erzeugt werden mittels
 
@@ -248,9 +248,9 @@ In der Datei `docker-compose.yml` ist ein Bind Mount definiert:
       - ./solrdata:/var/solr
 ```
 
-Dadurch wird das Verzeichnis `solrdata` (innerhalb des Verzeichnisses, in dem die Datei `docker-compose.yml` gespeichert ist, d.h. `suma-tech/2025/solr/solrdata`) des Docker Host mit dem Verzeichnis `/var/solr` im Docker Container verbunden. Alle Änderungen, die innerhalb dieses Verzeichnisses (auch in Unterverzeichnissen) ausgeführt werden, sind im Docker Host und Container sichtbar. Werden z.B. vom Solr-Server (der im Container ausgeführt wird) Dateien in diesem Verzeichnis gespeichert, so können Sie im Docker Host ebenfalls auf diese Dateien zugreifen.
+Dadurch wird das Verzeichnis `solrdata` (innerhalb des Verzeichnisses, in dem die Datei `docker-compose.yml` gespeichert ist, d.h. innerhalb von `suma-tech/2025/solr/solrdata`) des Docker Host mit dem Verzeichnis `/var/solr` im Docker Container verbunden. Alle Änderungen, die innerhalb dieses Verzeichnisses (auch in Unterverzeichnissen) ausgeführt werden, sind im Docker Host und Container sichtbar. Werden z.B. vom Solr-Server (der im Container ausgeführt wird) Dateien in diesem Verzeichnis gespeichert, so können Sie im Docker Host ebenfalls auf diese Dateien zugreifen.
 
-Im Unterverzeichnis `solrdata/logs` werden die Protkolldateien (Log-Files) des Solr-Servers gespeichert. Die wichtigste Logdatei eines Solr-Servers heißt `solr.log`. Falls unerwartete Probleme beim Betrieb eines Solr-Servers bzw. bei Indexierung oder Suche auftreten, kann man dort nach möglichen Fehlerursachen suchen. 
+Im Unterverzeichnis `suma-tech/2025/solr/solrdata/logs` werden die Protkolldateien (Log-Files) des Solr-Servers gespeichert. Die wichtigste Logdatei eines Solr-Servers heißt `solr.log`. Falls unerwartete Probleme beim Betrieb eines Solr-Servers bzw. bei Indexierung oder Suche auftreten, kann man dort nach möglichen Fehlerursachen suchen. 
 
 Die Logdatei wird automatisch rotiert (`solr.log.1` usw.).
 
