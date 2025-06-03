@@ -93,9 +93,22 @@ sudo usermod -aG docker $USER
 Wir benötigen zudem die Software **Docker Compose**. Docker Compose ist in der aktuellen Version von Docker Desktop 
 bereits enthalten, so dass keine zusätzliche Installation erforderlich ist.
 
+## Git-Repository suma-tech in VS Code klonen
+
+Starten Sie nun das zuvor installierte Programm Visual Studio Code. Wählen Sie im Menü _Anzeigen_ den Eintrag _Quellcodeverwaltung_.
+
+Auf der linken Seite erscheint der Bereich _Quellcodeverwaltung_. Klicken Sie auf den Button _Repository klonen_. Geben Sie nun die Repository-URL ein: https://github.com/saschaszott/suma-tech.git
+
+Sie können nun ein beliebiges Arbeitsverzeichnis auf Ihrem Rechner festlegen, in dem das Git-Repository `suma-tech` heruntergeladen wird. Nehmen wir an, dass Sie als Arbeitsverzeichnis `sumatech2025` auswählen, dann existiert in diesem Verzeichnis nach dem Klonen das Unterverzeichnis `suma-tech`.
+
+Wählen Sie nach dem Klonen im Dialog _Möchten Sie das geklonte Repository öffnen?_ den Button _Öffnen_.
+
+Auf der linken Seite wird nun der Inhalt des Verzeichnis `suma-tech` angezeigt. Wählen Sie das Unterverzeichnis `2025` und anschließend das Unterverzeichnis `solr`. Klicken Sie im Kontextmenü (rechte Maustaste) den Eintrag _In integriertem Terminal öffnen_.
+
+
 ## Test der Docker-Installation: Ausführung eines Docker Containers
 
-Nach der Installation von Docker Desktop können Sie testweise einen Container starten, der `Hello from Docker!` auf der Kommandozeile ausgibt. Starten Sie dazu ein Terminal / die Kommandozeile und geben Sie anschließend folgenden Befehl ein:
+Sie können testweise einen Container starten, der `Hello from Docker!` auf der Kommandozeile ausgibt. Geben Sie dazu im soeben geöffneten Terminal folgenden Befehl ein:
 
 ```sh
 docker run hello-world
@@ -149,17 +162,7 @@ Nachdem die Nachricht ausgegeben wurde, beendet sich der Container automatisch, 
 
 ## Installation von Apache Solr in einem Docker Container
 
-Starten Sie nun das zuvor installierte Programm Visual Studio Code. Wählen Sie im Menü _Anzeigen_ den Eintrag _Quellcodeverwaltung_.
-
-Auf der linken Seite erscheint der Bereich _Quellcodeverwaltung_. Klicken Sie auf den Button _Repository klonen_. Geben Sie nun die Repository-URL ein: https://github.com/saschaszott/suma-tech.git
-
-Sie können nun ein beliebiges Arbeitsverzeichnis auf Ihrem Rechner festlegen, in dem das Git-Repository `suma-tech` heruntergeladen wird. Nehmen wir an, dass Sie als Arbeitsverzeichnis `sumatech2025` auswählen, dann existiert in diesem Verzeichnis nach dem Klonen das Unterverzeichnis `suma-tech`.
-
-Wählen Sie nach dem Klonen im Dialog _Möchten Sie das geklonte Repository öffnen?_ den Button _Öffnen_.
-
-Auf der linken Seite wird nun der Inhalt des Verzeichnis `suma-tech` angezeigt. Wählen Sie das Unterverzeichnis `2025` und anschließend das Unterverzeichnis `solr`. Klicken Sie im Kontextmenü (rechte Maustaste) den Eintrag _In integriertem Terminal öffnen_.
-
-Führen Sie folgenden Befehl aus, um einen Docker Container mit dem Namen `solr-server` zu erzeugen, in dem schließlich ein Solr Server gestartet wird:
+Führen Sie nun den folgenden Befehl aus, um einen Docker Container mit dem Namen `solr-server` zu erzeugen, in dem schließlich ein Solr Server gestartet wird:
 
 ```sh
 docker compose up -d
@@ -183,7 +186,7 @@ http://localhost:8983
 
 aufrufen. Schauen Sie sich in der Admin-Oberfläche etwas um. Wir werden im Praxistag intensiv mit der Oberfläche arbeiten.
 
-### Basisbefehle für das Arbeiten mit dem Docker Container
+## Basisbefehle für das Arbeiten mit Docker Containern
 
 Nun möchte ich Ihnen noch einige Befehle vorstellen, die Sie für die Verwaltung des Docker Containers nutzen können.
 
@@ -231,7 +234,7 @@ Ein neuer Docker Container kann erzeugt werden mittels
 docker compose up -d
 ```
 
-### Bind Mounts
+### Bind Mounts: Dateien zwischen Docker Host und Container teilen
 
 Docker-Container sind isolierte Umgebungen, und standardmäßig gehen alle darin gespeicherten Daten verloren, sobald der Container gelöscht wird. Um Daten persistent zu speichern, nutzt man **Docker Volumes** oder **Bind Mounts** (Volumes eher für Produktivszenarien; Bind Mounts für lokale Entwicklungsumgebungen).
 
