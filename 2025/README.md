@@ -7,8 +7,8 @@
 Die Installation von Git unterscheidet sich je nach Betriebssystem:
 
 *	Windows: Git-Installer von der offiziellen Website https://git-scm.com herunterladen und ausführen (Standardoptionen des Installationsassistenten sind in der Regel ausreichend).
-*	macOS: sofern Git noch nicht installiert ist (Prüfung mittels `git --version`) kann Git über Homebrew (`brew install git``) installiert werden
-*	Linux (z. B. Ubuntu, Debian): Terminal öffnen und Git mittels Apt-Paketmanager installieren: `sudo apt update && sudo apt install git`
+*	macOS: sofern Git noch nicht installiert ist (Prüfung mittels `git --version`) kann Git über Homebrew (`brew install git`) installiert werden.
+*	Linux (z. B. Ubuntu, Debian): Terminal öffnen und Git mittels Apt-Paketmanager installieren: `sudo apt update && sudo apt install git`.
 
 Nach der Installation von Git kann mit dem Befehl `git --version` geprüft werden, ob es korrekt installiert wurde. Beachten Sie, dass Sie eine aktuelle Git-Version (Versionsnummer 2.40 oder höher) besitzen.
 
