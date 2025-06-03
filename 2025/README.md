@@ -2,7 +2,7 @@
 
 ## Git
 
-**Git** ist ein Versionskontrollsystem, das wir für die Verwaltung von Quellcode verwenden werden. Der Quellcode sämtlicher Programme sowie die benötigten Konfigurationsdateien werden über Git verteilt. Hierzu existiert bei GitHub das öffentliches Projekt suma-tech (https://github.com/saschaszott/suma-tech). Git erlaubt es Ihnen zudem lokal ausgeführte Änderungen an Quelltexten und Konfigurationsdateien zu versionieren, so dass Sie den Änderungsverlauf später einfach nachvollziehen können. Auch im Hinblick auf eine Masterarbeit mit Implementierungsanteil ist die Beschäftigung mit Git sehr zu empfehlen.
+**Git** ist ein Versionskontrollsystem, das wir für die Verwaltung von Quellcode verwenden werden. Der Quellcode sämtlicher Programme sowie die benötigten Konfigurationsdateien werden über Git verteilt. Hierzu existiert bei GitHub das öffentliches Projekt **suma-tech** (https://github.com/saschaszott/suma-tech). Git erlaubt es Ihnen zudem lokal ausgeführte Änderungen an Quelltexten und Konfigurationsdateien zu versionieren, so dass Sie den Änderungsverlauf später einfach nachvollziehen können. Auch im Hinblick auf eine Masterarbeit mit Implementierungsanteil ist die Beschäftigung mit Git sehr zu empfehlen. In der Vorlesung werde Ihnen noch im Detail die Arbeit mit Git erklären.
 
 Die Installation von Git unterscheidet sich je nach Betriebssystem:
 
