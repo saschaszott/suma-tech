@@ -248,7 +248,7 @@ In der Datei `docker-compose.yml` ist ein Bind Mount definiert:
       - ./solrdata:/var/solr
 ```
 
-Dadurch wird das Verzeichnis `solrdata` (innerhalb des Verzeichnisses, in dem die Datei `docker-compose.yml` gespeichert ist, d.h. `2025/solr/solrdata`) des Docker Host mit dem Verzeichnis `/var/solr` im Docker Container verbunden. Alle Änderungen, die innerhalb dieses Verzeichnisses (auch in Unterverzeichnissen) ausgeführt werden, sind im Docker Host und Container sichtbar. Werden z.B. vom Solr-Server (der im Container ausgeführt wird) Dateien in diesem Verzeichnis gespeichert, so können Sie im Docker Host ebenfalls auf diese Dateien zugreifen.
+Dadurch wird das Verzeichnis `solrdata` (innerhalb des Verzeichnisses, in dem die Datei `docker-compose.yml` gespeichert ist, d.h. `suma-tech/2025/solr/solrdata`) des Docker Host mit dem Verzeichnis `/var/solr` im Docker Container verbunden. Alle Änderungen, die innerhalb dieses Verzeichnisses (auch in Unterverzeichnissen) ausgeführt werden, sind im Docker Host und Container sichtbar. Werden z.B. vom Solr-Server (der im Container ausgeführt wird) Dateien in diesem Verzeichnis gespeichert, so können Sie im Docker Host ebenfalls auf diese Dateien zugreifen.
 
 Im Unterverzeichnis `solrdata/logs` werden die Protkolldateien (Log-Files) des Solr-Servers gespeichert. Die wichtigste Logdatei eines Solr-Servers heißt `solr.log`. Falls unerwartete Probleme beim Betrieb eines Solr-Servers bzw. bei Indexierung oder Suche auftreten, kann man dort nach möglichen Fehlerursachen suchen. 
 
@@ -260,4 +260,4 @@ Die Logausgabe des Solr-Servers kann auch mit folgenden Befehl (ausgeführt auf 
 docker logs -f solr-server
 ```
 
-Alternativ kann die Datei `solrdata/logs/solr.log` im Dateisystem des Docker Hosts aufgerufen werden, um die Lognachrichten des Solr-Servers einzusehen.
+Alternativ kann die Datei `suma-tech/2025/solr/solrdata/logs/solr.log` im Dateisystem des Docker Hosts aufgerufen werden, um die Lognachrichten des Solr-Servers einzusehen.
