@@ -1,0 +1,10 @@
+services:
+  solr:
+    image: solr:9.8.1
+    container_name: solr-server
+    ports:
+      - 8983:8983
+    volumes:
+      - ./solrdata:/var/solr
+    environment:
+      - SOLR_JAVA_MEM=-Xms512m -Xmx1024m
