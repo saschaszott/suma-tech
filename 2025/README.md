@@ -26,7 +26,7 @@ Die Installationsdatei von VS Code kann kostenfrei unter https://code.visualstud
 
 Den Installer für Windows können Sie unter https://www.python.org/downloads/windows/ herunterladen (Sie benötigen Windows 8 oder höher). Unter macOS bietet sich - analog zu git - die Installation mittels Homebrew an (`brew install python`). Linux-Nutzende können ebenfalls Python mittels Paket-Manager installieren, z.B. unter Ubuntu mittels `sudo apt update && sudo apt install python3 python3-pip`.
 
-Nach der Installation können Sie mit dem Befehl `python3 --version` prüfen, ob Sie eine aktuelle Version auf Ihrem System installiert haben. Es wird empfohlen die Version mit der Versionsnummer 3.10 oder höher zu verwenden.
+Nach der Installation können Sie mit dem Befehl `python3 --version` prüfen, ob Sie eine aktuelle Version auf Ihrem System installiert haben. Es wird empfohlen die Python-Version mit der Versionsnummer 3.10 oder höher zu verwenden.
 
 Wir werden im Verlauf der Vorlesung verschiedene Python-Programmbibliotheken benötigen. Für die Installation der erforderlichen Python-Pakete werden wir den Python-Paketmanager `pip` nutzen. Optional kann auch der Paketmanager `conda` verwendet werden, der z.B. bei der Installation von Anaconda automatisch installiert wird.
 
