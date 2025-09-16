@@ -9,7 +9,7 @@ git clone https://github.com/saschaszott/suma-tech.git
 ## virtuelle Python-Umgebung erstellen
 
 ```sh
-cd suma-tech/praxisteile/01
+cd suma-tech/praxisteile
 python3 -m venv venv
 ```
 
@@ -27,6 +27,7 @@ venv\Scripts\activate
 
 ```sh
 pip install requests
+cd 01
 python 01_download.py
 ```
 
@@ -44,7 +45,7 @@ Alles nach dieser Zeile kann ignoriert werden:
 
 ```
 *** END OF THE PROJECT GUTENBERG EBOOK FAUST: EINE TRAGÖDIE [ERSTER TEIL] ***
-````
+```
 
 ## Filterung des Dateiinhalts
 
