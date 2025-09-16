@@ -37,8 +37,8 @@ git status
 In diesem Fall sollte bei Ihnen folgende Ausgabe erscheinen:
 
 ```
-On branch main
-Your branch is up to date with 'origin/main'.
+On branch master
+Your branch is up to date with 'origin/master'.
 
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
@@ -60,7 +60,7 @@ Der Dozent fügt hierzu nach Zeile 5 eine neue Zeile in die Datei ein:
 print("Aktuelles Datum:", now.strftime("%Y-%m-%d"))
 ```
 
-Auf der GitHub-Website können wir uns den Zustand der Datei nach der Änderung ansehen (https://github.com/saschaszott/suma-tech/blob/main/praxisteile/XX-git-update-workflow/current-datetime.py):
+Auf der GitHub-Website können wir uns den Zustand der Datei nach der Änderung ansehen (https://github.com/saschaszott/suma-tech/blob/master/praxisteile/XX-git-update-workflow/current-datetime.py):
 
 ```py
 from datetime import datetime
@@ -95,7 +95,7 @@ remote: Compressing objects: 100% (4/4), done.
 remote: Total 6 (delta 1), reused 6 (delta 1), pack-reused 0 (from 0)
 Unpacking objects: 100% (6/6), 1.40 KiB | 204.00 KiB/s, done.
 From https://github.com/saschaszott/ir-hdm-2025
-   4b7ebd7..1e342ae  main       -> origin/main
+   4b7ebd7..1e342ae  master       -> origin/master
 Updating 4b7ebd7..1e342ae
 error: Your local changes to the following files would be overwritten by merge:
 	praxisteile/XX-git-update-workflow/current-datetime.py
@@ -133,8 +133,8 @@ if __name__ == "__main__":
 Die lokale Änderung ist weiterhin über den Befehl `git status` ersichtlich, der folgende Ausgabe liefert:
 
 ```
-On branch main
-Your branch is up to date with 'origin/main'.
+On branch master
+Your branch is up to date with 'origin/master'.
 
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
@@ -170,8 +170,8 @@ Bei der Ausführung von `git stash pop` kommt es nun aber zu einer Fehlermeldung
 ```
 Auto-merging praxisteile/XX-git-update-workflow/current-datetime.py
 CONFLICT (content): Merge conflict in praxisteile/XX-git-update-workflow/current-datetime.py
-On branch main
-Your branch is up to date with 'origin/main'.
+On branch master
+Your branch is up to date with 'origin/master'.
 
 Unmerged paths:
   (use "git restore --staged <file>..." to unstage)
@@ -232,8 +232,8 @@ git commit -m "Konflikt gelöst: Remote-Version des Dozenten behalten"
 Die Ausgabe von `git status` zeigt keine Konflikte mehr an:
 
 ```
-On branch main
-Your branch is ahead of 'origin/main' by 1 commit.
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
   (use "git push" to publish your local commits)
 
 nothing to commit, working tree clean
@@ -278,8 +278,8 @@ git commit -m "Konflikt gelöst: lokale Änderung vorziehen"
 Die Ausgabe von `git status` zeigt keine Konflikte mehr an:
 
 ```
-On branch main
-Your branch is ahead of 'origin/main' by 1 commit.
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
   (use "git push" to publish your local commits)
 
 nothing to commit, working tree clean
@@ -299,7 +299,7 @@ git stash list
 
 ## Alternatives Vorgehen mit einem eigenen Branch
 
-Die Verwendung eines eigenen (lokalen) Branch minimiert Konfliktsituationen und ermöglicht gleichzeitig Änderungen aus dem main-Branch zu integrieren.
+Die Verwendung eines eigenen (lokalen) Branch minimiert Konfliktsituationen und ermöglicht gleichzeitig Änderungen aus dem master-Branch zu integrieren.
 
 ### Anlegen eines eigenen Branches
 
@@ -324,12 +324,12 @@ Durch dieses Vorgehen können Sie später die Änderungen an der Datei besser na
 
 ### Übernahme von Änderungen aus dem Remote-Repository des Dozenten
 
-Die entfernten Änderungen des Dozenten können Sie durch dieses Vorgehen konfliktfrei in den Hauptzweig (Main Branch) `main` übernehmen, da Sie im Branch `main` keine Änderungen vornehmen.
+Die entfernten Änderungen des Dozenten können Sie durch dieses Vorgehen konfliktfrei in den Hauptzweig (Main Branch) `master` übernehmen, da Sie im Branch `master` keine Änderungen vornehmen.
 
-Wechseln Sie zuerst zum `main` Branch mit folgendem Befehl:
+Wechseln Sie zuerst zum `master` Branch mit folgendem Befehl:
 
 ```sh
-git checkout main
+git checkout master
 ```
 
 Die Änderungen aus dem Remote-Repository bei GitHub holen Sie mit folgendem Befehl:
@@ -347,7 +347,7 @@ git checkout local-changes
 Schließlich übernehmen Sie die Änderungen mit einem _Merge_ durch folgenden Befehl:
 
 ```sh
-git merge main
+git merge master
 ```
 
 ### Ausführung einer manuellen Konfliktauflösung
@@ -405,12 +405,12 @@ if __name__ == "__main__":
 Führen Sie nun die oben beschriebenen Befehle zur Integration dieser Änderung im entfernten GitHub-Repository aus:
 
 ```sh
-git checkout main
+git checkout master
 git pull
 git checkout local-changes
 ```
 
-Führen wir nun den Befehl `git merge main` aus, so kommt es zu einer Konfiktsituation, wie wir in der Befehlsausgabe erkennen:
+Führen wir nun den Befehl `git merge master` aus, so kommt es zu einer Konfiktsituation, wie wir in der Befehlsausgabe erkennen:
 
 ```
 Auto-merging praxisteile/XX-git-update-workflow/current-datetime.py
@@ -431,7 +431,7 @@ def main():
 
 =======
     Es wird kein Argument erwartet.
->>>>>>> main
+>>>>>>> master
     """
     now = datetime.now()
     print("Aktuelle Systemzeit:", now.strftime("%H:%M:%S"))
