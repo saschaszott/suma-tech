@@ -1,3 +1,4 @@
+# ein Kommentar vom Dozenten
 from datetime import datetime
 
 def main():
