@@ -6,7 +6,7 @@ In einem Solr-Server können mehrere unabhängige (d.h. voneinander getrennte) K
 
 Jeder Solr Kern besteht aus einer Menge von Konfigurationsdateien sowie aus einem Suchindex.
 
-Durch den nachfolgenden Befehl wird ein neuer Solr Kern mit dem Namen `my1stcore` angelgt (der Befehl muss im Verzeichnis `2025-04-05` ausgeführt werden):
+Durch den nachfolgenden Befehl wird ein neuer Solr Kern mit dem Namen `my1stcore` angelgt (der Befehl muss im Verzeichnis `2025` ausgeführt werden):
 
 ```sh
 docker compose exec solr solr create_core -c my1stcore
