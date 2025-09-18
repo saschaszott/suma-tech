@@ -1,0 +1,202 @@
+[
+  {
+    "id": "1",
+    "url": "https://www.pearson.com/store/p/introduction-to-algorithms/P100000323631",
+    "title": "Introduction to Algorithms",
+    "authors": ["Thomas H. Cormen", "Charles E. Leiserson", "Ronald L. Rivest", "Clifford Stein"],
+    "publication_year": 2009,
+    "abstract": "This textbook provides a comprehensive introduction to the modern study of computer algorithms. It covers a wide range of algorithms in depth, yet makes their design and analysis accessible to all levels of readers.",
+    "publisher": "MIT Press",
+    "keywords": ["Algorithms", "Computer Science", "Data Structures", "Mathematics"]
+  },
+  {
+    "id": "2",
+    "url": "https://www.oreilly.com/library/view/design-patterns-elements/9780201633610/",
+    "title": "Design Patterns: Elements of Reusable Object-Oriented Software",
+    "authors": ["Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"],
+    "publication_year": 1994,
+    "abstract": "This book introduces the concept of design patterns in object-oriented software development and presents 23 design patterns that can be used to solve common design problems.",
+    "publisher": "Addison-Wesley",
+    "keywords": ["Design Patterns", "Object-Oriented Design", "Software Engineering"]
+  },
+  {
+    "id": "3",
+    "url": "https://www.pearson.com/store/p/the-art-of-computer-programming/P100000609183",
+    "title": "The Art of Computer Programming",
+    "authors": ["Donald E. Knuth"],
+    "publication_year": 1968,
+    "abstract": "This classic work is a comprehensive introduction to the field of computer programming and algorithms. It is often regarded as the most important work in the history of computer science.",
+    "publisher": "Addison-Wesley",
+    "keywords": ["Algorithms", "Programming", "Mathematics", "Computer Science"]
+  },
+  {
+    "id": "4",
+    "url": "https://www.springer.com/gp/book/9783030217605",
+    "title": "Artificial Intelligence: A Modern Approach",
+    "authors": ["Stuart Russell", "Peter Norvig"],
+    "publication_year": 2020,
+    "abstract": "This book provides a comprehensive introduction to artificial intelligence, covering both theoretical foundations and practical applications of AI techniques.",
+    "publisher": "Pearson",
+    "keywords": ["Artificial Intelligence", "Machine Learning", "Search Algorithms", "AI Planning"]
+  },
+  {
+    "id": "5",
+    "url": "https://www.pearson.com/store/p/clean-code/P100000123712",
+    "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "authors": ["Robert C. Martin"],
+    "publication_year": 2008,
+    "abstract": "Clean Code is a guide to writing clean, maintainable, and effective code. It covers principles, patterns, and practices of writing clean code and also includes examples of bad code and how to refactor it.",
+    "publisher": "Prentice Hall",
+    "keywords": ["Clean Code", "Software Engineering", "Agile", "Refactoring"]
+  },
+  {
+    "id": "6",
+    "url": "https://www.oreilly.com/library/view/computer-networks/9780132126953/",
+    "title": "Computer Networks",
+    "authors": ["James F. Kurose", "Keith W. Ross"],
+    "publication_year": 2017,
+    "abstract": "This book provides an in-depth exploration of computer networking, covering both the theoretical and practical aspects of network design, operation, and protocols.",
+    "publisher": "Pearson",
+    "keywords": ["Computer Networks", "Networking", "Protocols", "Internet"]
+  },
+  {
+    "id": "7",
+    "url": "https://www.oreilly.com/library/view/structure-and-interpretation/9780262510875/",
+    "title": "Structure and Interpretation of Computer Programs",
+    "authors": ["Harold Abelson", "Gerald Jay Sussman", "Julie Sussman"],
+    "publication_year": 1996,
+    "abstract": "This book introduces fundamental concepts in programming, including abstraction, recursion, and modularity. It uses Scheme, a Lisp dialect, to explore these topics.",
+    "publisher": "MIT Press",
+    "keywords": ["Programming", "Abstraction", "Computer Science", "Scheme"]
+  },
+  {
+    "id": "8",
+    "url": "https://www.mheducation.com/highered/product/introduction-computer-networks-sudhir-kapoor/M9780070228919.html",
+    "title": "Introduction to Computer Networks",
+    "authors": ["Sudhir Kapoor"],
+    "publication_year": 2010,
+    "abstract": "This book offers a comprehensive introduction to computer networking concepts, protocols, and technologies, with real-world examples and applications.",
+    "publisher": "McGraw-Hill Education",
+    "keywords": ["Computer Networks", "Networking", "Protocols", "Internet"]
+  },
+  {
+    "id": "9",
+    "url": "https://www.oreilly.com/library/view/introduction-to-algorithms/9780262033848/",
+    "title": "Introduction to Algorithms",
+    "authors": ["Thomas H. Cormen", "Charles E. Leiserson", "Ronald L. Rivest", "Clifford Stein"],
+    "publication_year": 2009,
+    "abstract": "An essential textbook for learning algorithms and data structures. It offers a comprehensive introduction to both the theory and practical applications of algorithms.",
+    "publisher": "MIT Press",
+    "keywords": ["Algorithms", "Data Structures", "Computer Science"]
+  },
+  {
+    "id": "10",
+    "url": "https://www.springer.com/gp/book/9783642041007",
+    "title": "The Algorithm Design Manual",
+    "authors": ["Steven S. Skiena"],
+    "publication_year": 2008,
+    "abstract": "This book covers fundamental algorithms and the techniques for designing and analyzing algorithms. It is an excellent resource for both students and professionals.",
+    "publisher": "Springer",
+    "keywords": ["Algorithms", "Design", "Computer Science"]
+  },
+  {
+    "id": "11",
+    "url": "https://www.manning.com/books/refactoring",
+    "title": "Refactoring: Improving the Design of Existing Code",
+    "authors": ["Martin Fowler"],
+    "publication_year": 1999,
+    "abstract": "Refactoring presents techniques for improving the design of codebases, focusing on making software more understandable and maintainable without altering its behavior.",
+    "publisher": "Addison-Wesley",
+    "keywords": ["Refactoring", "Software Design", "Code Quality"]
+  },
+  {
+    "id": "12",
+    "url": "https://www.oreilly.com/library/view/clean-architecture/9780134494272/",
+    "title": "Clean Architecture: A Craftsman's Guide to Software Structure and Design",
+    "authors": ["Robert C. Martin"],
+    "publication_year": 2017,
+    "abstract": "Clean Architecture introduces principles and practices for creating flexible, maintainable, and scalable software architectures, emphasizing separation of concerns.",
+    "publisher": "Prentice Hall",
+    "keywords": ["Software Architecture", "Clean Code", "Design Patterns"]
+  },
+  {
+    "id": "13",
+    "url": "https://www.springer.com/gp/book/9783030308761",
+    "title": "Machine Learning Yearning",
+    "authors": ["Andrew Ng"],
+    "publication_year": 2018,
+    "abstract": "This book provides practical guidance for building machine learning systems and is written by one of the pioneers of the field, Andrew Ng.",
+    "publisher": "Self-published",
+    "keywords": ["Machine Learning", "AI", "Deep Learning", "Andrew Ng"]
+  },
+  {
+    "id": "14",
+    "url": "https://www.oreilly.com/library/view/programming-pytorch-for/9781492045325/",
+    "title": "Programming PyTorch for Deep Learning",
+    "authors": ["Ian Pointer"],
+    "publication_year": 2019,
+    "abstract": "This book provides a comprehensive introduction to PyTorch, a deep learning framework. It teaches how to build neural networks and other deep learning models.",
+    "publisher": "O'Reilly Media",
+    "keywords": ["PyTorch", "Deep Learning", "Neural Networks", "Machine Learning"]
+  },
+  {
+    "id": "15",
+    "url": "https://www.manning.com/books/learning-spark",
+    "title": "Learning Spark: Lightning-Fast Big Data Analysis",
+    "authors": ["Jules S. Damji", "Tathagata Das", "Denny Lee", "Holden Karau"],
+    "publication_year": 2020,
+    "abstract": "This book provides a hands-on introduction to Apache Spark, a powerful big data processing framework that enables efficient large-scale data analysis.",
+    "publisher": "Manning Publications",
+    "keywords": ["Apache Spark", "Big Data", "Data Processing", "Machine Learning"]
+  },
+  {
+    "id": "16",
+    "url": "https://www.oreilly.com/library/view/learning-python/9781449355722/",
+    "title": "Learning Python",
+    "authors": ["Mark Lutz"],
+    "publication_year": 2013,
+    "abstract": "This comprehensive guide teaches Python programming from basic to advanced concepts, offering a clear and detailed introduction to one of the most popular programming languages.",
+    "publisher": "O'Reilly Media",
+    "keywords": ["Python", "Programming", "Software Development"]
+  },
+  {
+    "id": "17",
+    "url": "https://www.oreilly.com/library/view/data-science-for/9781492041075/",
+    "title": "Data Science for Business",
+    "authors": ["Foster Provost", "Tom Fawcett"],
+    "publication_year": 2013,
+    "abstract": "Data Science for Business teaches how to use data science techniques to make better business decisions, offering a framework for understanding and applying data science methods.",
+    "publisher": "O'Reilly Media",
+    "keywords": ["Data Science", "Business Analytics", "Machine Learning"]
+  },
+  {
+    "id": "18",
+    "url": "https://www.springer.com/gp/book/9783030156721",
+    "title": "Introduction to Artificial Intelligence",
+    "authors": ["Wolfgang Ertel"],
+    "publication_year": 2021,
+    "abstract": "This book introduces the key concepts of artificial intelligence, including algorithms, models, and applications, in an accessible and easy-to-understand manner.",
+    "publisher": "Springer",
+    "keywords": ["Artificial Intelligence", "Machine Learning", "AI Models"]
+  },
+  {
+    "id": "19",
+    "url": "https://www.oreilly.com/library/view/data-science-for/9781492041136/",
+    "title": "Data Science from Scratch",
+    "authors": ["Joel Grus"],
+    "publication_year": 2019,
+    "abstract": "Data Science from Scratch teaches the fundamentals of data science by explaining algorithms and techniques that can be implemented using Python and other programming tools.",
+    "publisher": "O'Reilly Media",
+    "keywords": ["Data Science", "Python", "Machine Learning", "Algorithms"]
+  },
+  {
+    "id": "20",
+    "url": "https://www.oreilly.com/library/view/the-ultimate-guide/9781492052712/",
+    "title": "The Ultimate Guide to SQL",
+    "authors": ["Benjamin S. Templin"],
+    "publication_year": 2018,
+    "abstract": "This book serves as a comprehensive guide to SQL, from the basics of querying data to advanced techniques used in optimizing and managing databases.",
+    "publisher": "O'Reilly Media",
+    "keywords": ["SQL", "Databases", "SQL Queries", "Data Management"]
+  }
+]
