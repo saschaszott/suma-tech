@@ -13,10 +13,11 @@ def tokenize(input_file):
     token_list = []
 
     for token in tokens:
-        # Korrektur am Tokenende entfernen
-        token_cleaned = re.sub(r"\[[^\[\]]+\]$", "", token)
-        if token_cleaned != token:
-            token = token_cleaned
+        if input_file.endswith("_filtered.txt"):
+            # Korrektur am Tokenende entfernen
+            token_cleaned = re.sub(r"\[[^\[\]]+\]$", "", token)
+            if token_cleaned != token:
+                token = token_cleaned
         
         # führender und abschließender Unterstrich entfernen
         # und anschließend möglichen Punkt am Ende entfernen
@@ -59,7 +60,7 @@ def get_top_trigrams(tokens, n):
     return sorted(trigram_freq.items(), key=lambda x: x[1], reverse=True)[:n]
 
 if __name__ == "__main__":
-    filename = "../2025-04-03/21000_filtered.txt"
+    filename = "21000_filtered.txt"
     token_list = tokenize(filename)
     k = 20
     bigrams = get_top_bigrams(token_list, k)
