@@ -8,8 +8,8 @@ def extract_gutenberg_text(input_file, output_file):
     - input_file (str): Der Pfad zur Originaldatei.
     - output_file (str): Der Pfad zur bereinigten Ausgabedatei.
     """
-    start_marker = "*** START OF THE PROJECT GUTENBERG EBOOK "
-    end_marker = "*** END OF THE PROJECT GUTENBERG EBOOK "
+    start_marker = "*** START OF THIS PROJECT GUTENBERG EBOOK "
+    end_marker = "*** END OF THIS PROJECT GUTENBERG EBOOK "
     inside_text = False
 
     with open(input_file, "r", encoding="utf-8") as infile, open(output_file, "w", encoding="utf-8") as outfile:
