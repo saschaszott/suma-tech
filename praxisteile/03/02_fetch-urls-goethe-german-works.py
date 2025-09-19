@@ -23,7 +23,7 @@ def fetch_books_by_author_id(author_id):
     # Abschnitt mit h2-Überschrift des Autorennamens in der HTML-Seite finden
     author_section = None
     for h2 in soup.find_all("h2"):
-        a_tag = h2.find("a", {"name": "a" + str(author_id)})
+        a_tag = h2.find("a", {"id": "a" + str(author_id)})
         if a_tag:
             author_section = h2
             break
