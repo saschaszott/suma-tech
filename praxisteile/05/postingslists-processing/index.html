@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Verarbeitung Boolescher Anfragen auf Postingslisten</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 5px;
+    }
+
+    .list {
+      display: flex;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .item {
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      background: #49cfde;
+      text-align: center;
+      line-height: 40px;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .item-sentinel {
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      background: white;
+      text-align: center;
+      line-height: 40px;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .pointer {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fd0e0ee1;
+      font-size: 18px;
+    }
+
+    .match {
+      background: lightgreen !important;
+    }
+
+    button,
+    select,
+    input {
+      padding: 10px 15px;
+      margin-top: 10px;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+
+    input {
+      width: 500px;
+    }
+
+    #result,
+    #log {
+      margin-top: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Verarbeitung Boolescher Anfragen auf Postingslisten</h2>
+
+  <label>Postingsliste <i>P<sub>1</sub></i> von Term <i>t<sub>1</sub></i> <input id="inputP1"
+      value="2,4,8,16,20,22"></label><br><br>
+  <label>Postingsliste <i>P<sub>2</sub></i> von Term <i>t<sub>2</sub></i> <input id="inputP2"
+      value="1,4,10,16,20,21,22,25"></label><br><br>
+
+  <label>Boolesche Anfrage
+    <select id="operation">
+      <option value="p1-and-p2">P1 AND P2 (Intersection)</option>
+      <option value="p1-or-p2">P1 OR P2 (Union)</option>
+      <option value="p1-and-not-p2">P1 AND NOT P2</option>
+      <option value="not-p1-and-p2">NOT P1 AND P2</option>
+    </select>
+  </label><br><br>
+
+  <button onclick="start()">Start</button>
+  <button id="nextBtn" onclick="step()">Nächster Schritt</button>
+  <button onclick="reset()">Zurücksetzen</button>
+
+  <div>
+    <h3>Postingsliste <i>P<sub>1</sub></i></h3>
+    <div id="listP1" class="list"></div>
+  </div>
+
+  <div>
+    <h3>Postingsliste <i>P<sub>2</sub></i></h3>
+    <div id="listP2" class="list"></div>
+  </div>
+
+  <div>
+    <h3>Ergebnismenge <i>R</i></h3>
+    <div id="result"></div>
+  </div>
+
+  <div>
+    <h3>Protokoll</h3>
+    <div id="log"></div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
