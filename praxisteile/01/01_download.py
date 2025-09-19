@@ -21,6 +21,6 @@ def download_file(url, filename):
         print(f"Fehler beim Herunterladen der Datei: {response.status_code}")
 
 if __name__ == "__main__":
-    url = "https://www.gutenberg.org/ebooks/21000.txt.utf-8"
+    url = "https://www.gutenberg.org/files/21000/21000-0.txt"
     filename = "21000.txt"
     download_file(url, filename)
