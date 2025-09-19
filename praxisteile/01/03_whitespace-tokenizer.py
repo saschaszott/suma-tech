@@ -19,7 +19,7 @@ def tokenize_and_save(input_file, output_file):
             outfile.write(token.strip() + "\n") # Jedes Token in eine neue Zeile schreiben
 
     num_of_tokens = len(tokens)
-    print(f"Es wurden {num_of_tokens} Tokens in dier Datei {output_file} gespeichert.")
+    print(f"Es wurden {num_of_tokens} Tokens in der Datei {output_file} gespeichert.")
 
 if __name__ == "__main__":
     input_file = "21000_filtered.txt"
