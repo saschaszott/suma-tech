@@ -61,7 +61,7 @@ def plot_frequency_distribution(term_frequencies, log_y = False):
 
 if __name__ == "__main__":
     input_file = "tokens.txt"
-    term_frequencies = count_term_frequencies(input_file, tokenize_chars=True)
+    term_frequencies = count_term_frequencies(input_file, tokenize_chars=False)
 
     plot_frequency_distribution(term_frequencies, log_y=False)
     #plot_frequency_distribution(term_frequencies, log_y=True)
