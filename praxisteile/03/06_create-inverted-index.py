@@ -8,7 +8,7 @@ def construct_index(base_dir):
     # über alle Termdateien im Import-Verzeichnis iterieren
     for datei in os.listdir(base_dir):        
         if datei.endswith("-filtered-terms.txt"):
-            document_id = datei.split("-", maxsplit=1)[0]
+            document_id = int(datei.split("-", maxsplit=1)[0])
 
             # Termdatei einlesen und Terme in invertierten Index eintragen
             with open(os.path.join(base_dir, datei), "r", encoding="utf-8") as term_file:
