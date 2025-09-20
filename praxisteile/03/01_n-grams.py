@@ -13,11 +13,10 @@ def tokenize(input_file):
     token_list = []
 
     for token in tokens:
-        if input_file.endswith("_filtered.txt"):
-            # Korrektur am Tokenende entfernen
-            token_cleaned = re.sub(r"\[[^\[\]]+\]$", "", token)
-            if token_cleaned != token:
-                token = token_cleaned
+        # Korrektur am Tokenende entfernen
+        token_cleaned = re.sub(r"\[[^\[\]]+\]$", "", token)
+        if token_cleaned != token:
+            token = token_cleaned
         
         # führender und abschließender Unterstrich entfernen
         # und anschließend möglichen Punkt am Ende entfernen

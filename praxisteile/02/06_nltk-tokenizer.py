@@ -23,12 +23,11 @@ def tokenize_and_save(input_file, output_file, case_insensitive=False):
     num_of_tokens_in_file = 0
     with open(output_file, "w", encoding="utf-8") as outfile:
         for token in tokens:
-            if input_file.endswith("_filtered.txt"):
-                # Korrektur am Tokenende entfernen
-                token_cleaned = re.sub(r"\[[^\[\]]+\]$", "", token)
-                if token_cleaned != token:
-                    print(f"Korrektur entfernt: {token} -> {token_cleaned}")
-                    token = token_cleaned
+            # Korrektur am Tokenende entfernen
+            token_cleaned = re.sub(r"\[[^\[\]]+\]$", "", token)
+            if token_cleaned != token:
+                print(f"Korrektur entfernt: {token} -> {token_cleaned}")
+                token = token_cleaned
             
             # führender und abschließender Unterstrich entfernen
             # und anschließend möglichen Punkt am Ende entfernen

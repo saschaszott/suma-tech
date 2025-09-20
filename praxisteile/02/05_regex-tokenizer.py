@@ -20,12 +20,11 @@ def tokenize_and_save(input_file, output_file, case_insensitive=False):
 
     with open(output_file, "w", encoding="utf-8") as outfile:
         for token in tokens:
-            if input_file.endswith("_filtered.txt"):
-                # Korrektur am Tokenende entfernen
-                token_cleaned = re.sub(r"\[[^\[\]]+\]$", "", token)
-                if token_cleaned != token:
-                    print(f"Korrektur entfernt: {token} -> {token_cleaned}")
-                    token = token_cleaned
+            # Korrektur am Tokenende entfernen
+            token_cleaned = re.sub(r"\[[^\[\]]+\]$", "", token)
+            if token_cleaned != token:
+                print(f"Korrektur entfernt: {token} -> {token_cleaned}")
+                token = token_cleaned
             if case_insensitive:
                 token = token.lower() # alle Zeichen im Token in Kleinbuchstaben umwandeln
             outfile.write(token.strip()+ "\n") # Jedes Token in eine neue Zeile schreiben
