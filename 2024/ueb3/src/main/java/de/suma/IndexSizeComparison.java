@@ -173,7 +173,7 @@ public class IndexSizeComparison {
         }
         if (tokens.length - n < 0) {
             // es können keine n-Gramme aus textToIndex gebildet werden, da der textToIndex zu kurz ist
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
 
         // berechnen Sie im nachfolgenden TODO die n-Gramme (n > 1) für den übergebenen Text in textToIndex
