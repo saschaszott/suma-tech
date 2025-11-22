@@ -1,0 +1,6 @@
+venv/
+pg-fulltexts/
+pg-metadata/
+gutenberg_ids.txt
+document_frequency_distribution.png
+term_rank_frequency.png
