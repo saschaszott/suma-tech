@@ -4,5 +4,5 @@ pg-metadata/
 gutenberg_ids.txt
 document_frequency_distribution.png
 term_rank_frequency.png
-s07_autocompletion
+s07_autocompletion.py
 s08_delete_ebooks.py

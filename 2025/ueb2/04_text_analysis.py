@@ -23,6 +23,7 @@ ID_BLACKLIST = [
     65661,
     43987,
     13810,
+    43931,
 ]
 
 TOKEN_PATTERN = regex.compile(r"""
@@ -81,27 +82,19 @@ def ignore_file(path):
         return True
     return False
 
-def update_longest_terms(longest_terms_heap, longest_terms_set, token, fname, max_size=10):
-    # longest_terms_heap ist ein Min-Heap für die max_size längsten Terme,
-    # wobei in jedem Knoten des Heaps folgende Informationen gespeichert sind: (Länge, Token, Filename)
-    # longest_terms_set ist eine Menge der Tokens, die bereits im Heap enthalten sind
-    # Dadurch können doppelte Terme im Heap vermieden werden.
-    if token in longest_terms_set:
-        return
-
-    entry = (len(token), token, fname)
-    if len(longest_terms_heap) < max_size:
+def update_longest_terms(longest_terms_heap, term, max_heap_size=10):
+    # longest_terms_heap ist ein Min-Heap, der die bis zu max_heap_size längsten Terme speichert
+    if len(longest_terms_heap) < max_heap_size:
         # der Heap hat noch nicht seine maximale Größe erreicht
-        heapq.heappush(longest_terms_heap, entry)
-        longest_terms_set.add(token)
+        heapq.heappush(longest_terms_heap, term)
         return
 
     # Heap hat seine maximale Größe erreicht
-    # Knoten ersetzen, wenn das neue Token länger ist als das aktuell kürzeste Token im Heap (welches in der Wurzel steht)
-    if len(token) > longest_terms_heap[0][0]:
-        heapq.heappushpop(longest_terms_heap, entry)
-        longest_terms_set.remove(longest_terms_heap[0][1])
-        longest_terms_set.add(token)
+    # Term mit der kürzesten Länge steht in der Wurzel
+    # dieser Term muss verdrängt werden, wenn der neue Term (term) länger ist
+    root_term = longest_terms_heap[0]
+    if len(term) > len(root_term):
+        heapq.heappushpop(longest_terms_heap, term)
 
 def collect_tokens():
     if not os.path.isdir(FULLTEXT_DIR):
@@ -113,11 +106,7 @@ def collect_tokens():
     files_processed = 0
     total_token_len = 0
     total_tokens = 0
-    # TODO Liste für die 10 längsten Terme, jeweils als (Token, Länge, Filename)
-    # longest_terms_heap = []
-    # longest_terms_set = set()
 
-    longest = ("", None)
     for fname in os.listdir(FULLTEXT_DIR):
         fpath = os.path.join(FULLTEXT_DIR, fname)
         print(f"Verarbeite {fpath} ...", end="")
@@ -131,22 +120,32 @@ def collect_tokens():
             term_counter[tok] += 1
             total_token_len += len(tok)
             total_tokens += 1
-            if len(tok) > len(longest[0]):
-                longest = (tok, fname)
         for term in terms:
             if term not in term_to_docs:
                 term_to_docs[term] = []
-            if fname not in term_to_docs[term]:
-                term_to_docs[term].append(fname)
+            term_to_docs[term].append(fname)
 
         print(" (OK)")
-    return term_counter, total_tokens, total_token_len, longest, term_to_docs, files_processed
+
+    longest_terms = []
+    # TODO aktuell wird nur der längste Term insgesamt ermittelt und in longest_terms gespeichert.
+    # nun sollen jedoch die 10 längsten Terme ermitteln, wobei Sie hierfür die Methode update_longest_terms nutzen
+    # können, die intern einen Min-Heap verwendet, um die 10 längsten Terme effizient zu verwalten.
+    for term in term_to_docs.keys():
+        if len(longest_terms) == 0:
+            longest_terms.append(term)
+            continue
+
+        if len(term) > len(longest_terms[0]):
+            longest_terms[0] = term
+
+    return term_counter, total_tokens, total_token_len, longest_terms, term_to_docs, files_processed
 
 def plot_term_frequencies(counter):
     freqs = [f for _, f in counter.most_common()]
     ranks = range(1, len(freqs) + 1)
 
-    plt.figure(figsize=(8, 8))
+    plt.figure(figsize=(16, 8))
     plt.plot(ranks, freqs, marker=".", linestyle="none", markersize=1)
     plt.yscale("log")
     plt.xlabel("Rang")
@@ -158,7 +157,7 @@ def plot_term_frequencies(counter):
     print(f"Rang-Häufigkeitsverteilung gespeichert in {png_filename}.")
 
 def plot_document_frequencies(term_to_docs, num_docs):
-    # zähle die Anzahl der Terme pro Dokumentfrequenz
+    # ermittle die Anzahl der Terme pro Dokumentfrequenz
     num_of_terms = Counter()
     for _, doc_list in term_to_docs.items():
         num_of_terms[len(doc_list)] += 1
@@ -166,10 +165,10 @@ def plot_document_frequencies(term_to_docs, num_docs):
         if doc_freq not in num_of_terms:
             num_of_terms[doc_freq] = 0
         else:
-            if num_of_terms[doc_freq] > 100:
+            if num_of_terms[doc_freq] >= 1000:
                 print(f"Dokumentfrequenz {doc_freq}: {num_of_terms[doc_freq]} Terme")
 
-    plt.figure(figsize=(8, 8))
+    plt.figure(figsize=(16, 8))
     plt.plot(num_of_terms.keys(), num_of_terms.values(), marker=".", linestyle="none", markersize=1)
     plt.yscale("log")
     plt.xlabel("Dokumentfrequenz")
@@ -181,7 +180,7 @@ def plot_document_frequencies(term_to_docs, num_docs):
     print(f"Verteilung der Dokumentfrequenzen gespeichert in {png_filename}.")
 
 if __name__ == "__main__":
-    counter, total_tokens, total_token_len, longest, term_to_docs, files_processed = collect_tokens()
+    counter, total_tokens, total_token_len, longest_terms, term_to_docs, files_processed = collect_tokens()
 
     if total_tokens == 0:
         print("Keine Tokens gefunden.")
@@ -194,7 +193,10 @@ if __name__ == "__main__":
     print(f"Anzahl Tokens (d.h. gefundener Term-Vorkommen): {total_tokens}")
     print(f"Anzahl Terme: {len(counter)}")
     print(f"Durchschnittliche Termlänge (über alle Vorkommen): {avg_len:.3f}")
-    print(f"Längster Term: {longest[0]} (mit Länge {len(longest[0])}) in Datei {longest[1]}")
+
+    # TODO geben Sie hier die 10 längsten Terme aus
+    print(f"Längster Term: {longest_terms[0]} (mit Länge {len(longest_terms[0])})")
+
     print("10 häufigsten Terme:")
     for term, freq in top10:
         print(f"\t{term}: {freq}")
