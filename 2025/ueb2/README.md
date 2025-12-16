@@ -258,7 +258,7 @@ Die Indexfelder sollen hierbei unterschiedlich bei der Suche gewichtet werden:
 - ein Titeltreffer mit Faktor 8
 - ein Autortreffer mit Faktor 4
 - ein Volltexttreffer (ohne Stemming) mit Faktor 2
-- ein Volltexttreffer (mit Stemming) soll nicht besonders gewichtet werden
+- ein Volltexttreffer (mit Stemming) soll nicht besonders gewichtet werden (Standardgewichtung 1)
 
 Zusätzlich soll ein Boosting auf Basis der Downloadanzahl (im Indexfeld `numOfDownloadsLast30Days`) erfolgen. Dazu soll
 der Logarithmus (zur Basis 10) der Downloadanzahl als Boosting-Faktor einbezogen werden (`bf` Parameter mit
@@ -275,7 +275,7 @@ Beschäftigen Sie sich dazu mit der Solr-Komponente _Terms Component_. Einzelhei
 
 Erweitern Sie das Programm `07_autocompletion.py`, so dass die Autovervollständigung auf Basis des Indexfeld `title`
 mittels der _Terms Component_ realisiert wird. Dazu müssen Sie die Anfrageparameter an der mit `TODO` markierten
-Stelle entsprechend anpassen. Es sollen nach jedem Tastendruck maximal 15 Vervollständigungsvorschläge ausgegeben
+Stelle entsprechend anpassen. Es sollen nach jedem Tastendruck maximal 10 Vervollständigungsvorschläge ausgegeben
 werden, die nach Dokumenthäufigkeit absteigend sortiert sind.
 
 Starten Sie nach der Fertigstellung das Programm und testen Sie die Autovervollständigung für verschiedene Suchterme.
@@ -288,8 +288,8 @@ Kopieren Sie in die Datei `answers.txt` die Ausgabe des Programms `07_autocomple
 Es sollen nun noch alle E-Books aus dem Index gelöscht werden, die in den letzten 30 Tagen nicht mehr als 5 Downloads
 hatten.
 
-Hierzu müssen Sie das Programm `08_delete_e_books.py` an den mit `TODO` gekennzeichneten Stellen vervollständigen.
+Hierzu müssen Sie das Programm `08_delete_ebooks.py` an den mit `TODO` gekennzeichneten Stellen vervollständigen.
 
 Führen Sie anschließend das Programm aus, um die wenig nachgefragten E-Books aus dem Index zu löschen. Wie groß ist
-die Anzahl der Dokumente im Index vor und nach der Löschung der wenig nachgefragten E-Books? Tragen Sie die beiden Werte
+die Anzahl der Dokumente im Index vor und nach der Löschung der wenig nachgefragten E-Books? Tragen Sie beide Werte
 in die Datei `answers.txt` ein.
