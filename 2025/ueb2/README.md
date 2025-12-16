@@ -124,7 +124,7 @@ ein Indexschema gemäß der nachfolgenden Tabelle angelegt wird:
 | `fulltext`                 | `text_general` | ja | nein | nein | ja |
 | `fulltext_stemmed`         | `pg_text_de` | ja | nein | nein | ja |
 | `language`                 | `string` | ja | ja | nein | ja |
-| `subjectHeadings`          | `text_general` | ja | ja | ja | nein | nein |
+| `subjectHeadings`          | `text_general` | ja | ja | ja | nein |
 
 
 3. Führen Sie das Programm `01_create_solr_schema.py` aus und prüfen Sie den Erfolg Ihrer Umsetzung, indem Sie
