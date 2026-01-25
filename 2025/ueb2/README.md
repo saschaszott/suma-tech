@@ -198,7 +198,7 @@ Hierfür steht die Methode `update_longest_terms` im Script `04_text_analysis.py
 ### Indexierung der E-Books in den Solr-Core `ueb2`
 
 Das Programm `05_solr_indexer.py` soll nun genutzt werden, um die heruntergeladene E-Book-Dokumentkollektion
-(d.h. Metadaten und Volltexteb aus Project Gutenberg) zu indexieren. Dazu müssen Sie das Programm noch an den mit
+(d.h. Metadaten und Volltexte aus Project Gutenberg) zu indexieren. Dazu müssen Sie das Programm noch an den mit
 `TODO` gekennzeichneten Stellen vervollständigen. Anschließend starten Sie das Programm zur Indexierung der
 Dokumentkollektion.
 
