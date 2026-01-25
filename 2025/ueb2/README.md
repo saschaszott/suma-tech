@@ -169,7 +169,7 @@ Für jedes E-Book sollen zwei Dateien (UTF-8 codiert) gespeichert werden:
 * eine Textdatei mit dem Volltext (im Verzeichnis `pg-fulltexts`)
 
 Um die E-Books aus dem Project Gutenberg herunterzuladen, müssen wir zunächst die IDs der deutschsprachigen E-Books
-ermitteln. Hierzu führen wir eine passende Suchanfrage im Project Gutenberg und iterieren anschließend über die
+ermitteln. Hierzu führen wir eine passende Suchanfrage im Project Gutenberg aus und iterieren anschließend über die
 Suchergebnisse. Für jedes Suchergebnis speichern wir die ID des zugehörigen E-Books in der Datei `gutenberg_ids.txt`.
 
 Das Python-Script `02_fetch_ids` erfüllt diese Aufgabe. Führen Sie das Script aus, um die Datei `gutenberg_ids.txt`
