@@ -58,12 +58,12 @@ EXTRACTORS = [
         'xpath': './/dcterms:type/rdf:value'
     },
     {
-        'key': 'languages',
+        'key': 'language',
         'xpath': './/dcterms:language//rdf:value'
     },
     {
         'key': 'subjectHeadings',
-        'xpath': './/dcterms:subject/@rdf:about'
+        'xpath': './/dcterms:subject//rdf:value'
     },
 ]
 
