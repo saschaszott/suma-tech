@@ -26,6 +26,24 @@ def read_ids(path):
         return [line.strip() for line in f if line.strip()]
     print(f"{len(ids)} Ebook-IDs geladen.")
 
+def write_file(path, resp):
+    """
+    Schreibt den Inhalt in die angegebene Datei. Hierbei wird der Content-Type Header der HTTP-Antwort berücksichtigt,
+    um zwischen Text- und Binärdateien zu unterscheiden.
+    """
+    content_type = resp.headers.get("Content-Type", "").lower()
+    if any(ct in content_type for ct in ("text", "xml", "json", "csv")):
+        # Textdatei UTF-8-kodiert speichern
+        with open(path, "w", encoding="utf-8") as f:
+            print(f" Speichere Textdatei {path} (Content-Type: {content_type})... ", end="")
+            f.write(resp.text)
+        return
+
+    # Binärdatei byte-weise speichern
+    with open(path, "wb") as f:
+        print(f" Speichere Binärdatei {path} (Content-Type: {content_type})... ", end="")
+        f.write(resp.content) # Inhalt direkt als Bytes schreiben
+
 def fetch_one(idx, ebook_id, resource_type, delay, timeout):
     """
     Lädt eine Datei eines bestimmten Typs für die angegebene Ebook-ID herunter.
@@ -43,8 +61,7 @@ def fetch_one(idx, ebook_id, resource_type, delay, timeout):
         time.sleep(delay)
         resp = requests.get(url, timeout=timeout)
         resp.raise_for_status()
-        with open(out_path, "wb") as f:
-            f.write(resp.content)
+        write_file(out_path, resp)
         print(" OK.")
     except requests.RequestException as e:
         print(f" Fehler: {e}")
