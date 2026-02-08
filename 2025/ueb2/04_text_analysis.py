@@ -83,18 +83,22 @@ def ignore_file(path):
     return False
 
 def update_longest_terms(longest_terms_heap, term, max_heap_size=10):
-    # longest_terms_heap ist ein Min-Heap, der die bis zu max_heap_size längsten Terme speichert
+    # longest_terms_heap ist ein Min-Heap, der die bis zu max_heap_size längsten Terme (und ihre zugehörigen Längen)
+    # speichert. In jedem Knoten des Heaps wird ein Paar (Länge, Term) gespeichert, wobei die Länge des Terms als
+    # Schlüssel für die Heap-Ordnung (Erfüllung der Heap-Eigenschaft) dient
+    term_length = len(term)
+    entry = (term_length, term)
     if len(longest_terms_heap) < max_heap_size:
-        # der Heap hat noch nicht seine maximale Größe erreicht
-        heapq.heappush(longest_terms_heap, term)
+        # der Heap hat noch nicht seine maximale Größe erreicht: neuen Eintrag einfach hinzufügen
+        heapq.heappush(longest_terms_heap, entry)
         return
 
     # Heap hat seine maximale Größe erreicht
-    # Term mit der kürzesten Länge steht in der Wurzel
-    # dieser Term muss verdrängt werden, wenn der neue Term (term) länger ist
-    root_term = longest_terms_heap[0]
-    if len(term) > len(root_term):
-        heapq.heappushpop(longest_terms_heap, term)
+    # Term mit der kürzesten Länge steht in der Wurzel des Heaps (longest_terms_heap[0])
+    # dieser Term muss verdrängt werden, wenn der neue Term (term) eine größere Länge aufweist
+    root_length, _ = longest_terms_heap[0]
+    if term_length > root_length:
+        heapq.heappushpop(longest_terms_heap, entry)
 
 def collect_tokens():
     if not os.path.isdir(FULLTEXT_DIR):
