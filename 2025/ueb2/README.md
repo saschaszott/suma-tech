@@ -262,7 +262,9 @@ Die Indexfelder sollen hierbei unterschiedlich bei der Suche gewichtet werden:
 
 Zusätzlich soll ein Boosting auf Basis der Downloadanzahl (im Indexfeld `numOfDownloadsLast30Days`) erfolgen. Dazu soll
 der Logarithmus (zur Basis 10) der Downloadanzahl als Boosting-Faktor einbezogen werden (`bf` Parameter mit
-Funktionsargument `log`).
+Funktionsargument `log`). Achten Sie hierbei darauf, dass der Logarithmus nur für positive Werte definiert ist.
+Daher sollte die Boosting-Formel bei E-Books mit 0 Downloads diesen Umstand berücksichtigen, z. B. durch die Addition
+der Downloadanzahl mit 1 vor der Berechnung des Logarithmus.
 
 ### Implementierung einer Autovervollständigung mittels `Terms Component`
 
