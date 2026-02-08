@@ -55,7 +55,7 @@ EXTRACTORS = [
     },
     {
         'key': 'docType',
-        'xpath': './/dcterms:type/rdf:value'
+        'xpath': './/dcterms:type//rdf:value'
     },
     {
         'key': 'language',
