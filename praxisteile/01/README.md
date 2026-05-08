@@ -1,5 +1,14 @@
 # Praxisteil Nr. 1
 
+Es wird angenommen, dass Python 3 bereits auf Ihrem Computer installiert ist. Alle Programme in diesem Praxisteil
+wurden mit Python 3.13 getestet. Außerdem sollte auf Ihrem Computer ein git-Client installiert sein, damit Sie das
+GitHub-Projekt `suma-tech` klonen können. Die Programmierung kann zusätzlich mit einer integrierten Entwicklungsumgebung
+(IDE) wie z.B. Visual Studio Code erleichtert werden, ist aber nicht zwingend erforderlich.
+
+Wir verwenden zur Ausführung der Programme eine virtuelle Python-Umgebung. Diese ermöglicht es, die für die Ausführung
+benötigten Python-Pakete in der virtuellen Umgebung zu installieren, ohne dass diese Pakete global auf Ihrem Computer
+installiert werden müssen.
+
 ## GitHub-Projekt suma-tech klonen
 
 ```sh
@@ -10,20 +19,20 @@ git clone https://github.com/saschaszott/suma-tech.git
 
 ```sh
 cd suma-tech/praxisteile
-python3 -m venv venv
+python3 -m venv .venv
 ```
 
 ## Python-Umgebung startem
 
 ```sh
 # Linux und macOS
-source venv/bin/activate
+source .venv/bin/activate
 
 # Windows CMD bzw. Powershell
-venv\Scripts\activate
+.venv\Scripts\activate
 ```
 
-## Volltextdatei herunterladen und lokal speichern
+## Volltextdatei vom Project Gutenberg herunterladen und lokal speichern
 
 ```sh
 pip install requests
@@ -57,13 +66,17 @@ Nach der Ausführung liegt das Ergebnis der Filterung in der Textdatei `21000_fi
 
 ## Tokenisierung
 
-Wir wollen nun den Volltext in seine Bestandteile zerlegen. Diesen Prozess nennt man **Tokenisierung**. 
+Wir wollen nun den Volltext in seine Bestandteile zerlegen. Diesen Prozess nennt man **Tokenisierung**.
 
-Aus einem Volltext entsteht so eine Folge von einzelnen **Tokens**. Ein Token ist eine Ausprägung (Instanz) eines **Terms**.
+Aus einem Volltext entsteht so eine Folge von einzelnen **Tokens**. Ein Token ist eine Ausprägung (Instanz) eines
+**Terms**.
 
-Für die Tokenisierung muss eine Festlegung getroffen werden, wie der Text in seine Bestandteile (Tokens) zerlegt werden soll. Ein sehr einfacher Ansatz ist die Aufspaltung an Leerzeichen, das sogenannte **Whitespace Tokenization**.
+Für die Tokenisierung muss eine Festlegung getroffen werden, wie der Text in seine Bestandteile (Tokens) zerlegt werden
+soll. Ein sehr einfacher Ansatz ist die Aufspaltung der Zeichenfolgen an Leerzeichen, die sogenannte
+**Whitespace Tokenization**.
 
-Ausgehend von der Datei `21000_filtered.txt` erzeugen wir nun die Datei `tokens.txt`, die alle Tokens enthält, die als Ergebnis der Whitespace Tokenization erzeugt wurden:
+Ausgehend von der Datei `21000_filtered.txt` erzeugen wir nun die Datei `21000_tokens.txt`, die alle Tokens enthält, 
+die als Ergebnis der Whitespace Tokenization erzeugt wurden:
 
 ```sh
 python 03_whitespace-tokenizer.py
@@ -71,11 +84,14 @@ python 03_whitespace-tokenizer.py
 
 ## Analyse der Termhäufigkeiten
 
-Die **Termhäufigkeit** (term frequency, tf) eines Terms bezeichnet die Anzahl der zugehörigen Tokens in einem Text, oder anders ausgedrückt: wie häufig tritt der Term im Text auf.
+Die **Termhäufigkeit** (term frequency, tf) eines Terms bezeichnet die Anzahl der zugehörigen Tokens in einem Text, 
+oder anders ausgedrückt: wie häufig tritt der Term im Text auf.
 
-Zuerst wollen wir prüfen, welche Terme im Volltext am seltensten bzw. häufigsten auftreten, d.h die kleinste bzw. größte Termhäufigkeit besitzen. 
+Zuerst wollen wir prüfen, welche Terme im Volltext am seltensten bzw. häufigsten auftreten, d.h die kleinste bzw.
+größte Termhäufigkeit besitzen.
 
-Dazu lesen wir die Tokens aus `tokens.txt` in ein **Dictionary**. Hierbei ist der Term der Schlüssel und die zugehörige Häufigkeit der Wert. Beachte, dass im Dictionary kein Term mit einer Häufigkeit kleiner 1 existiert.
+Dazu lesen wir die Tokens aus `21000_tokens.txt` in ein **Dictionary**. Hierbei ist der Term der Schlüssel und die
+zugehörige Häufigkeit der Wert. Beachte, dass im Dictionary kein Term mit einer Häufigkeit kleiner 1 existiert.
 
 Nach der Erzeugung des Dictionary können wir nach seltenen und häufigen Termen suchen und diese ausgeben lassen.
 
@@ -83,21 +99,31 @@ Nach der Erzeugung des Dictionary können wir nach seltenen und häufigen Termen
 python 04_term-analysis.py
 ```
 
-Wir sehen eine Reihe von Termen, die nur einmal im Dokument existieren. Einen solchen Terme nennt man auch **Hapax Legomenon**.
+Wir sehen eine Reihe von Termen, die nur einmal im Dokument existieren. Einen solchen Terme nennt man auch
+**Hapax Legomenon**.
 
-Wir stellen fest, dass Terme bezüglich der Groß- und Kleinschreibung unterschieden werden, z.B. `und` bzw. `Und`. Gewöhnlich beachten Suchmaschinen die Groß- und Kleinschreibung nicht. Man sagt auch, dass die Suche _case-insensitive_ ist.
+Wir stellen fest, dass Terme bezüglich der Groß- und Kleinschreibung unterschieden werden, z.B. `und` bzw. `Und`.
+Gewöhnlich beachten Suchmaschinen die Groß- und Kleinschreibung nicht. Man sagt auch, dass die Suche _case-insensitive_ ist.
 
-Daher wollen wir nun die Datei `tokens.txt` erneut einlesen und diesmal alle eingelesenen Token vor der weiteren Verarbeitung in Kleinbuchstaben umwandeln. Diesen Prozess nennt man auch **Lowercasing**:
+Daher wollen wir nun die Datei `21000_tokens.txt` erneut einlesen und diesmal alle eingelesenen Token vor der weiteren
+Verarbeitung in Kleinbuchstaben umwandeln. Diesen Prozess nennt man auch **Lowercasing**:
 
 ```sh
 python 05_term-analysis-case-insensitive.py
 ```
 
-Für den Term `und` sollte nun 906 als zugehöriger Häufigkeitswert ausgegeben werden (zuvor: `und` 507 mal bzw. `Und` 399 mal).
+Für den Term `und` sollte nun 906 als zugehöriger Häufigkeitswert ausgegeben werden (zuvor: `und` 507 mal bzw. `Und`
+399 mal).
 
 ## Darstellung der Termhäufigkeitsverteilung als Histogramm
 
-Wir wollen nun die Verteilung der Häufigkeiten der Terme im Volltext analysieren. Als graphische Darstellung bietet sich ein **Histogramm** an. Dazu werden auf der horizontalen Achse die Häufigkeitswerte abgetragen. Auf der vertikalen Achse wird die Anzahl der Terme mit einem gegebenen Häufigkeitswert abgetragen. Bei natürlichsprachlichen Texten ergibt sich eine charakteristische Form, ein sogannanter **Long Tail**: es gibt viele Terme mit (sehr) geringer Häufigkeit (Punkt links oben) und es gibt wenige Terme mit (sehr) großer Häufigkeit ("Kurve" fällt schnell nach rechts unten ab).
+Wir wollen nun die Verteilung der Häufigkeitswerte der Terme im Volltext analysieren. Als graphische Darstellung bietet
+sich ein **Histogramm** an. Dazu werden auf der horizontalen Achse die Häufigkeitswerte abgetragen. Auf der vertikalen
+Achse wird die Anzahl der Terme mit einem gegebenen Häufigkeitswert abgetragen.
+
+Bei natürlichsprachlichen Texten ergibt sich eine charakteristische Form, ein sogenannter **Long Tail**: es gibt viele
+Terme mit (sehr) geringer Häufigkeit (Punkt links oben) und es gibt wenige Terme mit (sehr) großer Häufigkeit
+("Kurve" fällt schnell nach rechts unten ab).
 
 Mit dem folgenden Programm kann das Histogramm angezeigt werden:
 
@@ -112,15 +138,18 @@ Zur besseren Veranschaulichung bietet sich ein einfach- oder doppel-logarithmisc
 
 ### Termlängen
 
-Nun wollen wir uns noch die Termlängen ansehen. Welcher Term ist am kürzesten und welcher am längsten? Wie groß ist die durchschnittliche Termlänge?
+Nun wollen wir uns noch die Termlängen ansehen. Welcher Term ist am kürzesten und welcher am längsten? Wie groß ist die
+durchschnittliche Termlänge?
 
 ```sh
 python 07_term-lengths.py
-``` 
+```
 
 ### Lexikalische Vielfalt / TTR
 
-Ein Maß für die **lexikalische Vielfalt** eines Textes ist das sogenannte **Type Token Ratio** (TTR). Es berechnet sich als Verhältnis der Anzahl der Terme (in diesem Zusammenhang auch als Types bezeichnet) zur Gesamtanzahl der Tokens im Text.
+Ein Maß für die **lexikalische Vielfalt** eines Textes ist das sogenannte **Type Token Ratio** (TTR). Es berechnet sich
+als Verhältnis der Anzahl der Terme (in diesem Zusammenhang auch als Types bezeichnet) zur Gesamtanzahl der Tokens
+im Text (entspricht der Summe der Termhäufigkeiten aller Terme des Textes).
 
 ```sh
 python 08_ttr.py
