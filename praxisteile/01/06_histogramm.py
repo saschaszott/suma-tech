@@ -2,13 +2,12 @@ import matplotlib.pyplot as plt
 
 def count_term_frequencies(input_file):
     """
-    Liest eine Datei mit Tokens und bestimmt daraus die Häufigkeit der einzelnen Terme.
-    Auf Basis der Häufigkeitswerte werden schließlich die häufigsten und seltensten Terme 
-    ausgegeben.
-    
+    Liest eine Datei mit Tokens und bestimmt daraus die Häufigkeit der einzelnen Terme, wobei die Groß-/Kleinschreibung
+    der Tokens ignoriert wird.
+
     Parameter:
     - input_file (str): Der Pfad zur Datei mit den extrahierten Tokens.
-    
+
     Rückgabe:
     - dict: Ein Dictionary mit den Termen und zugehörigen Häufigkeitswerten.
     """
@@ -29,14 +28,22 @@ def count_term_frequencies(input_file):
 
     return term_frequencies
 
-def plot_frequency_distribution(term_frequencies, log_x = False, log_y = False):    
+def plot_frequency_distribution(term_frequencies, log_x = False, log_y = False):
+    """
+        Auf Basis der Häufigkeitswerte wird ein Histogramm der Termhäufigkeiten erstellt und als Visualisierung dargestellt.
+
+        Parameter:
+        - term_frequencies (dict): Ein Dictionary mit den Termen und ihren zugehörigen Häufigkeitswerten.
+        - log_x (bool): Wenn True, wird die x-Achse logarithmisch skaliert.
+        - log_y (bool): Wenn True, wird die y-Achse logarithmisch skaliert.
+    """
     x_values = []
     y_values = []
-    freq_values = set(term_frequencies.values())  # Menge aller Häufigkeiten
+    freq_values = set(term_frequencies.values())  # Menge aller Häufigkeitswerte
     print(f"Anzahl der unterschiedlichen Häufigkeiten: {len(freq_values)}")
     for freq_value in sorted(freq_values):
         x_values.append(freq_value)
-        # Bestimme die Anzahl der Terme mit der Häufigkeit freq_value
+        # Bestimme die Anzahl der Terme mit dem Häufigkeitswert freq_value
         num_of_terms = 0
         for term_freq in term_frequencies:
             if term_frequencies[term_freq] == freq_value:
@@ -60,12 +67,12 @@ def plot_frequency_distribution(term_frequencies, log_x = False, log_y = False):
     plt.show()
 
 if __name__ == "__main__":
-    input_file = "tokens.txt"
+    input_file = "21000_tokens.txt"
     term_frequencies = count_term_frequencies(input_file)
 
-    # Termhäufigkeiten ausgeben
+    # Termhäufigkeiten (Term Frequencies, tf) ausgeben
     print(f"tf(faust): {term_frequencies['faust']}")
     print(f"tf(pudel): {term_frequencies['pudel']}")
-    
+
     plot_frequency_distribution(term_frequencies, log_x=False, log_y=False)
-    #plot_frequency_distribution(term_frequencies, log_x=True, log_y=True)
+    plot_frequency_distribution(term_frequencies, log_x=True, log_y=True)
