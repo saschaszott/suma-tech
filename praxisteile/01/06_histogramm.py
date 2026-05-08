@@ -74,5 +74,12 @@ if __name__ == "__main__":
     print(f"tf(faust): {term_frequencies['faust']}")
     print(f"tf(pudel): {term_frequencies['pudel']}")
 
+    # Ausgabe aller Hapax Legomena (Terme, die nur einmal im Text vorkommen)
+    hapax_legomena = [term for term, freq in term_frequencies.items() if freq == 1]
+    print(f"\nAnzahl der Hapax Legomena: {len(hapax_legomena)}")
+    for term in hapax_legomena:
+        print(term)
+
+    # Termhäufigkeitsverteilung plotten
     plot_frequency_distribution(term_frequencies, log_x=False, log_y=False)
     plot_frequency_distribution(term_frequencies, log_x=True, log_y=True)
