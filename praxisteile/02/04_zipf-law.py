@@ -5,11 +5,11 @@ def count_term_frequencies(input_file, tokenize_chars = False):
     Liest eine Datei mit Tokens und bestimmt daraus die Häufigkeit der einzelnen Terme.
     Anschließend werden die Terme nach Häufigkeit absteigend sortiert. Die sortierte Liste der
     Häufigkeiten wird zurückgegeben.
-    
+
     Parameter:
     - input_file (str): Der Pfad zur Datei mit den extrahierten Tokens.
     - tokenize_chars (bool): Gibt an, ob einzelne Zeichen als Terme betrachtet werden sollen.
-    
+
     Rückgabe:
     - list: Eine Liste von absteigend sortierten Häufigkeitswerten.
     """
@@ -35,7 +35,7 @@ def count_term_frequencies(input_file, tokenize_chars = False):
                 term_frequencies[token] += 1
             else:
                 term_frequencies[token] = 1
-    
+
     # Sortiere die Terme nach ihrer Häufigkeit absteigend
     values_list = sorted(list(term_frequencies.values()), reverse=True)
     return values_list
@@ -60,7 +60,7 @@ def plot_frequency_distribution(term_frequencies, log_y = False):
     plt.show()
 
 if __name__ == "__main__":
-    input_file = "tokens.txt"
+    input_file = "21000_tokens.txt"
     term_frequencies = count_term_frequencies(input_file, tokenize_chars=False)
 
     plot_frequency_distribution(term_frequencies, log_y=False)

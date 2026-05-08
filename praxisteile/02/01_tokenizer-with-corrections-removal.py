@@ -50,6 +50,6 @@ def save_tokens(tokens, output_file):
 
 if __name__ == "__main__":
     input_file = "21000_filtered.txt" # Volltext Faust I (PG Header und PG Header bereits entfernt)
-    output_file = "tokens.txt"
+    output_file = "21000_tokens.txt"
     tokens = tokenize(input_file, case_insensitive=True)
     save_tokens(tokens, output_file)

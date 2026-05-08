@@ -12,5 +12,5 @@ def apply_snowball_stemming(input_file):
             print(f"{term.lower()} → {stem}")
 
 if __name__ == "__main__":
-    input_file = "tokens.txt"
+    input_file = "21000_tokens.txt"
     apply_snowball_stemming(input_file)

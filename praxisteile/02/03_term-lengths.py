@@ -5,7 +5,7 @@ def compute_term_lengths(input_file):
     with open(input_file, "r", encoding="utf-8") as infile:
         # Datei zeilenweise einlesen
         tokens = infile.read().splitlines()
-    
+
     # Termlängen bestimmen
     min_length = None
     min_length_tokens = []
@@ -35,10 +35,10 @@ def compute_term_lengths(input_file):
         hex_bytes = ' '.join(f"{byte:02X}" for byte in utf8_bytes)
         print(f"{token} in UTF-8 Kodierung: {hex_bytes}")
 
-    print("\nTerme mit maximaler Länge:")        
+    print("\nTerme mit maximaler Länge:")
     for token in max_length_tokens:
         print(token)
 
 if __name__ == "__main__":
-    input_file = "tokens.txt"
+    input_file = "21000_tokens.txt"
     compute_term_lengths(input_file)

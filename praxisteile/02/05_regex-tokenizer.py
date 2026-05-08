@@ -2,11 +2,9 @@ import re
 
 def tokenize_and_save(input_file, output_file, case_insensitive=False):
     """
-    Tokenisiert den Text der Eingabedatei basierend auf Whitespaces 
-    und speichert die Tokens in einer Ausgabedatei.
-    Hierbei wird eine ggf. vorhandene Korrektur (in eckigen Klammern) 
-    am Ende eines Token entfernt.
-    
+    Tokenisiert den Text der Eingabedatei basierend auf Whitespaces und speichert die Tokens in einer Ausgabedatei.
+    Hierbei wird eine ggf. vorhandene Korrektur (in eckigen Klammern) am Ende eines Token entfernt.
+
     Parameter:
     - input_file (str): Der Pfad zur Eingabedatei, die tokenisiert werden soll.
     - output_file (str): Der Pfad zur Ausgabedatei, in die die Tokens geschrieben werden.
@@ -14,9 +12,9 @@ def tokenize_and_save(input_file, output_file, case_insensitive=False):
     """
     with open(input_file, "r", encoding="utf-8") as infile:
         text = infile.read() # Text aus der Datei lesen
-    
+
     # Regex zur Tokenisierung verwenden
-    tokens = re.findall(r'\w+', text)  
+    tokens = re.findall(r'\w+', text)
 
     with open(output_file, "w", encoding="utf-8") as outfile:
         for token in tokens:
@@ -34,5 +32,5 @@ def tokenize_and_save(input_file, output_file, case_insensitive=False):
 
 if __name__ == "__main__":
     input_file = "21000_filtered.txt"
-    output_file = "tokens.txt"
+    output_file = "21000_tokens.txt"
     tokenize_and_save(input_file, output_file, case_insensitive=False)
