@@ -15,7 +15,8 @@ def download_file(url, filename):
     if response.status_code == requests.codes.ok:
         with open(filename, "wb") as file: # Datei im Binärmodus schreiben
             file.write(response.content) # Inhalt der Antwort in Datei schreiben
-        print(f"Datei erfolgreich heruntergeladen: {filename}")
+        # Encoding der heruntergeladenen Datei sollte im HTTP Response Header Content-Type stehen, z.B. 'text/plain; charset=utf-8'
+        print(f"Datei erfolgreich heruntergeladen: {filename} (verwendetes Encoding: {response.encoding})")
     else:
         print(f"Fehler beim Herunterladen der Datei: {response.status_code}")
 
