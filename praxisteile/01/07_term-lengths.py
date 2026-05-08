@@ -5,13 +5,16 @@ def compute_term_lengths(input_file):
     with open(input_file, "r", encoding="utf-8") as infile:
         # Datei zeilenweise einlesen
         tokens = infile.read().splitlines()
-    
+
     # Termlängen bestimmen
     min_length = None
     min_length_tokens = []
+
     max_length = None
     max_length_tokens = []
+
     sum_of_lengths = 0
+
     for token in set(tokens):
         length = len(token)
         sum_of_lengths += length
@@ -25,17 +28,17 @@ def compute_term_lengths(input_file):
             max_length_tokens = [token]
         elif length == max_length:
             max_length_tokens.append(token)
-    
-    print(f"Minimale Termlänge: {min_length}")
-    print(f"Maximale Termlänge: {max_length}")
-    print(f"Durchschnittliche Termlänge: {sum_of_lengths / len(set(tokens))}")
-    print("\nTerme mit minimaler Länge:")
+
+    print(f"Durchschnittliche Termlänge: {round(sum_of_lengths / len(set(tokens)), 1)}")
+
+    print(f"\nTerme mit minimaler Länge {min_length}:")
     for token in min_length_tokens:
         print(token)
-    print("\nTerme mit maximaler Länge:")
+
+    print(f"\nTerme mit maximaler Länge {max_length}:")
     for token in max_length_tokens:
         print(token)
 
 if __name__ == "__main__":
-    input_file = "tokens.txt"
+    input_file = "21000_tokens.txt"
     compute_term_lengths(input_file)
