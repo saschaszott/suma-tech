@@ -5,11 +5,11 @@ def lexical_diversity(input_file):
     with open(input_file, "r", encoding="utf-8") as infile:
         tokens = infile.read().splitlines()
 
-    print(f"TTR (ohne Lowercasing) = {len(set(tokens)) / len(tokens)}")
+    print(f"Type-Token-Ratio (ohne Lowercasing) = {round(len(set(tokens)) / len(tokens) * 100, 2)} %")
 
     tokens_lowercased = [token.lower() for token in tokens] # Umwandlung der Tokens in Kleinbuchstaben
-    print(f"TTR (mit Lowercasing) = {len(set(tokens_lowercased)) / len(tokens)}")
+    print(f"Type-Token-Ratio (mit Lowercasing)  = {round(len(set(tokens_lowercased)) * 100 / len(tokens), 2)} %")
 
 if __name__ == "__main__":
-    input_file = "tokens.txt"
+    input_file = "21000_tokens.txt"
     lexical_diversity(input_file)
