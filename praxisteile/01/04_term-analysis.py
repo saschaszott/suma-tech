@@ -27,12 +27,12 @@ def count_term_frequencies(input_file):
 
     # 10 seltenste Terme
     print("\nSeltenste Terme:")
-    for term, count in sorted_terms[:10]:
+    for term, count in sorted_terms[:10]: # Ausgabe der ersten 10 Elemente der sortierten Liste (seltenste Terme)
         print(f"{term} ({count})")
 
     # 10 häufigste Terme
     print("\nHäufigste Terme:")
-    for term, count in sorted_terms[-10:]:
+    for term, count in sorted_terms[-10:]: # Ausgabe der letzten 10 Elemente der sortierten Liste (häufigste Terme)
         print(f"{term} ({count})")
 
     return term_frequencies
