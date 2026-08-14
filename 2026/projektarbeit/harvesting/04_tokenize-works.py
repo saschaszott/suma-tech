@@ -10,8 +10,8 @@ def tokenize_words(input_file, output_file, min_token_length=4):
     einer Mindestlänge von 4 Zeichen verarbeitet.
 
     Parameter:
-    - input_file (str): Der Pfad zur bereinigten Textdatei.
-    - output_file (str): Der Pfad zur Ausgabedatei, in der die Tokens zeilenweise gespeichert werden.
+    - input_file (str): Pfad zur bereinigten Textdatei.
+    - output_file (str): Pfad zur Ausgabedatei, in der die Tokens zeilenweise gespeichert werden.
     - min_token_length (int): Die Mindestlänge eines Tokens, um in die Ausgabe aufgenommen zu werden (Standard: 4).
     """
     with open(input_file, "r", encoding="utf-8") as infile, open(output_file, "w", encoding="utf-8") as outfile:
