@@ -6,9 +6,9 @@ import time
 def download_file(url, filename):
     """
     Lädt eine UTF-8-codierte Textdatei von der angegebenen URL herunter und speichert sie als UTF-8-codierte Textdatei
-    unter dem angegebenen Namen im lokalen Dateisystem. Bei der Textdatei handelt es sich um ein den Volltext eines
+    unter dem angegebenen Namen im lokalen Dateisystem. Bei der Textdatei handelt es sich um den Volltext eines
     E-Books aus dem Project Gutenberg. Die Funktion wartet zufällig zwischen 0.5 und 2 Sekunden, bevor sie die Datei
-    herunterlädt, um die Server von Project Gutenberg nicht zu überlasten.
+    von der angegebenen URL herunterlädt, um den Webserver von Project Gutenberg nicht zu überlasten.
 
     Parameter:
     - url (str): URL der Textdatei, die vom Project Gutenberg heruntergeladen werden soll.
@@ -23,10 +23,10 @@ def download_file(url, filename):
     if response.status_code == requests.codes.ok:
         with open(filename, "w", encoding="utf-8") as file:
             file.write(response.text)
-        print(f"Datei erfolgreich heruntergeladen: {filename}")
+        print(f"Datei erfolgreich heruntergeladen und gespeichert unter {filename}")
         return True
 
-    print(f"Fehler beim Herunterladen der Datei {filename}: {response.status_code}")
+    print(f"Fehler beim Herunterladen der Datei von URL {url}: {response.status_code}")
     return False
 
 if __name__ == "__main__":
@@ -36,12 +36,13 @@ if __name__ == "__main__":
         exit(1)
 
     num_of_overall_downloads = 0
+    num_of_errors = 0
     for filename in os.listdir(base_dir):
         if filename.endswith("-ebook-urls.txt"):
             author_name = filename.replace("-ebook-urls.txt", "")
             file_path = os.path.join(base_dir, filename)
             num_of_downloads = 0
-            print(f"Verarbeite Datei {filename} für Autor {author_name}.")
+            print(f"Verarbeite Datei {filename}")
             with open(file_path, "r", encoding="utf-8") as file:
                 for base_url in file:
                     match = re.search(r"/ebooks/(\d+)$", base_url)
@@ -53,7 +54,11 @@ if __name__ == "__main__":
                         output_file = os.path.join(base_dir, f"{author_name}", f"{ebook_id}.txt")
                         if download_file(url, output_file):
                             num_of_downloads += 1
-            print(f"{num_of_downloads} Volltextdateien für Autor {author_name} heruntergeladen.")
+                        else:
+                            num_of_errors += 1
+            print(f"{num_of_downloads} Volltextdateien für Autor {author_name} heruntergeladen.\n")
             num_of_overall_downloads += num_of_downloads
 
-    print(f"{num_of_overall_downloads} Volltextdateien erfolgreich heruntergeladen.")
+    print(f"Insgesamt {num_of_overall_downloads} Volltextdateien erfolgreich heruntergeladen.")
+    if num_of_errors > 0:
+        print(f"Es gab {num_of_errors} Fehler beim Herunterladen von Dateien.")
