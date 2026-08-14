@@ -5,8 +5,8 @@ def compute_similarity(terms_A, terms_B, mode="jaccard"):
     Berechnet die Ähnlichkeit zwischen zwei Autoren basierend auf den zugehörigen Term-Mengen ihrer Werke.
 
     Parameter:
-    - terms_A: Menge der Terme des ersten Autors
-    - terms_B: Menge der Terme des zweiten Autors
+    - terms_A: Menge der Terme aus den Werken des ersten Autors
+    - terms_B: Menge der Terme aus den Werken des zweiten Autors
     - mode: Modus der Ähnlichkeitsberechnung ("jaccard", "dice", "otsuka-ochiai")
     """
     intersection = terms_A & terms_B # Schnittmenge der Term-Mengen beider Autoren
@@ -35,9 +35,9 @@ if __name__ == "__main__":
     similarity_matrix = {}
     file_list = []
 
-    # Suche in Autorverzeichnissen nach Textdatei "terms.txt"
+    # Suche in Autorverzeichnissen nach Textdatei "terms"
     for author_dir in os.listdir(input_dir):
-        terms_file = os.path.join(input_dir, author_dir, "terms.txt")
+        terms_file = os.path.join(input_dir, author_dir, "terms")
         if os.path.isfile(terms_file):
             file_list.append(author_dir)
 
@@ -45,11 +45,11 @@ if __name__ == "__main__":
         # da die Ähnlichkeit symmetrisch ist, müssen wir für zwei Autoren nur einmal die Ähnlichkeit berechnen
         for author_B in file_list[file_list.index(author_A) + 1:]:
             terms_A = list()
-            with open(os.path.join(input_dir, author_A, "terms.txt"), "r", encoding="utf-8") as f:
+            with open(os.path.join(input_dir, author_A, "terms"), "r", encoding="utf-8") as f:
                 for line in f:
                     terms_A.append(line.strip())
             terms_B = list()
-            with open(os.path.join(input_dir, author_B, "terms.txt"), "r", encoding="utf-8") as f:
+            with open(os.path.join(input_dir, author_B, "terms"), "r", encoding="utf-8") as f:
                 for line in f:
                     terms_B.append(line.strip())
 
