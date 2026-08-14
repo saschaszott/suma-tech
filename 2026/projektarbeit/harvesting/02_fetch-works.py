@@ -59,6 +59,4 @@ if __name__ == "__main__":
             print(f"{num_of_downloads} Volltextdateien für Autor {author_name} heruntergeladen.\n")
             num_of_overall_downloads += num_of_downloads
 
-    print(f"Insgesamt {num_of_overall_downloads} Volltextdateien erfolgreich heruntergeladen.")
-    if num_of_errors > 0:
-        print(f"Es gab {num_of_errors} Fehler beim Herunterladen von Dateien.")
+    print(f"Insgesamt {num_of_overall_downloads} Volltextdateien erfolgreich heruntergeladen (Anzahl Fehler: {num_of_errors}).")
