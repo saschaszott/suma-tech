@@ -69,6 +69,10 @@ if __name__ == "__main__":
         {"id": 1995,    "name": "Humboldt"},
         {"id": 1765,    "name": "Fontane"},
         {"id": 846,     "name": "Rilke"},
+        {"id": 990,     "name": "Lessing"},
+        {"id": 2128,    "name": "Storm"},
+        {"id": 53,      "name": "Twain"},
+        {"id": 845,     "name": "Wieland"},
     ]
     base_dir = "german-works"
     os.makedirs(base_dir, exist_ok=True)
