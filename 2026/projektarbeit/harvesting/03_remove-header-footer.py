@@ -6,8 +6,8 @@ def extract_gutenberg_text(input_file, output_file):
     Project Gutenberg und speichert den gefilterten Inhalt in einer neuen Textdatei mit dem angegebenen Namen ab.
 
     Parameter:
-    - input_file (str): Der Pfad zur Originaldatei.
-    - output_file (str): Der Pfad zur bereinigten Ausgabedatei ohne Header und Footer.
+    - input_file (str): Pfad zur Originaldatei.
+    - output_file (str): Pfad zur bereinigten Ausgabedatei ohne Header und Footer.
     """
     start_marker = "*** START OF THE PROJECT GUTENBERG EBOOK "
     end_marker = "*** END OF THE PROJECT GUTENBERG EBOOK "
@@ -25,14 +25,15 @@ def extract_gutenberg_text(input_file, output_file):
                 outfile.write(line)  # relevanter Text für die Ausgabedatei
 
     if inside_text:
-        print(f"Extrahierter Text wurde gespeichert in: {output_file}")
-    else:
-        print(f"Keine gültigen Start- und End-Marker für Header und Footer gefunden in: {input_file}.")
+        return True
+    print(f"Keine gültigen Start- und End-Marker für Header und Footer gefunden in: {input_file}.")
+    return False
 
 if __name__ == "__main__":
     input_dir = "german-works"
     # Suche in Autorverzeichnissen nach Textdateien mit der Endung ".txt"
     num_of_files_processed = 0
+    num_of_errors = 0
     for author_dir in os.listdir(input_dir):
         author_path = os.path.join(input_dir, author_dir)
         if os.path.isdir(author_path):
@@ -42,6 +43,7 @@ if __name__ == "__main__":
                     num_of_files_processed += 1
                     input_file = os.path.join(author_path, filename)
                     output_file = os.path.join(author_path, filename.replace(".txt", ".txt.clean"))
-                    extract_gutenberg_text(input_file, output_file)
+                    if not extract_gutenberg_text(input_file, output_file):
+                        num_of_errors += 1
 
-    print(f"{num_of_files_processed} Dateien verarbeitet.")
+    print(f"Insgesamt {num_of_files_processed} Dateien verarbeitet (Anzahl Fehler: {num_of_errors}).")
