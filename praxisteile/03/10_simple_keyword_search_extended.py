@@ -1,5 +1,6 @@
 import json
 import sqlite3
+import os
 
 def load_index(file_name):
     """
@@ -17,25 +18,25 @@ def load_index(file_name):
 
 def get_title_from_database(conn, doc_id):
     cursor = conn.cursor()
-    
+
     cursor.execute("SELECT title FROM works WHERE id = ?", (doc_id,))
     result = cursor.fetchone()
 
     if result:
         return result[0]
-    
+
     return None
-    
+
 if __name__ == "__main__":
-    inverted_index_file = "Goethe-inverted-index.json"
+    inverted_index_file = os.path.join("inverted-index", "full-inverted-index.json")
 
     inverted_index = load_index(inverted_index_file)
     if inverted_index is None:
         print("Der invertierte Index konnte nicht geladen werden.")
         exit(1)
-    
+
     conn = sqlite3.connect('pg-metadata.db')
-    
+
     while True:
         wort = input("Gib ein Suchwort ein (oder 'quit!'): ").strip()
 
@@ -55,4 +56,3 @@ if __name__ == "__main__":
                 print(f"{rank}: {title}")
         else:
             print("Es wurden leider keine Treffer gefunden.")
-    

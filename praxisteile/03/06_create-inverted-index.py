@@ -47,8 +47,6 @@ if __name__ == "__main__":
     # Import-Verzeichnis mit allen heruntergeladenen E-Books und den Termdateien (*-filtered-terms.txt)
     base_dir = "german-works"
     index_base_dir = "inverted-index"
-    # Gesamtindex für alle Autoren erstellen, wenn tatsächlich mehrere Autoren vorhanden sind
-    multiple_authors = False
 
     full_inverted_index = None
     for author_dir in os.listdir(base_dir):
@@ -61,17 +59,14 @@ if __name__ == "__main__":
             if full_inverted_index is None:
                 full_inverted_index = inverted_index
             else:
-                if not multiple_authors:
-                    multiple_authors = True
                 # Füge den invertierten Index des Autors zum Gesamtindex hinzu
                 for term, postings in inverted_index.items():
                     if term not in full_inverted_index:
                         full_inverted_index[term] = []
                     full_inverted_index[term].extend(postings)
 
-    if multiple_authors:
-        # Speichere den Gesamtindex (auf Basis der Werke aller Autoren) in einer JSON-Datei
-        # vorher die Einträge in den Postings-Listen numerisch sortieren
-        for term in full_inverted_index:
-            full_inverted_index[term].sort(key=int)
-        save_index(full_inverted_index, os.path.join(index_base_dir, "full-inverted-index.json"))
+    # Speichere den Gesamtindex (auf Basis der Werke aller Autoren) in einer JSON-Datei
+    # vorher werden die Dokument-IDs in den Postings-Listen numerisch sortiert
+    for term in full_inverted_index:
+        full_inverted_index[term].sort(key=int)
+    save_index(full_inverted_index, os.path.join(index_base_dir, "full-inverted-index.json"))

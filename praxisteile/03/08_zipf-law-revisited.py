@@ -1,14 +1,15 @@
 import matplotlib.pyplot as plt
 import json
+import os
 
 def count_frequencies(inverted_index):
     """
     Bestimmt auf Basis des übergebenen invertierten Index
-    die Dokumenthäufigkeiten (document frequencies) der einzelnen Terme. 
+    die Dokumenthäufigkeiten (document frequencies) der einzelnen Terme.
     Anschließend werden die Terme nach Dokmenthäufigkeit absteigend sortiert.
     Die sortierte Liste der Dokumenthäufigkeiten wird zurückgegeben.
     """
-    
+
     # Dictionary zur Zählung der Dokumenthäufigkeiten / Dokumentfrequenzen
     # (Anzahl der Dokumente, in denen der Term vorkommt)
     frequencies = {}
@@ -16,7 +17,7 @@ def count_frequencies(inverted_index):
     # Dokumenthäufigkeiten bestimmen
     for term, postings_list in inverted_index.items():
         frequencies[term] = len(postings_list)
-    
+
     # sortiere die Terme nach ihrer Dokumenthäufigkeit absteigend
     values_list = sorted(list(frequencies.values()), reverse=True)
     return values_list
@@ -25,7 +26,7 @@ def plot_frequency_distribution(term_frequencies, log_y = False):
     x_values = []
     y_values = []
     for index, term_freq in enumerate(term_frequencies):
-        x_values.append(index + 1) # Rang        
+        x_values.append(index + 1) # Rang
         y_values.append(term_freq) # Häufigkeitswert
 
     plt.figure(figsize=(8, 8))
@@ -55,14 +56,14 @@ def load_index(file_name):
         return None
 
 if __name__ == "__main__":
-    
-    inverted_index_file = "Goethe-inverted-index.json"
+
+    inverted_index_file = os.path.join("inverted-index", "full-inverted-index.json")
 
     inverted_index = load_index(inverted_index_file)
     if inverted_index is None:
         print("Der invertierte Index konnte nicht geladen werden.")
         exit(1)
-    
+
     document_frequencies = count_frequencies(inverted_index)
 
     #plot_frequency_distribution(document_frequencies, log_y=False)

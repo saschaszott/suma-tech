@@ -8,19 +8,19 @@ def get_title_from_gutendex(book_id):
     url = f"https://gutendex.com/books/{book_id}"
     response = requests.get(url)
     response.encoding = 'utf-8'
-    
+
     if response.status_code == 200:
         data = response.json()
         title = data.get('title')
         return title
-    
+
     print(f"Fehler beim Abruf der Metadaten von E-Book mit ID {book_id}: {response.status_code}")
     return None
 
 def create_database():
     conn = sqlite3.connect('pg-metadata.db')
     cursor = conn.cursor()
-    
+
     # Tabelle erstellen, falls sie nicht existiert
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS works (
@@ -64,7 +64,7 @@ if __name__ == "__main__":
         title = get_title_from_gutendex(ebook_id)
         if title:
             insert_ebook_into_db(cursor, ebook_id, title, ebook_ids[ebook_id])
-    
+
     # Änderungen in Datenbank speichern (Transaktion beenden)
     conn.commit()
     # Datenbankverbindung schließen

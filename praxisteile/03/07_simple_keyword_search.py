@@ -1,4 +1,5 @@
 import json
+import os
 
 def load_index(file_name):
     """
@@ -15,14 +16,14 @@ def load_index(file_name):
     except json.JSONDecodeError:
         print(f"Die Indexdatei {file_name} besitzt kein gültiges JSON-Format.")
         return None
-    
+
 if __name__ == "__main__":
-    inverted_index_file = "Goethe-inverted-index.json"
+    inverted_index_file = os.path.join("inverted-index", "full-inverted-index.json")
 
     inverted_index = load_index(inverted_index_file)
     if inverted_index is None:
-        print("Der invertierte Index konnte nicht geladen werden.")
-    
+        print("Der invertierte Index konnte nicht geladen werden - bitte zuerst den Index erstellen.")
+
     while True:
         # Benutzereingabe abfragen
         wort = input("Gib ein Suchwort ein (oder 'quit!'): ").strip()
@@ -39,4 +40,3 @@ if __name__ == "__main__":
                 print(f"{rank}. Treffer in Dokument {document_id}")
         else:
             print("Es wurden leider keine Treffer gefunden.")
-    
