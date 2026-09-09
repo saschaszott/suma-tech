@@ -1,5 +1,6 @@
 import requests
 import sqlite3
+import os
 
 def get_title_from_gutendex(book_id):
     """
@@ -56,7 +57,7 @@ def get_ebook_ids(file):
 if __name__ == "__main__":
     conn, cursor = create_database()
 
-    titles_file = 'Goethe-ebooks.txt'
+    titles_file = os.path.join('german-work-urls', 'Goethe-ebooks.txt')
     ebook_ids = get_ebook_ids(titles_file)
 
     for ebook_id in ebook_ids:
