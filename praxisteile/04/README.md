@@ -2,17 +2,17 @@
 
 ## Anlegen eines Solr Kerns
 
-In einem Solr-Server können mehrere unabhängige (d.h. voneinander getrennte) Kerne (_cores_) verwaltet werden. 
+In einem Solr-Server können mehrere unabhängige (d.h. voneinander getrennte) Kerne (_cores_) verwaltet werden.
 
 Jeder Solr Kern besteht aus einer Menge von Konfigurationsdateien sowie aus einem Suchindex.
 
-Durch den nachfolgenden Befehl wird ein neuer Solr Kern mit dem Namen `my1stcore` angelgt (der Befehl muss im Verzeichnis `2025/solr` ausgeführt werden):
+Durch den nachfolgenden Befehl wird ein neuer Solr Kern mit dem Namen `my1stcore` angelgt (der Befehl muss im Verzeichnis `2026/solr` ausgeführt werden):
 
 ```sh
-docker compose exec solr solr create_core -c my1stcore
+docker compose exec solr solr create -c my1stcore
 ```
 
-Durch den Aufruf des Befehls `create_core` wird ein neuer Solr-Kern mit dem Namen `my1stcore` angelegt. Die Administration dieses Kerns kann durch die Auswahl des Namens `my1stcore` im _Core Selector_ in der linken Spalte der Solr-Admin-Weboberfläche aufgerufen werden. 
+Durch den Aufruf des Befehls `create` wird ein neuer Solr-Kern mit dem Namen `my1stcore` angelegt. Die Administration dieses Kerns kann durch die Auswahl des Namens `my1stcore` im _Core Selector_ in der linken Spalte der Solr-Admin-Weboberfläche aufgerufen werden. 
 
 Alternativ kann man auch folgende URL im Browser aufrufen:
 
