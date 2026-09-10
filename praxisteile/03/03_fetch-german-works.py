@@ -47,7 +47,7 @@ if __name__ == "__main__":
                         ebook_id = match.group(1)
                         url = f"{base_url.rstrip()}.txt.utf-8"
                         print(f"Herunterladen von {url}")
-                        file = os.path.join(base_dir, author_name.lower(), f"{ebook_id}.txt")
+                        file = os.path.join(base_dir, author_name, f"{ebook_id}.txt")
                         if download_file(url, file):
                             num_of_downloads += 1
 
