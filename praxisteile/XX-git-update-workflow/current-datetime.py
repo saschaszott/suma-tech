@@ -6,5 +6,6 @@ def main():
     print("Aktuelle Systemzeit:", now.strftime("%H:%M:%S"))
     print("Aktuelles Datum:", now.strftime("%Y-%m-%d"))
 
+# Hauptprogramm
 if __name__ == "__main__":
     main()
