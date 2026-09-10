@@ -8,3 +8,4 @@ services:
       - ./solrdata:/var/solr
     environment:
       - SOLR_JAVA_MEM=-Xms512m -Xmx1024m
+    command: solr-precreate my1stcore
