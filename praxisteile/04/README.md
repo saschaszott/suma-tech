@@ -59,56 +59,21 @@ Im Verzeichnis `conf` werden die Konfigurationsdateien des Solr Kerns verwaltet.
 
 Im Verzeichnis `data` wird der Suchindex (ein gewöhnlicher Lucene Index) sowie das Transaktions-Log gespeichert. Wir gehen später auf die Details ein.
 
-# Indexierung von Testdokumenten mittels Python
+# Indexierung mittels Python
 
-Wir wollen nun einige Testdokumente in den neu erzeugten Solr-Kern `my1stcore` laden. Dafür gibt es mehrere Möglichkeiten:
+Aufgaben:
+
+1. Solr-Schema mit Indexfeldtypen, Indexfeldern und Copy-Fields anlegen
+2. CSV-Datei mit den Metadaten der im Project Gutenberg verfügbaren Ressourcen herunterladen
+3. Indexierung der Metadaten in den Solr-Kern `my1stcore` mittels Python (zwei Varianten: mit der Python-Bibliothek
+  `requests`, mit der Python-Bibliothek `pysolr`)
+
+Für die Indexierung von Dokumenten in einen Solr-Kern gibt es mehrere Möglichkeiten:
 
 * Nutzung der Importfunktion in der Solr Admin-Weboberfläche (http://localhost:8983/solr/#/my1stcore/documents)
 * Nutzung des mitgelieferten Post Tool (Kommandozeilenwerkzeug) von Solr (beschrieben in https://solr.apache.org/guide/solr/latest/indexing-guide/post-tool.html)
 * Ausführung eines HTTP GET Request (z.B. mittels curl, wget, Postman, REST Client in VS Code, etc.)
 * Nutzung eines Solr Clients (solche Clients sind für verschiedene Programmiersprachen vorhanden; u.a. für Java, Python etc.)
-
-Im Rahmen des Moduls wollen wir den Solr Client `pysolr` verwenden. Dieser ermöglicht es einen Solr-Server über eine Python-Programmbibliothek (_library_) anzusprechen. D.h. mittels Python können programmatisch sowohl Dokumente indexiert als auch Suchanfragen abgesetzt (und die Ergebnisse empfangen) werden.
-
-Wir schauen uns zuerst die **Indexierung** von einigen Testdokumenten an. Im nächsten Abschnitt beschäftigen wir uns schließlich mit dem Absetzen von Suchanfragen und der Verarbeitung des vom Solr-Server zurückgelieferten Suchergebnisses.
-
-Für die Indexierung von Testdokumenten steht das Python-Script `indexer.py` zur Verfügung. Es kann wie folgt ausgeführt werden:
-
-```sh
-# virtuelle Python Umgebung anlegen
-python -m venv venv
-
-# virtuelle Umgebung starten
-# … unter Linux / macOS
-source venv/bin/activate
-# … unter Windows CMD
-venv\Scripts\activate
-# … unter Windows Powershell
-venv\Scripts\Activate.ps1
-
-# Python-Programmbibliothek pysolr installieren
-pip install pysolr
-
-# Indexer ausführen
-python indexer.py
-```
-
-Als Dokumentkollektion nutzen wir die Metadaten von 20 Informatik-Klassikern. Die Metadaten sind in der JSON-Datei `cs-books.json` gespeichert. Das erste Buch hat folgende Metadatenfelder:
-
-```json
-{
-    "id": "1",
-    "url": "https://www.pearson.com/store/p/introduction-to-algorithms/P100000323631",
-    "title": "Introduction to Algorithms",
-    "authors": ["Thomas H. Cormen", "Charles E. Leiserson", "Ronald L. Rivest", "Clifford Stein"],
-    "publication_year": 2009,
-    "abstract": "This textbook provides a comprehensive introduction to the modern study of computer algorithms. It covers a wide range of algorithms in depth, yet makes their design and analysis accessible to all levels of readers.",
-    "publisher": "MIT Press",
-    "keywords": ["Algorithms", "Computer Science", "Data Structures", "Mathematics"]
-  },
-```
-
-Der Indexer fügt die in der Datei `cs-books.json` gespeicherten Metadaten zum Index des Solr-Kerns `my1stcore` hinzu. Den Indexierungsprozess werden wir in der Vorlesung im Detail besprechen.
 
 # Suche im Solr Kern `my1stcore` mittels Python
 
