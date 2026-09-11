@@ -57,7 +57,8 @@ FIELDS = [
     #{"name": "id", "type": "string", "stored": True, "indexed": True},
     {"name": "type", "type": "string", "stored": True, "indexed": True},
     {"name": "issued", "type": "pdate", "stored": True, "indexed": True},
-    {"name": "title", "type": "text_general", "stored": True, "indexed": True},
+    # multiValued = False muss hier explizit gesetzt werden, da der Indexfeldtyp "text_general" standardmäßig multiValued = True hat
+    {"name": "title", "type": "text_general", "stored": True, "indexed": True, "multiValued": False},
     {"name": "title_conservative", "type": "text_conservative", "stored": False, "indexed": True},
     {"name": "title_aggressive", "type": "text_aggressive", "stored": False, "indexed": True},
     {"name": "language", "type": "string", "stored": True, "indexed": True, "multiValued": True},
