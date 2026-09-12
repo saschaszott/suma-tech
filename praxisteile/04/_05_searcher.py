@@ -7,7 +7,7 @@ locale.setlocale(locale.LC_TIME, "de_DE.UTF-8")
 
 def search(solr, query):
     params = {
-        "qf": "title^3 title_conservative title_aggressive authors^2 subjects^1",   # Gewichtung der Felder, die durchsucht werden
+        "qf": "title^3 title_conservative title_aggressive authors^2 subjects",     # Gewichtung der Felder, die durchsucht werden
         "defType": "edismax",                                                       # Erweiterte DisMax-Suche
         "rows": 20,                                                                 # maximale Anzahl der Suchergebnisse
         "fl": "id, type, title, issued, authors, language, subjects, score",        # Felder, die zurückgegeben werden
@@ -18,12 +18,12 @@ def search(solr, query):
         print("Ihre Suchanfrage liefert keine Treffer!")
         return
 
-    print(f"\n{len(results)} Suchergebnisse gefunden\n")
+    print(f"\n* * * Insgesamt {results.hits} Suchergebnisse gefunden – {len(results)} Treffer werden angezeigt. * * *\n")
 
     # einzelne Suchergebnisse ausgeben
     for i, result in enumerate(results, start=1):
         issued = datetime.fromisoformat(result.get("issued").replace("Z", "+00:00"))
-        print(f"""Suchtreffer # {i} (ID: {result.get('id')}): {', '.join(result.get("title"))}
+        print(f"""Suchtreffer # {i} (ID: {result.get('id')}): {result.get("title")}
           Autor: {", ".join(result.get("authors"))}
           Aufnahmedatum: {issued:%d. %B %Y}
           Sprache: {', '.join(result.get('language'))}
