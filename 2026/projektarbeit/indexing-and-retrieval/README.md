@@ -211,6 +211,11 @@ MLT_HANDLER_DEFAULTS = {
 }
 ```
 
+Beachten Sie hierbei, dass pysolr keine direkte Unterstützung für das Anlegen eines Request Handlers bietet. Sie können jedoch die Funktion `requests.post()` aus dem Python-Modul `requests` verwenden, um den Request Handler `/mlt`
+anzulegen. Dazu müssen Sie als Payload im POST-Request ein JSON-Objekt mit dem Schlüssel `add-requesthandler`
+und den entsprechenden Parametern übergeben. Für die Abfrage der bereits im Solr-Core existierenden Request Handler
+müssen Sie ebenfalls einen eigenen HTTP-GET-Request an den Solr-Core absetzen, da pysolr auch diese Funktionalität nicht unterstützt.
+
 Nach dem Anlegen des MLT Request Handlers (sofern erforderlich) soll das Script eine Suchanfrage vom Benutzer abfragen.
 Anschließend wird die eingegebene Suchanfrage auf dem Solr-Core `pg_fulltexts` ausgeführt und ein Top-1-Ranking
 berechnet.
