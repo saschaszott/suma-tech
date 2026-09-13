@@ -208,6 +208,7 @@ MLT_HANDLER_DEFAULTS = {
     "mlt.interestingTerms": "list",
     # das Ausgangsdokument selbst soll nicht in der Trefferliste erscheinen
     "mlt.match.include": "false",
+    "mlt.boost": "true",
 }
 ```
 
