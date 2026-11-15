@@ -1,4 +1,4 @@
-from pyparsing import infixNotation, opAssoc, Word, Keyword, alphas, ParseException
+from pyparsing import infix_notation, OpAssoc, Word, Keyword, alphas, ParseException
 
 def parse_boolean_query(query):
 
@@ -15,11 +15,11 @@ def parse_boolean_query(query):
     operand.setParseAction(BoolOperand)
 
     # Definition der Operatoren in richtiger Präzedenz (von stark nach schwach)
-    bool_expr = infixNotation(operand,
+    bool_expr = infix_notation(operand,
         [
-            (Keyword("NOT"), 1, opAssoc.RIGHT),
-            (Keyword("AND"), 2, opAssoc.LEFT),
-            (Keyword("OR"),  2, opAssoc.LEFT),
+            (Keyword("NOT"), 1, OpAssoc.RIGHT),
+            (Keyword("AND"), 2, OpAssoc.LEFT),
+            (Keyword("OR"),  2, OpAssoc.LEFT),
         ]
     )
 
@@ -31,4 +31,4 @@ def parse_boolean_query(query):
 
 if __name__ == "__main__":
     query = input("Boolesche Suchanfrage: ")
-    result = parse_boolean_query(query)
+    parse_boolean_query(query)
