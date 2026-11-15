@@ -83,9 +83,9 @@ def complement(p):
 def parse_boolean_query(query, inverted_index):
     """
         Ein sehr einfacher Parser, der eine Boolesche Suchanfrage in ihre Bestandteile
-        zerlegt. Er unterstützt die Operatoren AND bzw. OR, wobei die Suchanfrage 
+        zerlegt. Er unterstützt die Operatoren AND bzw. OR, wobei die Suchanfrage
         keine gemischten Operatoren enthalten darf. NOT wird nur in Ein-Term-Suchanfragen
-        unterstützt. Ebenso werden keine Klammern in der Suchanfrage unterstützt. 
+        unterstützt. Ebenso werden keine Klammern in der Suchanfrage unterstützt.
     """
     conjunctive_query = False
     disjunctive_query = False
@@ -102,7 +102,7 @@ def parse_boolean_query(query, inverted_index):
         if query.upper().startswith("NOT "):
             return complement(inverted_index.get(query[3:].lower().strip(), []))
         return inverted_index.get(query.lower(), [])
-    
+
     query_parts = query.split()
     result = []
     for query_part in query_parts:
@@ -113,7 +113,7 @@ def parse_boolean_query(query, inverted_index):
         if len(result) == 0:
             result = inverted_index.get(query_part.lower(), [])
             continue
-        
+
         if conjunctive_query:
             result = intersect(result, inverted_index.get(query_part.lower(), []))
         elif disjunctive_query:
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     inverted_index = load_inverted_index("Goethe-inverted-index.json")
 
     query = input("Geben Sie Ihre Boolesche Suchanfrage ein: ")
-    
+
     try:
         result = parse_boolean_query(query, inverted_index)
         print(f"Suchergebnis (mit {len(result)} Treffern): {result}")
