@@ -27,7 +27,7 @@ def extract_us_ascii_url(formats):
 def download_fulltext(url):
     try:
         resp = requests.get(url)
-        if resp.status_code == 200:            
+        if resp.status_code == 200:
             return resp.text
         else:
             print(f"Fehler {resp.status_code} beim Herunterladen: {url}")
@@ -40,7 +40,7 @@ def save_fulltext(id, fulltext):
 
     filepath = os.path.join(OUTPUT_DIR, f"{id}.txt")
     with open(filepath, "w", encoding="utf-8") as f:
-        f.write(fulltext)    
+        f.write(fulltext)
 
 def update_solr(gid, fulltext):
     doc = {
@@ -63,7 +63,7 @@ if __name__ == "__main__":
         if not url:
             print(f"[INFO] Keine gültige URL für ID {id}")
             continue
-        
+
         time.sleep(2) # Rate-Limiting: Pause zwischen den Anfragen
         fulltext = download_fulltext(url)
         if fulltext:

@@ -46,7 +46,7 @@ FIELD_TYPES = [
                 {"class": "solr.StopFilterFactory", "words": "stopwords.txt", "ignoreCase": "true"}
             ]
         }
-    }    
+    }
 ]
 
 # 2. Definition der Index-Felder
@@ -69,12 +69,12 @@ FIELDS = [
 
 def add_field_type(type_def):
     # vorhandene Feldtypen können nicht überschrieben werden, daher
-    # zuerst den Feldtyp löschen, falls er existiert    
+    # zuerst den Feldtyp löschen, falls er existiert
     delete_payload = {"delete-field-type": {"name": type_def["name"]}}
     delete_response = requests.post(SOLR_URL, json=delete_payload)
     if delete_response.status_code == 200:
         print(f"Feldtyp '{type_def['name']}' erfolgreich gelöscht.")
-    
+
     # jetzt können wir den Feldtyp hinzufügen
     payload = {"add-field-type": type_def}
     response = requests.post(SOLR_URL, json=payload)

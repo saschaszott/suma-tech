@@ -5,7 +5,7 @@ SOLR_CORE_NAME = "gutenberg"
 SOLR_URL = f"http://localhost:8983/solr/{SOLR_CORE_NAME}/schema/fieldtypes"
 
 def add_classic_similarity_fields():
-    
+
     field_types = [{
         "name": "gb_text_general_classic",
         "class": "solr.TextField",
@@ -51,7 +51,7 @@ def add_classic_similarity_fields():
             print(f"Feldtyp {field_type['name']} erfolgreich hinzugefügt.")
         else:
             print(f"Fehler beim Hinzufügen des Feldtyps {field_type['name']}: {response.status_code} - {response.text}")
-    
+
     # wir brauchen die zusätzlichen Felden nicht auf stored=true setzen
     fields = [
     {"name": "title_classic", "type": "gb_text_general_classic", "stored": False, "indexed": True},

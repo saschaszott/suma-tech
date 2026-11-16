@@ -51,7 +51,7 @@ def index_solr_docs(docs):
 def save_solr_docs(solr_docs):
     output_dir = 'metadata'
     os.makedirs(output_dir, exist_ok=True)
-    
+
     for solr_doc in solr_docs:
         filepath = os.path.join(output_dir, str(solr_doc['id']) + ".json")
         with open(filepath, "w", encoding="utf-8") as outfile:
