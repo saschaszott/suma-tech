@@ -19,8 +19,10 @@ N = len(df)
 df_counts = (df > 0).sum()
 
 # Inverse Document Frequencies (logarithmisch)
-idf_log = np.log(N / df_counts) # natürlicher Logarithmus (zur Basis e): ln
+# Addition von 1, damit log(1) nicht auftritt, wenn ein Term in allen Dokumenten vorkommt (df(t) = N)
+# log ist der natürlicher Logarithmus (zur Basis e): ln
+idf_log = np.log1p(N / df_counts) # entspricht np.log((N / df_counts) + 1)
 
-tf_log = df.replace(0, np.nan).map(lambda x: np.log(x + 1)).fillna(0) # ln
+tf_log = np.log1p(df) # entspricht np.log(df + 1)
 
-print("\n== TF-IDF-Termgewichtsmatrix ==\n", tf_log.multiply(idf_log).round(3))
+print("\n== TF-IDF-Termgewichtsmatrix (ln-gedämpft) ==\n", tf_log.multiply(idf_log).round(3))
