@@ -12,7 +12,7 @@ def parse_boolean_query(query):
         def __repr__(self):
             return f"{self.tokens}"
 
-    operand.setParseAction(BoolOperand)
+    operand.set_parse_action(BoolOperand)
 
     # Definition der Operatoren in richtiger Präzedenz (von stark nach schwach)
     bool_expr = infix_notation(operand,
@@ -24,7 +24,7 @@ def parse_boolean_query(query):
     )
 
     try:
-        parsed = bool_expr.parseString(query, parse_all=True)
+        parsed = bool_expr.parse_string(query, parse_all=True)
         print(parsed)
     except ParseException as pe:
         print(f"Syntaxfehler in Suchanfrage:\n{pe}")
