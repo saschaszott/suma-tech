@@ -113,10 +113,10 @@ def explain_weight(node, indent):
     tf_node = child(score_node, "tf")
     norm_node = child(score_node, "fieldNorm")
 
-    n = child(idf_node, "docFreq")["value"]   # document frequency df(t)
+    n = child(idf_node, "docFreq")["value"]   # df(t)
     N = child(idf_node, "docCount")["value"]  # Anzahl der Dokumente mit diesem Indexfeld
-    freq = tf_node["details"][0]["value"]     # term frequency tf(t, d)
-    field_norm = norm_node["value"]           # (verlustbehaftet gespeichertes) 1/sqrt(dl)
+    freq = tf_node["details"][0]["value"]     # tf(t, d)
+    field_norm = norm_node["value"]           # 1/sqrt(doc_length(d))
 
     idf = 1 + math.log((N + 1) / (n + 1))
     tf = math.sqrt(freq)
