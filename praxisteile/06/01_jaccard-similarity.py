@@ -41,7 +41,7 @@ def build_query_term_set(query):
 
 if __name__ == "__main__":
     print_all_documents()
-    
+
     query = input("Geben Sie Ihre Suchanfrage ein: ")
     query_terms = build_query_term_set(query)
     jaccard_scoring(query_terms, documents, 5)
