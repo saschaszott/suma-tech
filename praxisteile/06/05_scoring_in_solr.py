@@ -9,9 +9,9 @@ debug.explain.structured=true). Solr liefert pro Treffer einen Baum, der
 zeigt, wie sich der BM25-Score-Wert aus den Einzelteilen zusammensetzt:
 
   - Blattknoten "weight(feld:term ...)": BM25-Gewicht eines Terms in einem Feld
-        w = boost * idf * tf
+        w = boost · idf · tf
         idf = log(1 + (N - n + 0.5) / (n + 0.5))
-        tf  = freq / (freq + k1 * (1 - b + b * dl / avgdl))
+        tf  = freq / (freq + k1 · (1 - b + b · dl / avgdl))
   - innere Knoten "max of" / "sum of": Kombination der Teil-Scores
         (eDisMax: pro Anfrageterm das Maximum über alle Felder in qf,
          anschließend Summe über alle Anfrageterme)
@@ -49,7 +49,7 @@ def explain_weight(node, indent):
     field_term = node["description"].split("(", 1)[1].split(" in ", 1)[0]
     print(f"{pad}{node['value']:.4f}  BM25-Gewicht für {field_term}")
 
-    score_node = node["details"][0]  # "score(freq=...), computed as boost * idf * tf"
+    score_node = node["details"][0]  # "score(freq=...), computed as boost · idf · tf"
     boost = detail_value(score_node, "boost") or 1.0
     idf_node = next(d for d in score_node["details"] if d["description"].startswith("idf"))
     tf_node = next(d for d in score_node["details"] if d["description"].startswith("tf"))
@@ -71,10 +71,10 @@ def explain_weight(node, indent):
     print(f"{pad2}idf_bm25(t)   = ln(1 + (N - df(t) + 0.5) / (df(t) + 0.5))")
     print(f"{pad2}              = ln(1 + ({N} - {n} + 0.5) / ({n} + 0.5)) = {idf:.4f}")
     print(f"{pad2}                N = {N} Dokumente im TD des Indexfelds; df(t) = {n}")
-    print(f"{pad2}tf_bm25(t, d) = tf(t, d) / (tf(t, d) + k1 * (1 - b + b * doc_length(d) / avg_doc_lenght))")
-    print(f"{pad2}              = {freq:g} / ({freq:g} + {k1:g} * (1 - {b:g} + {b:g} * {dl:g} / {avgdl:.4f})) = {tf:.4f}")
+    print(f"{pad2}tf_bm25(t, d) = tf(t, d) / (tf(t, d) + k1 · (1 - b + b · doc_length(d) / avg_doc_lenght))")
+    print(f"{pad2}              = {freq:g} / ({freq:g} + {k1:g} · (1 - {b:g} + {b:g} · {dl:g} / {avgdl:.4f})) = {tf:.4f}")
     print(f"{pad2}                Längennormalisierung: dl / avgdl = {dl / avgdl:.4f}")
-    print(f"{pad2}w_bm25(t, d)  = boost * idf_bm25(t) * tf_bm25(t, d) = {boost:g} * {idf:.4f} * {tf:.4f} = {w:.4f}")
+    print(f"{pad2}w_bm25(t, d)  = boost · idf_bm25(t) · tf_bm25(t, d) = {boost:g} · {idf:.4f} · {tf:.4f} = {w:.4f}")
 
 def explain(node, indent=4):
     """Explain-Baum rekursiv ausgeben."""
