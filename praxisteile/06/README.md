@@ -14,7 +14,7 @@ Ausführung des Demonstrators:
 python 01_jaccard-similarity.py
 ```
 
-Das Programm nutzt eine definierte Menge von 6 Beispieldokumenten _d1_ bis _d6_. 
+Das Programm nutzt eine definierte Menge von 6 Beispieldokumenten _d1_ bis _d6_.
 
 Die Termmengen dieser Dokumente sind innerhalb des Programms definiert. Beim Start des Programms werden die Termmengen der 6 Beispieldokumente ausgegeben. Anschließend kann der Benutzer eine beliebige Freitextsuchanfrage eingeben. Das Programm gibt als Ergebnis ein Top-5-Ranking (hier ist _k_=5) aus.
 
@@ -84,3 +84,52 @@ pip install pysolr
 
 python 05_scoring_in_solr.py
 ```
+
+Die Standardwerte für die BM25-Parameter in Solr sind `k1 = 1.2` und `b = 0.75` (aus Lucene übernommen,
+siehe https://lucene.apache.org/core/10_3_2/core/org/apache/lucene/search/similarities/BM25Similarity.html).
+Die Parameterwerte können im Solr-Schema anpasst werden.
+
+### Vektorraummodell (tf-idf) in Solr
+
+Bis einschließlich Solr Version 5 war die `ClassicSimilarity` (tf-idf-Termgewichtung, Vektorraummodell mit
+Cosinus-Ähnlichkeit) die Standard-Scoring-Funktion. Seit Solr Version 6 ist es BM25.
+
+Das Skript `06_vsm_scoring_in_solr.py` legt bei Aufruf mit dem Parameter `--init` (falls noch nicht vorhanden)
+
+1. den Indexfeldtyp `text_classic` (Analysedefinition analog zum Indexfeldtyp `text_general`, aber mit `solr.ClassicSimilarityFactory`)
+2. das Indexfeld `title_classic` und
+3. das Copy-Field `title` → `title_classic` an.
+
+Da Copy-Fields nur beim Indexieren befüllt werden, müssen die Metadaten der E-Books aus dem Projekt Gutenberg
+anschließend neu indexiert werden:
+
+```sh
+python 06_vsm_scoring_in_solr.py --init
+cd ../04 && python _04_index_metadata_pysolr.py
+cd ../06
+python 06_vsm_scoring_in_solr.py
+```
+
+Anschließend wird das Vektorraummodell-Scoring in Solr getestet.
+
+Hierzu fragt das Skript eine beliebige Suchanfrage ab und gibt die Top-3-Treffer
+mit den zugehörigen Score-Werten (nach Vektorraummodell) aus.
+
+Für jeden Suchtreffer im Top-3-Ranking kann der Score-Wert mit der Explain-Funktion
+nachvollzogen werden.
+
+Die Termgewichtung `weight(t, d)` eines Terms `t` im Dokument `d` erfolgt nach der Formel:
+
+`weight(t, d) = boost · idf(t) · tf(t, d) · fieldNorm(d)`
+
+mit
+
+* `idf(t) = 1 + ln((N + 1) / (df(t) + 1))`
+* `tf(t, d) = sqrt(freq)`
+* `fieldNorm(d) ≈ 1 / sqrt(doc_length(d))`
+
+Einzelheiten zum Vektorraummodell-Scoring sind in der Lucene-Dokumentation zu finden:
+
+https://lucene.apache.org/core/10_3_2/core/org/apache/lucene/search/similarities/TFIDFSimilarity.html
+
+nachzulesen.
