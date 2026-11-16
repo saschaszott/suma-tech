@@ -69,7 +69,7 @@ pip install pandas
 python 02_tf-idf-weighting.py
 ```
 
-## Probabilistisches Retrieval-Modell Okapi BM25 
+## Probabilistisches Retrieval-Modell Okapi BM25
 
 ```sh
 python 03_okapi-bm-25.py
