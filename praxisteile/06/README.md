@@ -80,5 +80,7 @@ python 04_okapi-bm-25.py
 Berechnung des BM25-Score-Werts für eine Suchanfrage in Solr.
 
 ```sh
+pip install pysolr
+
 python 05_scoring_in_solr.py
 ```
