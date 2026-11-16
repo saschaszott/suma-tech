@@ -59,18 +59,26 @@ Darstellung von Ortsvektoren
 
 ```sh
 pip install matplotlib
-python 01_3-d-vectors.py
+python 02_3-d-vectors.py
 ```
 
 ## tf-idf-Termgewichtung
 
 ```sh
 pip install pandas
-python 02_tf-idf-weighting.py
+python 03_tf-idf-weighting.py
 ```
 
 ## Probabilistisches Retrieval-Modell Okapi BM25
 
 ```sh
-python 03_okapi-bm-25.py
+python 04_okapi-bm-25.py
+```
+
+### Scoring in Solr
+
+Berechnung des BM25-Score-Werts für eine Suchanfrage in Solr.
+
+```sh
+python 05_scoring_in_solr.py
 ```
