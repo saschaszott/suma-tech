@@ -12,7 +12,7 @@ Durch den nachfolgenden Befehl wird ein neuer Solr Kern mit dem Namen `my1stcore
 docker compose exec solr solr create -c my1stcore
 ```
 
-Durch den Aufruf des Befehls `create` wird ein neuer Solr-Kern mit dem Namen `my1stcore` angelegt. Die Administration dieses Kerns kann durch die Auswahl des Namens `my1stcore` im _Core Selector_ in der linken Spalte der Solr-Admin-Weboberfläche aufgerufen werden. 
+Durch den Aufruf des Befehls `create` wird ein neuer Solr-Kern mit dem Namen `my1stcore` angelegt. Die Administration dieses Kerns kann durch die Auswahl des Namens `my1stcore` im _Core Selector_ in der linken Spalte der Solr-Admin-Weboberfläche aufgerufen werden.
 
 Alternativ kann man auch folgende URL im Browser aufrufen:
 
@@ -88,7 +88,7 @@ Wir wollen – analog zur Indexierung – auch für die Suche ein Python-Program
 Wir nutzen die bereits beim Indexer beschriebene virtuelle Python-Umgebung, in der wir das Python-Paket `pysolr` über den Python-Paketmanager `pip` installiert haben.
 
 ```sh
-python searcher.py
+python _05_searcher.py
 ```
 
 Das Programm erlaubt die Eingabe einer Suchanfrage auf der Kommandozeile. Nach dem Absetzen der Suchanfrage (Enter) wird die Suchanfrage an den Solr-Server gesendet. Anschließend werden die vom Solr-Server zurückgelieferten Suchergebnisse auf der Kommandozeile ausgegeben.
